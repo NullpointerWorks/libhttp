@@ -9,8 +9,9 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.StreamTokenizer;
 
-/*
- *  Lempel-Ziv coding (LZ77) with a 32 bit CRC
+/**
+ * Lempel-Ziv coding (LZ77) with a 32 bit CRC
+ * @since 1.0.0
  */
 public class LZ77
 {
@@ -41,10 +42,9 @@ public class LZ77
 
 	/**
 	 * Uncompress method
-	 *
-	 * @param infile the name of the file to uncompress - automatically appends
-	 * a ".lz77" extension to the supplied filename
+	 * @param infile the name of the file to uncompress - automatically appends a ".lz77" extension to the supplied filename
 	 * @exception IOException if an error occurs during file processing
+	 * @since 1.0.0
 	 */
 	public void unCompress(String infile) throws IOException 
 	{
@@ -100,10 +100,10 @@ public class LZ77
 	/**
 	 * Compress method
    	 *
-   	 * @param infile the name of the file to compress. Automatically appends
-   	 * a ".lz77" extension to infile name when creating the output file
+   	 * @param infile the name of the file to compress. Automatically appends a ".lz77" extension to infile name when creating the output file
    	 * @exception IOException if an error occurs
-   	 */
+	 * @since 1.0.0
+	 */
 	public void compress(String infile) throws IOException 
 	{
 	    // set up input and output

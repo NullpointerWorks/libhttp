@@ -10,12 +10,18 @@ import java.io.UnsupportedEncodingException;
 import com.nullpointerworks.util.ArrayUtil;
 import com.nullpointerworks.util.ASCII;
 
+/**
+ * 
+ * @since 1.0.0
+ * @author Michiel Drost - Nullpointer Works
+ */
 public class RequestParser
 {
 	private static int read_buffer_size = 512;
 	
 	/**
 	 * Set the read data buffer
+	 * @since 1.0.0
 	 */
 	public static void setReadBufferSize(int rbs)
 	{
@@ -24,6 +30,7 @@ public class RequestParser
 	
 	/**
 	 * 
+	 * @since 1.0.0
 	 */
 	private static String toString(byte[] buffer, int length)
 	{
@@ -44,6 +51,7 @@ public class RequestParser
 	
 	/**
 	 * 
+	 * @since 1.0.0
 	 */
 	public static Request generate(byte[] request, boolean verbose)
 	{

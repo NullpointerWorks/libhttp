@@ -12,7 +12,7 @@ import exp.nullpointerworks.http.HttpException;
  * @since 1.0.0
  * @author Michiel Drost - Nullpointer Works
  */
-public class FileDirectory implements Directory
+public class WebDirectory implements IWebDirectory
 {
 	private String docsPath = "";
 	
@@ -20,13 +20,13 @@ public class FileDirectory implements Directory
 	 * 
 	 * @since 1.0.0
 	 */
-	public FileDirectory() { }
+	public WebDirectory() { }
 	
 	/**
 	 * 
 	 * @since 1.0.0
 	 */
-	public FileDirectory(String docsPath) 
+	public WebDirectory(String docsPath) 
 	{
 		setDirectoryPath(docsPath);
 	}
@@ -53,10 +53,10 @@ public class FileDirectory implements Directory
 	}
 	
 	@Override
-	public Page getPage(String page) throws HttpException
+	public IWebFile getPage(String page) throws HttpException
 	{
 		String dir = docsPath + page;
-		FilePage np = new FilePage(dir);
+		WebFile np = new WebFile(dir);
 		if (np.isNull())
 		{
 			throw new HttpException(404);
@@ -65,7 +65,7 @@ public class FileDirectory implements Directory
 	}
 	
 	@Override
-	public Page getPage(String page, String... params) throws HttpException
+	public IWebFile getPage(String page, String... params) throws HttpException
 	{
 		return getPage(page);
 	}

@@ -1,3 +1,8 @@
+/*
+ * Creative Commons - Attribution, Share Alike 4.0 
+ * Nullpointer Works (2019)
+ * Use is subject to license terms.
+ */
 package exp.nullpointerworks.http.doc;
 
 import exp.nullpointerworks.http.HttpException;
@@ -7,7 +12,7 @@ import exp.nullpointerworks.http.HttpException;
  * @since 1.0.0
  * @author Michiel Drost - Nullpointer Works
  */
-public interface Directory
+public interface IWebDirectory
 {
 	/**
 	 * Provide the root directory 
@@ -25,11 +30,11 @@ public interface Directory
 	 * Returns a Page object that represents the file in the home directory
 	 * @since 1.0.0
 	 */
-	Page getPage(String page) throws HttpException;
+	IWebFile getPage(String page) throws HttpException;
 	
 	/**
 	 * Returns a Page object that represents the file in the home directory. This method also allows for parameters passed with a page, like when using a GET method.
 	 * @since 1.0.0
 	 */
-	Page getPage(String page, String... params) throws HttpException;
+	IWebFile getPage(String page, String... params) throws HttpException;
 }

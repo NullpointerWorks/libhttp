@@ -1,3 +1,8 @@
+/*
+ * Creative Commons - Attribution, Share Alike 4.0 
+ * Nullpointer Works (2019)
+ * Use is subject to license terms.
+ */
 package exp.nullpointerworks.http.encoding;
 
 import java.io.PrintStream;
@@ -10,15 +15,27 @@ import java.util.Map.Entry;
 
 import com.nullpointerworks.util.Convert;
 
+/**
+ * 
+ * @since 1.0.0
+ */
 public class FormData
 {
 	private Map<String,String> data;
 	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
 	public FormData()
 	{
 		data = new HashMap<String,String>();
 	}
 	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
 	public void setData(String n, String d)
 	{
 		Pattern pattern = Pattern.compile("(\\%[0-9a-fA-F]{2})");
@@ -36,6 +53,10 @@ public class FormData
 		data.put(n, d);
 	}
 	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
 	public void printData(PrintStream ps)
 	{
 		Iterator<Entry<String, String>> it = data.entrySet().iterator();
@@ -47,6 +68,10 @@ public class FormData
 	    }
 	}
 	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
 	public String getData(String n)
 	{
 		if (data.containsKey(n))
@@ -56,6 +81,10 @@ public class FormData
 		return "";
 	}
 	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
 	public void clear()
 	{
 		data.clear();

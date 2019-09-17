@@ -24,13 +24,16 @@ import com.nullpointerworks.util.concurrency.Counter;
 public abstract class WebServer 
 implements SocketListener, RequestListener, Runnable
 {
-	public static final short DEFAULT 	= 5056;
-	public static final short WEBS 		= 80; // TCP web servers
-	public static final short SMTP 		= 25; // email
+	
+	/**
+	 * Assumed TCP-IP port for web servers.
+	 * @since 1.0.0
+	 */
+	public static final short DEFAULT 	= 80;
 	
 	// ========================================
 
-	private final String v 		= "v0.2.0a";
+	private final String v 		= "v0.3.0a";
 	private Boolean running 	= false;
 	private short port 			= DEFAULT;
 	private int sleep			= 100;
@@ -55,6 +58,7 @@ implements SocketListener, RequestListener, Runnable
 	@Override public Response onPOST(Request o) {return null;}
 	@Override public Response onHEAD(Request o) {return null;}
 	@Override public Response onTRACE(Request o) {return null;}
+	@Override public Response onPATCH(Request o) {return null;}
 	@Override public Response onDELETE(Request o) {return null;}
 	@Override public Response onOPTIONS(Request o) {return null;}
 	@Override public Response onCONNECT(Request o) {return null;}

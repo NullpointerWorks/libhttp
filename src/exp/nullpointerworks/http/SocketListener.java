@@ -8,6 +8,7 @@ package exp.nullpointerworks.http;
 /**
  * 
  * @since 1.0.0
+ * @author Michiel Drost - Nullpointer Works
  */
 public interface SocketListener
 {

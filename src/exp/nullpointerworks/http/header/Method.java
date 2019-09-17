@@ -1,3 +1,8 @@
+/*
+ * Creative Commons - Attribution, Share Alike 4.0 
+ * Nullpointer Works (2019)
+ * Use is subject to license terms.
+ */
 package exp.nullpointerworks.http.header;
 
 import java.util.HashMap;
@@ -5,58 +10,60 @@ import java.util.Map;
 
 import exp.nullpointerworks.http.types.ProtocolCode;
 
+/**
+ * 
+ * @author Michiel Drost - Nullpointer Works
+ * @since 1.0.0
+ */
 public class Method
 {
 	public static final int NULL 	= 0;
 	
 	/**
-	 * The GET method is used to retrieve information 
-	 * from the given server using a given URI. Requests 
-	 * using GET should only retrieve data and should 
-	 * have no other effect on the data.
+	 * The GET method is used to retrieve information from the given server using a given URI. Requests using GET should only retrieve data and should have no other effect on the data.
+	 * @since 1.0.0
 	 */
 	public static final int GET 	= 1;
 	
 	/**
-	 * Same as GET, but transfers the status line and 
-	 * header section only.
+	 * Same as GET, but transfers the status line and header section only.
+	 * @since 1.0.0
 	 */
 	public static final int HEAD 	= 2;
 	
 	/**
-	 * A POST request is used to send data to the server, 
-	 * for example, customer information, file upload, 
-	 * etc. using HTML forms.
+	 * A POST request is used to send data to the server, for example, customer information, file upload, etc. using HTML forms.
+	 * @since 1.0.0
 	 */
 	public static final int POST 	= 3;
 	
-	/*
-	 * Performs a message loop-back test along the path 
-	 * to the target resource.
+	/**
+	 * Performs a message loop-back test along the path to the target resource.
+	 * @since 1.0.0
 	 */
 	public static final int TRACE 	= 4;
 	
-	/*
-	 * Replaces all current representations of the target 
-	 * resource with the uploaded content.
+	/**
+	 * Replaces all current representations of the target resource with the uploaded content.
+	 * @since 1.0.0
 	 */
 	public static final int PUT 	= 5;
 	
-	/*
-	 * Removes all current representations of the target 
-	 * resource given by a URI.
+	/**
+	 * Removes all current representations of the target resource given by a URI.
+	 * @since 1.0.0
 	 */
 	public static final int DELETE 	= 6;
 	
-	/*
-	 * Establishes a tunnel to the server identified by a 
-	 * given URI.
+	/**
+	 * Establishes a tunnel to the server identified by a given URI.
+	 * @since 1.0.0
 	 */
 	public static final int CONNECT = 7;
 	
-	/*
-	 * Describes the communication options for the target 
-	 * resource.
+	/**
+	 * Describes the communication options for the target resource.
+	 * @since 1.0.0
 	 */
 	public static final int OPTIONS = 8;
 	
@@ -68,11 +75,18 @@ public class Method
 	private String target 	= "/";
 	private Map<String,String> parameters;
 	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
 	public Method()
 	{
 		parameters = new HashMap<String,String>();
 	}
-	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
 	public void set(String m)
 	{
 		String[] t = m.split(" ");
@@ -129,6 +143,7 @@ public class Method
 	
 	/**
 	 * Returns the integer method code
+	 * @since 1.0.0
 	 */
 	public int getMethodType()
 	{
@@ -137,6 +152,7 @@ public class Method
 	
 	/**
 	 * Returns the method type
+	 * @since 1.0.0
 	 */
 	public String getMethodName()
 	{
@@ -145,6 +161,7 @@ public class Method
 	
 	/**
 	 * Returns the target page
+	 * @since 1.0.0
 	 */
 	public String getTargetPage()
 	{
@@ -153,6 +170,7 @@ public class Method
 	
 	/**
 	 * Returns the value of the given parameter given through the page parameters, or {@code null} if the value is not available
+	 * @since 1.0.0
 	 */
 	public String getParameter(String key)
 	{
@@ -161,6 +179,7 @@ public class Method
 	
 	/**
 	 * Returns the transfer protocol used for this connection
+	 * @since 1.0.0
 	 */
 	public String getTransferProtocol()
 	{

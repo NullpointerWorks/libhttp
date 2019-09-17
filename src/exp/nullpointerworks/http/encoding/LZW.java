@@ -2,12 +2,16 @@ package exp.nullpointerworks.http.encoding;
 
 import java.util.*;
 
-/*
+/**
  * LZW (Lempel–Ziv–Welch) Loss-less Compression technique
+ * @since 1.0.0
  */
 public class LZW 
 {
-    /** Compress a string to a list of output symbols. */
+    /** 
+     * Compress a string to a list of output symbols. 
+     * @since 1.0.0
+     */
     public static List<Integer> compress(String uncompressed) 
     {
         // Build the dictionary.
@@ -38,7 +42,10 @@ public class LZW
         return result;
     }
  
-    /** Decompress a list of output ks to a string. */
+    /** 
+     * Decompress a list of output ks to a string. 
+     * @since 1.0.0
+     */
     public static String decompress(List<Integer> compressed) 
     {
         // Build the dictionary.
@@ -67,13 +74,5 @@ public class LZW
             w = entry;
         }
         return result.toString();
-    }
- 
-    public static void main(String[] args) 
-    {
-        List<Integer> compressed = compress("TOBEORNOTTOBETOBEORNOTTOBE");
-        System.out.println(compressed);
-        String decompressed = decompress(compressed);
-        System.out.println(decompressed);
     }
 }

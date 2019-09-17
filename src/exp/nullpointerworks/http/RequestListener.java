@@ -8,6 +8,7 @@ package exp.nullpointerworks.http;
 /**
  * 
  * @since 1.0.0
+ * @author Michiel Drost - Nullpointer Works
  */
 public interface RequestListener
 {
@@ -58,6 +59,12 @@ public interface RequestListener
 	 * @since 1.0.0
 	 */
 	public Response onCONNECT(Request o);
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public Response onPATCH(Request o);
 	
 	/**
 	 * 

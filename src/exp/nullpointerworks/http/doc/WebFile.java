@@ -1,3 +1,8 @@
+/*
+ * Creative Commons - Attribution, Share Alike 4.0 
+ * Nullpointer Works (2019)
+ * Use is subject to license terms.
+ */
 package exp.nullpointerworks.http.doc;
 
 import java.io.File;
@@ -15,7 +20,7 @@ import exp.nullpointerworks.http.types.MIMEType;
  * 
  * @since 1.0.0
  */
-public class FilePage implements Page 
+public class WebFile implements IWebFile 
 {
 	private String filepath = "";
 	private String filename = "";
@@ -29,13 +34,13 @@ public class FilePage implements Page
 	 * 
 	 * @since 1.0.0
 	 */
-	public FilePage() {}
+	public WebFile() {}
 	
 	/**
 	 * 
 	 * @since 1.0.0
 	 */
-	public FilePage(String path)
+	public WebFile(String path)
 	{
 		filepath = path;
 		processFile(filepath);

@@ -7,6 +7,11 @@ package exp.nullpointerworks.http;
 
 import com.nullpointerworks.util.ArrayUtil;
 
+/**
+ * 
+ * @since 1.0.0
+ * @author Michiel Drost - Nullpointer Works
+ */
 public class Response
 {
 	private final String CRLF = "\r\n";
@@ -19,6 +24,7 @@ public class Response
 
 	/**
 	 * Add a line of text to the overall response data. This adds \r\n at the end of each string.
+	 * @since 1.0.0
 	 */
 	public void addLine(String s)
 	{
@@ -28,6 +34,7 @@ public class Response
 	
 	/**
 	 * 
+	 * @since 1.0.0
 	 */
 	public void addData(String s)
 	{
@@ -36,6 +43,7 @@ public class Response
 	
 	/**
 	 * 
+	 * @since 1.0.0
 	 */
 	public void addData(byte[] d)
 	{
@@ -44,6 +52,7 @@ public class Response
 	
 	/**
 	 * Provide the return message as a String array
+	 * @since 1.0.0
 	 */
 	public void setData(String[] lines)
 	{
@@ -55,6 +64,7 @@ public class Response
 	
 	/**
 	 * Provide the return message as a single string.
+	 * @since 1.0.0
 	 */
 	public void setData(String s)
 	{
@@ -63,6 +73,7 @@ public class Response
 	
 	/**
 	 * Provide the return data as a byte array
+	 * @since 1.0.0
 	 */
 	public void setData(byte[] s)
 	{
@@ -71,6 +82,7 @@ public class Response
 	
 	/**
 	 * Returns the length of the complete response package
+	 * @since 1.0.0
 	 */
 	public int getLength()
 	{
@@ -79,6 +91,7 @@ public class Response
 	
 	/**
 	 * Returns the complete response packages as a byte array
+	 * @since 1.0.0
 	 */
 	public byte[] getBytes()
 	{

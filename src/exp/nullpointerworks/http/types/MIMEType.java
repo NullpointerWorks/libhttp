@@ -1,16 +1,26 @@
+/*
+ * Creative Commons - Attribution, Share Alike 4.0 
+ * Nullpointer Works (2019)
+ * Use is subject to license terms.
+ */
 package exp.nullpointerworks.http.types;
 
+/**
+ * 
+ * @since 1.0.0
+ * @author Michiel Drost - Nullpointer Works
+ */
 public class MIMEType
 {
 	private MIMEType() {}
 	
 	/**
-	 * Multi-purpose Internet Mail Extensions. Returns the MIME type associated with the given extension
+	 * Returns the MIME (Multipurpose Internet Mail Extension) type associated with the given extension.
+	 * @since 1.0.0
 	 */
 	public static String getFromFileExtension(String extension)
 	{
 		String fileMIME = "";
-		// determine MIME subtype
 		switch(extension)
 		{
 			case "aac": fileMIME = "audio/aac"; break;

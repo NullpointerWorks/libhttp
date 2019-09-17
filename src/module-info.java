@@ -5,7 +5,7 @@
  * @version 1.0.0 pre-release
  * @author Michiel Drost - Nullpointer Works
  */
-module libnpw.graphics
+module libnpw.http
 {
 	requires transitive libnpw.util;
 	exports exp.nullpointerworks.http;
