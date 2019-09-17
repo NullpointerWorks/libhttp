@@ -24,16 +24,14 @@ import com.nullpointerworks.util.concurrency.Counter;
 public abstract class WebServer 
 implements SocketListener, RequestListener, Runnable
 {
-	
 	/**
-	 * Assumed TCP-IP port for web servers.
+	 * Default TCP-IP port for web servers is assumed to be 80.
 	 * @since 1.0.0
 	 */
 	public static final short DEFAULT 	= 80;
 	
 	// ========================================
-
-	private final String v 		= "v0.3.0a";
+	
 	private Boolean running 	= false;
 	private short port 			= DEFAULT;
 	private int sleep			= 100;
@@ -124,24 +122,6 @@ implements SocketListener, RequestListener, Runnable
 		final SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM yyyy hh:mm:ss z");
 		sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 		return sdf.format(currentTime);
-	}
-	
-	/**
-	 * Returns the name of the server software architecture
-	 * @since 1.0.0
-	 */
-	public final String getServer()
-	{
-		return "NPW WebServer";
-	}
-
-	/**
-	 * Returns the current server version
-	 * @since 1.0.0
-	 */
-	public final String getVersion()
-	{
-		return v;
 	}
 	
 	/**
