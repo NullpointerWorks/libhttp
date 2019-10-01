@@ -12,6 +12,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+/*
+ * Creative Commons - Attribution, Share Alike 4.0 
+ * Nullpointer Works (2019)
+ * Use is subject to license terms.
+ */
 import java.util.TimeZone;
 
 import com.nullpointerworks.util.concurrency.Counter;
@@ -70,43 +75,6 @@ implements SocketListener, RequestListener, Runnable
 	{
 		setPort(port);
 		start();
-	}
-	
-	/**
-	 * Thread enabled listening. Runs listen() method in a new thread
-	 * @since 1.0.0
-	 */
-	@Override
-	public void run()
-	{
-		try
-		{
-			listen();
-		} 
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
-	
-	@Override
-	public final void onConnect(SocketWorker sw)
-	{
-		cnt.increment();
-		for (SocketListener sl : sla)
-		{
-			sl.onConnect(sw);
-		}
-	}
-	
-	@Override
-	public final void onDisconnect(SocketWorker sw)
-	{
-		cnt.decrement();
-		for (SocketListener sl : sla)
-		{
-			sl.onDisconnect(sw);
-		}
 	}
 	
 	/**
@@ -195,6 +163,43 @@ implements SocketListener, RequestListener, Runnable
 		else return port;
 	}
 	
+	@Override
+	public final void onConnect(SocketWorker sw)
+	{
+		cnt.increment();
+		for (SocketListener sl : sla)
+		{
+			sl.onConnect(sw);
+		}
+	}
+	
+	@Override
+	public final void onDisconnect(SocketWorker sw)
+	{
+		cnt.decrement();
+		for (SocketListener sl : sla)
+		{
+			sl.onDisconnect(sw);
+		}
+	}
+	
+	/**
+	 * Thread enabled listening. Runs listen() method in a new thread
+	 * @since 1.0.0
+	 */
+	@Override
+	public void run()
+	{
+		try
+		{
+			listen();
+		} 
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Starts listening to connections.
 	 * @since 1.0.0
@@ -238,25 +243,6 @@ implements SocketListener, RequestListener, Runnable
         }
         
         close();
-	}
-
-	/**
-	 * Send an array of bytes over the connection of the given SocketWorker
-	 * @since 1.0.0
-	 */
-	protected final void send(SocketWorker worker, byte[] msg)
-	{
-		if (worker==null) return;
-		if (msg==null) return;
-		
-		try
-		{
-			worker.sendBytes(msg);
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
 	}
 	
 	/**
