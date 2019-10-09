@@ -6,8 +6,10 @@
 package exp.nullpointerworks.http;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,9 +41,11 @@ implements SocketListener, RequestListener, Runnable
 	
 	private Boolean running 	= false;
 	private short port 			= DEFAULT;
+	private InetAddress addr	= null;
 	private int sleep			= 100;
 	private boolean verbose 	= false;
 	private int max_thread		= 256;
+	private int backlog			= 128;
 	private ServerSocket ss;
 	private List<SocketListener> sla;
 	private Counter cnt;
@@ -68,6 +72,19 @@ implements SocketListener, RequestListener, Runnable
 	@Override public Response onUNKNOWN(Request o) {return null;}
 	
 	/**
+	 * Starts the server.
+	 * @since 1.0.0
+	 */
+	public final void start() throws IOException
+	{
+		synchronized(running)
+		{
+			running = true;
+		}
+		(new Thread(this)).start();
+	}
+	
+	/**
 	 * Start the server with a custom port
 	 * @since 1.0.0
 	 */
@@ -76,6 +93,14 @@ implements SocketListener, RequestListener, Runnable
 		setPort(port);
 		start();
 	}
+	
+	public void start(String ip, int port) throws IOException
+	{
+		addr = InetAddress.getByName(ip);
+		setPort(port);
+		start();
+	}
+	
 	
 	/**
 	 * Returns the time and date of this machine in GMT<br><br>
@@ -93,7 +118,7 @@ implements SocketListener, RequestListener, Runnable
 	}
 	
 	/**
-	 * Set the maximum number of threads for this server
+	 * Set the maximum number of threads for this server.
 	 * @since 1.0.0
 	 */
 	public final void setMaxThreads(int mt)
@@ -102,7 +127,16 @@ implements SocketListener, RequestListener, Runnable
 	}
 	
 	/**
-	 * Allow/disallow console printing
+	 * Set the requested maximum length of the queue of incoming connections.
+	 * @since 1.0.0
+	 */
+	public final void setBackLog(int bl)
+	{
+		backlog = bl;
+	}
+	
+	/**
+	 * Allow/disallow console printing.
 	 * @since 1.0.0
 	 */
 	public final void setVerbose(boolean b)
@@ -111,12 +145,28 @@ implements SocketListener, RequestListener, Runnable
 	}
 	
 	/**
-	 * Set the port for this webserver
+	 * Set the port for this webserver.
 	 * @since 1.0.0
 	 */
 	public final void setPort(int port) 
 	{
 		this.port = (short)(port & 0x0000FFFF);
+	}
+	
+	/**
+	 * Set the IP v4 address for this webserver to connect to.
+	 * @since 1.0.0
+	 */
+	public final void setAdress(String ip) 
+	{
+		if (!NetUtil.isIPv4Address(ip)) return;
+		
+		try 
+		{
+			addr = InetAddress.getByName(ip);
+		} 
+		catch (UnknownHostException e) 
+		{ }
 	}
 	
 	/**
@@ -126,19 +176,6 @@ implements SocketListener, RequestListener, Runnable
 	public void addSocketListener(SocketListener sl)
 	{
 		sla.add(sl);
-	}
-	
-	/**
-	 * Starts the server.
-	 * @since 1.0.0
-	 */
-	public final void start() throws IOException
-	{
-		synchronized(running)
-		{
-			running = true;
-		}
-		(new Thread(this)).start();
 	}
 	
 	/**
@@ -208,7 +245,14 @@ implements SocketListener, RequestListener, Runnable
 	{
 		close();
 		
-        ss = new ServerSocket(port); 
+		if (addr==null)
+		{
+			ss = new ServerSocket(port,backlog); 
+		}
+		else
+		{
+			ss = new ServerSocket(port,backlog,addr); 
+		}
         
         while (running)  
         {
