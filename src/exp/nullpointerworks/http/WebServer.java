@@ -157,7 +157,7 @@ implements SocketListener, RequestListener, Runnable
 	 * Set the IP v4 address for this webserver to connect to.
 	 * @since 1.0.0
 	 */
-	public final void setAdress(String ip) 
+	public final void setAddress(String ip) 
 	{
 		if (!NetUtil.isIPv4Address(ip)) return;
 		

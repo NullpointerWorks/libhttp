@@ -1,5 +1,9 @@
 package exp.nullpointerworks.http;
 
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -8,6 +12,38 @@ import com.nullpointerworks.util.Convert;
 public class NetUtil 
 {
 	private static final String ip4Regex = "^([0-9]{1,3})\\.([0-9]{1,3})\\.([0-9]{1,3})\\.([0-9]{1,3})$";
+	
+	public static String getLocalIPAddress()
+	{
+		String ip = "127.0.0.1";
+		DatagramSocket socket = null;
+		try
+        {
+			socket = new DatagramSocket();
+    	}
+		catch (SocketException e) 
+		{
+			e.printStackTrace();
+			return ip;
+		}
+		
+    	try 
+    	{
+			socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
+		} 
+    	catch (UnknownHostException e) 
+    	{
+			e.printStackTrace();
+		}
+    	
+    	if (socket!=null) 
+    	{
+        	ip = socket.getLocalAddress().getHostAddress();
+        	socket.close();
+    	}
+    	
+		return ip;
+	}
 	
 	public static boolean isIPv4Address(String ip)
 	{
