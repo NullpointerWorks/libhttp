@@ -39,6 +39,15 @@ public class Response
 	 * 
 	 * @since 1.0.0
 	 */
+	public void addHeader(int htype, String data)
+	{
+		addHeader( new GenericHeader(htype, data) );
+	}
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
 	public void addHeader(String header)
 	{
 		addHeader( new GenericHeader(header) );
