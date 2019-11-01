@@ -7,6 +7,7 @@ package exp.nullpointerworks.http;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -179,14 +180,28 @@ implements SocketListener, RequestListener, Runnable
 	}
 	
 	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public boolean isRunning()
+	{
+		return running;
+	}
+	
+	/**
 	 * Stops the server.
 	 * @since 1.0.0
 	 */
 	public final void stop()
 	{
-		synchronized(running)
+		running = false;
+		try 
 		{
-			running = false;
+			close();
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
 		}
 	}
 	
@@ -244,16 +259,13 @@ implements SocketListener, RequestListener, Runnable
 	public final void listen() throws IOException
 	{
 		close();
+
+		if (verbose) System.out.println("\n---- Starting Server ----\n");
 		
-		if (addr==null)
-		{
-			ss = new ServerSocket(port,backlog); 
-		}
-		else
-		{
-			ss = new ServerSocket(port,backlog,addr); 
-		}
-        
+		ss = new ServerSocket();
+		ss.setReuseAddress(true); // be able to bind again after closing
+		ss.bind(new InetSocketAddress(addr, port), backlog);
+		
         while (running)  
         {
             Socket s = null;
@@ -261,19 +273,19 @@ implements SocketListener, RequestListener, Runnable
             try 
             {
                 s = ss.accept();
-                
-                if (cnt.value() < max_thread)
-                {
-                	if (verbose) System.out.println("\n---- Connecting "+s);
-                	SocketWorker sw = new SocketWorker(s, this, this, verbose);
-                    sw.start();
-                }
             }
             catch (Exception e)
             {
-                stop();
-                s.close();
-                e.printStackTrace(); 
+                if (s!=null) s.close();
+                if (verbose) e.printStackTrace(); 
+            }
+            
+            if (s!=null)
+            if (cnt.value() < max_thread)
+            {
+            	if (verbose) System.out.println("\n---- Connecting "+s+" ----\n");
+            	SocketWorker sw = new SocketWorker(s, this, this, verbose);
+                sw.start();
             }
             
             try
@@ -296,6 +308,7 @@ implements SocketListener, RequestListener, Runnable
 	protected final void close() throws IOException
  	{
 		if (ss==null) return;
+		if (verbose) System.out.println("\n---- Closing Server ----\n");
 		ss.close();
  	}
 }
