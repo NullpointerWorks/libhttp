@@ -16,16 +16,10 @@ import com.nullpointerworks.util.StringUtil;
  */
 public class GenericHeader implements Header
 {
-	private int htype = NULL;
-	private String full = "";
-	private String header = "";
-	private String arguments = "";
-	
-	/**
-	 * 
-	 * @since 1.0.0
-	 */
-	public GenericHeader() {}
+	private final int htype;
+	private final String full;
+	private final String header;
+	private final String arguments;
 	
 	/**
 	 * 
@@ -33,28 +27,15 @@ public class GenericHeader implements Header
 	 */
 	public GenericHeader(String line)
 	{
-		parseHeader(line);
-	}
-	
-	@Override
-	public String getName() {return header;}
-	
-	@Override
-	public String getData() {return arguments;}
-	
-	@Override
-	public String getString() {return full;}
-	
-	@Override
-	public int getHeaderType() {return htype;}
-
-	@Override
-	public boolean isNull() {return htype == NULL;}
-	
-	@Override
-	public void parseHeader(String line)
-	{
 		full = line;
+		
+		if (!line.contains(":"))
+		{
+			header = arguments = "";
+			htype = -1;
+			return;
+		}
+		
 		header = StringUtil.scan(line, ":").toLowerCase();
 		arguments = StringUtil.strip(line, ":");
 		
@@ -175,4 +156,19 @@ public class GenericHeader implements Header
 			htype = UNKNOWN_HEADER; break;
 		}
 	}
+	
+	@Override
+	public String getName() {return header;}
+	
+	@Override
+	public String getData() {return arguments;}
+	
+	@Override
+	public String getString() {return full;}
+	
+	@Override
+	public int getHeaderType() {return htype;}
+
+	@Override
+	public boolean isNull() {return htype == NULL;}
 }

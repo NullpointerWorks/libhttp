@@ -5,7 +5,14 @@
  */
 package exp.nullpointerworks.http;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.nullpointerworks.util.ArrayUtil;
+
+import exp.nullpointerworks.http.header.GenericHeader;
+import exp.nullpointerworks.http.header.Header;
+import exp.nullpointerworks.http.header.Protocol;
 
 /**
  * 
@@ -14,51 +21,76 @@ import com.nullpointerworks.util.ArrayUtil;
  */
 public class Response
 {
-	private final String CRLF = "\r\n";
-	private byte[] data;
+	private Protocol protocol;
+	private List<Header> headers;
+	private byte[] content;
 	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
 	public Response()
 	{
-		data = new byte[0];
-	}
-
-	/**
-	 * Add a line of text to the overall response data. This adds \r\n at the end of each string.
-	 * @since 1.0.0
-	 */
-	public void addLine(String s)
-	{
-		s = s + CRLF;
-		data = ArrayUtil.concatenate(data, s.getBytes());
+		clear();
+		headers = new ArrayList<Header>();
 	}
 	
 	/**
 	 * 
 	 * @since 1.0.0
 	 */
-	public void addData(String s)
+	public void addHeader(String header)
 	{
-		data = ArrayUtil.concatenate(data, s.getBytes());
+		addHeader( new GenericHeader(header) );
 	}
 	
 	/**
 	 * 
 	 * @since 1.0.0
 	 */
-	public void addData(byte[] d)
+	public void addHeader(Header header)
 	{
-		data = ArrayUtil.concatenate(data, d);
+		if (header == null) return;
+		for (int i=0,l=headers.size(); i<l; i++)
+		{
+			Header h = headers.get(i);
+			if (h.getHeaderType() == header.getHeaderType())
+			{
+				headers.remove(i);
+				headers.add(i, header);
+				return;
+			}
+		}
+		headers.add(header);
+	}
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public void addContent(String s)
+	{
+		addContent(s.getBytes());
+	}
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public void addContent(byte[] d)
+	{
+		content = ArrayUtil.concatenate(content, d);
 	}
 	
 	/**
 	 * Provide the return message as a String array
 	 * @since 1.0.0
 	 */
-	public void setData(String[] lines)
+	public void setContent(String[] lines)
 	{
 		for (String s : lines)
 		{
-			data = ArrayUtil.concatenate(data, s.getBytes());
+			addContent(s.getBytes());
 		}
 	}
 	
@@ -66,35 +98,62 @@ public class Response
 	 * Provide the return message as a single string.
 	 * @since 1.0.0
 	 */
-	public void setData(String s)
+	public void setContent(String s)
 	{
-		data = s.getBytes();
+		content = s.getBytes();
 	}
 	
 	/**
-	 * Provide the return data as a byte array
+	 * Provide the return data as a byte array.
 	 * @since 1.0.0
 	 */
-	public void setData(byte[] s)
+	public void setContent(byte[] s)
 	{
-		data = ArrayUtil.copy(s);
+		content = ArrayUtil.copy(s);
 	}
 	
 	/**
-	 * Returns the length of the complete response package
+	 * Provide the return protocol.
 	 * @since 1.0.0
 	 */
-	public int getLength()
+	public void setProtocol(Protocol tp)
 	{
-		return data.length;
+		protocol = tp;
 	}
 	
 	/**
-	 * Returns the complete response packages as a byte array
+	 * 
+	 * @since 1.0.0
+	 */
+	public void clear() 
+	{
+		if (headers!=null) headers.clear();
+		protocol = null;
+		content = new byte[0];
+	}
+	
+	/**
+	 * Returns the complete response packages as a byte array.
 	 * @since 1.0.0
 	 */
 	public byte[] getBytes()
 	{
+		byte[] data = (protocol.getString()+"\r\n").getBytes();
+		for (Header h : headers)
+		{
+			byte[] d = (h.getString()+"\r\n").getBytes();
+			data = ArrayUtil.concatenate(data, d);
+		}
+		data = ArrayUtil.concatenate(data, content);
 		return data;
+	}
+	
+	/**
+	 * Returns the length of the complete response package.
+	 * @since 1.0.0
+	 */
+	public int getLength()
+	{
+		return getBytes().length;
 	}
 }

@@ -45,8 +45,7 @@ public class ConnectionHeader implements Header
 		return (keepAlive)?"keep-alive":"close";
 	}
 	
-	@Override
-	public void parseHeader(String line) 
+	private void parseHeader(String line) 
 	{
 		String argument = StringUtil.strip(line, ":");
 		

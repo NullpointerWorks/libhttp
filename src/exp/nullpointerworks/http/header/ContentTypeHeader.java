@@ -39,8 +39,7 @@ public class ContentTypeHeader implements Header
 		return ContentType.getString(ctype);
 	}
 	
-	@Override
-	public void parseHeader(String line) 
+	private void parseHeader(String line) 
 	{
 		String argument = StringUtil.strip(line, ":");
 		if (argument.equalsIgnoreCase(ContentType.getString(FORM_URLENCODED)))

@@ -52,6 +52,7 @@ public class ProtocolCode
 	 * future implementations
 	 */
 	//public final static String HTTP20 			= "HTTP/2.0";
+	//public final static String HTTP2 			= "HTTP/2";
 	//public final static String SPDY 			= "SPDY";
 	//public final static String SHTTP13 			= "SHTTP/1.3";
 	//public final static String IRC69 			= "IRC/6.9";

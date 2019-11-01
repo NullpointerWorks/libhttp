@@ -89,7 +89,7 @@ public class Request
 	public Header findHeader(final int htype)
 	{
 		for (Header h : headers) if (h.getHeaderType() == htype) return h;
-		return new GenericHeader();
+		return new GenericHeader("");
 	}
 	
 	// ==============================================================

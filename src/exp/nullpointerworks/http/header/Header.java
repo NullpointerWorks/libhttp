@@ -24,7 +24,7 @@ public interface Header
 	 */
 	default String getString()
 	{
-		return getName()+": "+getData()+"\r\n";
+		return getName()+": "+getData();
 	}
 	
 	/**
@@ -38,12 +38,6 @@ public interface Header
 	 * @since 1.0.0
 	 */
 	String getData();
-	
-	/**
-	 * 
-	 * @since 1.0.0
-	 */
-	void parseHeader(String line);
 	
 	/**
 	 * 

@@ -36,7 +36,7 @@ implements SocketListener, RequestListener, Runnable
 	 * Default TCP-IP port for web servers is assumed to be 80.
 	 * @since 1.0.0
 	 */
-	public static final short DEFAULT 	= 80;
+	public static final short DEFAULT = 80;
 	
 	// ========================================
 	
