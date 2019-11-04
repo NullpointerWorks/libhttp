@@ -14,9 +14,9 @@ public class Protocol
 	 * 
 	 * @since 1.0.0
 	 */
-	public Protocol(String tp, int protocolCode)
+	public Protocol(String transferProtocol, int protocolCode)
 	{
-		full = tp + " " + ProtocolCode.getString(protocolCode);
+		full = transferProtocol + " " + ProtocolCode.getString(protocolCode);
 	}
 	
 	/**

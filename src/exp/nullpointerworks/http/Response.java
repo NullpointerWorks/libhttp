@@ -36,6 +36,24 @@ public class Response
 	}
 	
 	/**
+	 * Provide the return protocol.
+	 * @since 1.0.0
+	 */
+	public void setProtocol(Protocol tp)
+	{
+		protocol = tp;
+	}
+	
+	/**
+	 * Provide the return protocol parameters.
+	 * @since 1.0.0
+	 */
+	public void setProtocol(String tp, int code)
+	{
+		protocol = new Protocol(tp, code);
+	}
+	
+	/**
 	 * 
 	 * @since 1.0.0
 	 */
@@ -119,15 +137,6 @@ public class Response
 	public void setContent(byte[] s)
 	{
 		content = ArrayUtil.copy(s);
-	}
-	
-	/**
-	 * Provide the return protocol.
-	 * @since 1.0.0
-	 */
-	public void setProtocol(Protocol tp)
-	{
-		protocol = tp;
 	}
 	
 	/**
