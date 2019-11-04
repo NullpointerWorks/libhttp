@@ -36,13 +36,13 @@ public class Language
 	 * English-USA
 	 * @since 1.0.0
 	 */
-	public final static String enUS 		= "en-US";
+	public final static String US 		= "en-US";
 	
 	/**
 	 * English-Britain
 	 * @since 1.0.0
 	 */
-	public final static String enGB 		= "en-GB";
+	public final static String GB 		= "en-GB";
 	
 	/**
 	 * French

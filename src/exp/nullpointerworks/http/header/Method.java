@@ -8,7 +8,7 @@ package exp.nullpointerworks.http.header;
 import java.util.HashMap;
 import java.util.Map;
 
-import exp.nullpointerworks.http.types.ProtocolCode;
+import exp.nullpointerworks.http.ApplicationProtocol;
 
 /**
  * 
@@ -71,7 +71,7 @@ public class Method
 	
 	private int method 		= NULL;
 	private String smethod 	= "NULL";
-	private String protocol = ProtocolCode.HTTP10;
+	private ApplicationProtocol protocol = ApplicationProtocol.HTTP10;
 	private String target 	= "/";
 	private Map<String,String> parameters;
 	
@@ -92,7 +92,7 @@ public class Method
 		String[] t = m.split(" ");
 		String met = t[0];
 		String pag = t[1];
-		String ver = t[2];
+		ApplicationProtocol ver = ApplicationProtocol.fromString(t[2]);
 		
 		// get method
 		switch(met)
@@ -181,7 +181,7 @@ public class Method
 	 * Returns the transfer protocol used for this connection
 	 * @since 1.0.0
 	 */
-	public String getTransferProtocol()
+	public ApplicationProtocol getTransferProtocol()
 	{
 		return protocol;
 	}

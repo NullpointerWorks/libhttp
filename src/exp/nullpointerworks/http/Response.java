@@ -48,7 +48,7 @@ public class Response
 	 * Provide the return protocol parameters.
 	 * @since 1.0.0
 	 */
-	public void setProtocol(String tp, int code)
+	public void setProtocol(ApplicationProtocol tp, StatusCode code)
 	{
 		protocol = new Protocol(tp, code);
 	}

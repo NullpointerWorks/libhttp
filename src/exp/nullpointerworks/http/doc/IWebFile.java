@@ -5,6 +5,8 @@
  */
 package exp.nullpointerworks.http.doc;
 
+import exp.nullpointerworks.http.MIMEType;
+
 /**
  * 
  * @since 1.0.0
@@ -46,7 +48,7 @@ public interface IWebFile
 	 * 
 	 * @since 1.0.0
 	 */
-	public String getMIMEType();
+	public MIMEType getMIMEType();
 	
 	/**
 	 * 

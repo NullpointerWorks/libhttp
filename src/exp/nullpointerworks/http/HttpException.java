@@ -5,8 +5,6 @@
  */
 package exp.nullpointerworks.http;
 
-import exp.nullpointerworks.http.types.ProtocolCode;
-
 /**
  * 
  * @author Michiel Drost - Nullpointer Works
@@ -15,7 +13,7 @@ import exp.nullpointerworks.http.types.ProtocolCode;
 public class HttpException extends Exception
 {
 	private static final long serialVersionUID = -8183236013065744280L;
-	private int code = ProtocolCode.C_500;
+	private StatusCode code = StatusCode._500;
 	
 	/**
 	 * 
@@ -29,6 +27,15 @@ public class HttpException extends Exception
 	 */
 	public HttpException(int code)
 	{
+		this.code=StatusCode.getByCode(code);
+	}
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public HttpException(StatusCode code)
+	{
 		this.code=code;
 	}
 	
@@ -36,7 +43,7 @@ public class HttpException extends Exception
 	 * 
 	 * @since 1.0.0
 	 */
-	public int getResponseCode()
+	public StatusCode getStatusCode()
 	{
 		return code;
 	}

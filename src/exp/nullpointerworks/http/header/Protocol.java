@@ -1,6 +1,7 @@
 package exp.nullpointerworks.http.header;
 
-import exp.nullpointerworks.http.types.ProtocolCode;
+import exp.nullpointerworks.http.ApplicationProtocol;
+import exp.nullpointerworks.http.StatusCode;
 
 /**
  * 
@@ -14,9 +15,9 @@ public class Protocol
 	 * 
 	 * @since 1.0.0
 	 */
-	public Protocol(String transferProtocol, int protocolCode)
+	public Protocol(ApplicationProtocol transferProtocol, StatusCode protocolCode)
 	{
-		full = transferProtocol + " " + ProtocolCode.getString(protocolCode);
+		full = transferProtocol + " " + protocolCode.asInteger();
 	}
 	
 	/**

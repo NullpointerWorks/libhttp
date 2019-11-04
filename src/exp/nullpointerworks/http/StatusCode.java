@@ -3,138 +3,20 @@
  * Nullpointer Works (2019)
  * Use is subject to license terms.
  */
-package exp.nullpointerworks.http.types;
+package exp.nullpointerworks.http;
 
 /**
  * 
  * @since 1.0.0
  * @author Michiel Drost - Nullpointer Works
  */
-public class ProtocolCode
+public enum StatusCode 
 {
-	private ProtocolCode() {}
-	
 	/**
-	 * Year 1991. 
+	 * A {@code null} indicator object.
 	 * @since 1.0.0
 	 */
-	public final static String HTTP09			= "HTTP/0.9";
-	
-	/**
-	 * Year 1996.
-	 * @since 1.0.0
-	 */
-	public final static String HTTP10			= "HTTP/1.0";
-	
-	/**
-	 * Year 1997.
-	 * @since 1.0.0
-	 */
-	public final static String HTTP11 			= "HTTP/1.1";
-	
-	/*
-	 * Internet protocol suite - Application layer
-	 * 
-	 * BGP DHCP DNS FTP HTTP 
-	 * HTTPS IMAP LDAP MGCP MQTT 
-	 * NNTP NTP POP ONC/RPC RTP 
-	 * RTSP RIP SIP SMTP SNMP 
-	 * SSH Telnet TLS/SSL XMPP 
-	 */
-	
-	/*
-	 * april fools protocols
-	 */
-	//public final static String HTCPCP10 			= "HTCPCP/1.0";
-	//public final static String HTCPCPTEA 			= "HTCPCP-TEA";
-	
-	/*
-	 * future implementations
-	 */
-	//public final static String HTTP20 			= "HTTP/2.0";
-	//public final static String HTTP2 			= "HTTP/2";
-	//public final static String SPDY 			= "SPDY";
-	//public final static String SHTTP13 			= "SHTTP/1.3";
-	//public final static String IRC69 			= "IRC/6.9";
-	//public final static String RTA11 			= "RTA/x11";
-	
-	/**
-	 * Returns the text associated with the response code.
-	 * @since 1.0.0
-	 */
-	public static String getString(final int code)
-	{
-		switch(code)
-		{
-		case 100: return "100 Continue";
-		case 101: return "101 Switching Protocol";
-		case 102: return "102 Processing";
-
-		case 200: return "200 OK";
-		case 201: return "201 Created";
-		case 202: return "202 Accepted";
-		case 203: return "203 Non-Authoritative Information";
-		case 204: return "204 No Content";
-		case 205: return "205 Reset Content";
-		case 206: return "206 Partial Content";
-		case 207: return "207 Multi-Status";
-		case 208: return "208 Multi-Status";
-		case 226: return "226 IM Used";
-
-		case 300: return "300 Multiple Choice";
-		case 301: return "301 Moved Permanently";
-		case 302: return "302 Found";
-		case 303: return "303 See Other";
-		case 304: return "304 Not Modified";
-		case 305: return "305 Use Proxy";
-		case 306: return "306 Unused";
-		case 307: return "307 Temporary Redirect";
-		case 308: return "308 Permanent Redirect";
-		
-		case 400: return "400 Bad Request";
-		case 401: return "401 Unauthorized";
-		case 402: return "402 Payment Required";
-		case 403: return "403 Forbidden";
-		case 404: return "404 Not Found";
-		case 405: return "405 Method Not Allowed";
-		case 406: return "406 Not Acceptable";
-		case 407: return "407 Proxy Authentication Required";
-		case 408: return "408 Request Timeout";
-		case 409: return "409 Conflict";
-		case 410: return "410 Gone";
-		case 411: return "411 Length Required";
-		case 412: return "412 Precondition Failed";
-		case 413: return "413 Payload Too Large";
-		case 414: return "414 URI Too Long";
-		case 415: return "415 Unsupported Media Type";
-		case 416: return "416 Requested Range Not Satisfiable";
-		case 417: return "417 Expectation Failed";
-		case 418: return "418 I'm a teapot";
-		case 421: return "421 Misdirected Request";
-		case 422: return "422 Unprocessable Entity (WebDAV)";
-		case 423: return "423 Locked (WebDAV)";
-		case 424: return "424 Failed Dependency (WebDAV)";
-		case 426: return "426 Upgrade Required";
-		case 428: return "428 Precondition Required";
-		case 429: return "429 Too Many Requests";
-		case 431: return "431 Request Header Fields Too Large";
-		case 451: return "451 Unavailable For Legal Reasons";
-		
-		case 500: return "500 Internal Server Error";
-		case 501: return "501 Not Implemented";
-		case 502: return "502 Bad Gateway";
-		case 503: return "503 Service Unavailable";
-		case 504: return "504 Gateway Timeout";
-		case 505: return "505 HTTP Version Not Supported";
-		case 506: return "506 Variant Also Negotiates";
-		case 507: return "507 Insufficient Storage";
-		case 508: return "508 Loop Detected (WebDAV)";
-		case 510: return "510 Not Extended";
-		case 511: return "511 Network Authentication Required";
-		}
-		
-		return "";
-	}
+	NULL(-1,"null"),
 	
 	/*
 	 * Information responses
@@ -146,15 +28,15 @@ public class ProtocolCode
 	 * the request or ignore it if it is already finished.
 	 * @since 1.0.0
 	 */
-	public static final int C_CONTINUE			= 100;
-
+	_100(100, "Continue"),
+	
 	/**
 	 * 101 Switching Protocol<br><br>
 	 * This code is sent in response to an Upgrade request header by the client, and indicates the protocol 
 	 * the server is switching too.
 	 * @since 1.0.0
 	 */
-	public static final int C_SWITCHING		= 101;
+	_101(101, "Switching Protocol"),
 
 	/**
 	 * 102 Processing (WebDAV)<br><br>
@@ -162,7 +44,7 @@ public class ProtocolCode
 	 * available yet.
 	 * @since 1.0.0
 	 */
-	public static final int C_PROCESSING		= 102;
+	_102(102, "Processing (WebDAV)"),
 	
 	/*
 	 * Successful responses
@@ -177,7 +59,7 @@ public class ProtocolCode
 	 * TRACE: The message body contains the request message as received by the server<br>
 	 * @since 1.0.0
 	 */
-	public static final int C_200		= 200;
+	_200(200, "OK"),
 	
 	/**
 	 * 201 Created<br><br>
@@ -185,7 +67,7 @@ public class ProtocolCode
 	 * response sent after a PUT request.
 	 * @since 1.0.0
 	 */
-	public static final int C_201		= 201;
+	_201(201, "Created"),
 	
 	/**
 	 * 202 Accepted<br><br>
@@ -194,7 +76,7 @@ public class ProtocolCode
 	 * intended for cases where another process or server handles the request, or for batch processing.
 	 * @since 1.0.0
 	 */
-	public static final int C_202		= 202;
+	_202(202, "Accepted"),
 	
 	/**
 	 * 203 Non-Authoritative Information<br><br>
@@ -203,7 +85,7 @@ public class ProtocolCode
 	 * be preferred instead of this response.
 	 * @since 1.0.0
 	 */
-	public static final int C_203		= 203;
+	_203(203, "Non-Authoritative Information"),
 	
 	/**
 	 * 204 No Content<br><br>
@@ -211,7 +93,7 @@ public class ProtocolCode
 	 * its cached headers for this resource with the new ones.
 	 * @since 1.0.0
 	 */
-	public static final int C_204		= 204;
+	_204(204, "No Content"),
 	
 	/**
 	 * 205 Reset Content<br><br>
@@ -219,7 +101,7 @@ public class ProtocolCode
 	 * this request.
 	 * @since 1.0.0
 	 */
-	public static final int C_205		= 205;
+	_205(205, "Reset Content"),
 	
 	/**
 	 * 206 Partial Content<br><br>
@@ -227,7 +109,7 @@ public class ProtocolCode
 	 * streams.
 	 * @since 1.0.0
 	 */
-	public static final int C_206		= 206;
+	_206(206, "Partial Content"),
 	
 	/**
 	 * 207 Multi-Status (WebDAV)<br><br>
@@ -235,7 +117,7 @@ public class ProtocolCode
 	 * codes might be appropriate.
 	 * @since 1.0.0
 	 */
-	public static final int C_207		= 207;
+	_207(207, "Multi-Status (WebDAV)"),
 	
 	/**
 	 * 208 Multi-Status (WebDAV)<br><br>
@@ -243,7 +125,7 @@ public class ProtocolCode
 	 * to the same collection repeatedly.
 	 * @since 1.0.0
 	 */
-	public static final int C_208		= 208;
+	_208(208, "Multi-Status (WebDAV)"),
 	
 	/**
 	 * 226 IM Used (HTTP Delta encoding)<br><br>
@@ -251,7 +133,7 @@ public class ProtocolCode
 	 * result of one or more instance-manipulations applied to the current instance.
 	 * @since 1.0.0
 	 */
-	public static final int C_226		= 226;
+	_226(226, "IM Used (HTTP Delta encoding)"),
 	
 	/*
 	 * Redirection messages
@@ -263,7 +145,7 @@ public class ProtocolCode
 	 * standardized way to choose one of the responses.
 	 * @since 1.0.0
 	 */
-	public static final int C_300		= 300;
+	_300(300, "Multiple Choice"),
 	
 	/**
 	 * 301 Moved Permanently<br><br>
@@ -271,7 +153,7 @@ public class ProtocolCode
 	 * in the response.
 	 * @since 1.0.0
 	 */
-	public static final int C_301		= 301;
+	_301(301, "Moved Permanently"),
 	
 	/**
 	 * 302 Found<br><br>
@@ -279,14 +161,14 @@ public class ProtocolCode
 	 * URI might be made in the future. Therefore, this same URI should be used by the client in future requests.
 	 * @since 1.0.0
 	 */
-	public static final int C_302		= 302;
+	_302(302, "Found"),
 	
 	/**
 	 * 303 See Other<br><br>
 	 * Server sent this response to directing client to get requested resource to another URI with an GET request.
 	 * @since 1.0.0
 	 */
-	public static final int C_303		= 303;
+	_303(303, "See Other"),
 	
 	/**
 	 * 304 Not Modified<br><br>
@@ -294,7 +176,7 @@ public class ProtocolCode
 	 * can continue to use same cached version of response.
 	 * @since 1.0.0
 	 */
-	public static final int C_304		= 304;
+	_304(304, "Not Modified"),
 	
 	/**
 	 * 305 Use Proxy<br><br>
@@ -303,7 +185,8 @@ public class ProtocolCode
 	 * proxy.
 	 * @since 1.0.0
 	 */
-	public static final int C_305		= 305;
+	@Deprecated
+	_305(305, "Use Proxy"),
 	
 	/**
 	 * 306 Unused<br><br>
@@ -311,7 +194,7 @@ public class ProtocolCode
 	 * the HTTP 1.1 specification.
 	 * @since 1.0.0
 	 */
-	public static final int C_306		= 306;
+	_306(306, "Unused"),
 	
 	/**
 	 * 307 Temporary Redirect<br><br>
@@ -321,7 +204,7 @@ public class ProtocolCode
 	 * a POST must be used in the second request.
 	 * @since 1.0.0
 	 */
-	public static final int C_307		= 307;
+	_307(307, "Temporary Redirect"),
 	
 	/**
 	 * 308 Permanent Redirect<br><br>
@@ -331,7 +214,7 @@ public class ProtocolCode
 	 * a POST must be used in the second request.
 	 * @since 1.0.0
 	 */
-	public static final int C_308		= 308;
+	_308(308, "Permanent Redirect"),
 	
 	/*
 	 * Client error responses
@@ -342,7 +225,7 @@ public class ProtocolCode
 	 * This response means that server could not understand the request due to invalid syntax.
 	 * @since 1.0.0
 	 */
-	public static final int C_400		= 400;
+	_400(400, "Bad Request"),
 	
 	/**
 	 * 401 Unauthorized<br><br>
@@ -350,7 +233,7 @@ public class ProtocolCode
 	 * That is, the client must authenticate itself to get the requested response.
 	 * @since 1.0.0
 	 */
-	public static final int C_401		= 401;
+	_401(401, "Unauthorized"),
 	
 	/**
 	 * 402 Payment Required<br><br>
@@ -358,7 +241,7 @@ public class ProtocolCode
 	 * payment systems however this is not used currently.
 	 * @since 1.0.0
 	 */
-	public static final int C_402		= 402;
+	_402(402, "Payment Required"),
 	
 	/**
 	 * 403 Forbidden<br><br>
@@ -366,7 +249,7 @@ public class ProtocolCode
 	 * to give proper response. Unlike 401, the client's identity is known to the server.
 	 * @since 1.0.0
 	 */
-	public static final int C_403		= 403;
+	_403(403, "Forbidden"),
 	
 	/**
 	 * 404 Not Found<br><br>
@@ -376,7 +259,7 @@ public class ProtocolCode
 	 * response code is probably the most famous one due to its frequent occurrence on the web.
 	 * @since 1.0.0
 	 */
-	public static final int C_404		= 404;
+	_404(404, "Not Found"),
 	
 	/**
 	 * 405 Method Not Allowed<br><br>
@@ -385,7 +268,7 @@ public class ProtocolCode
 	 * not return this error code.
 	 * @since 1.0.0
 	 */
-	public static final int C_405		= 405;
+	_405(405, "Method Not Allowed"),
 	
 	/**
 	 * 406 Not Acceptable<br><br>
@@ -393,15 +276,15 @@ public class ProtocolCode
 	 * find any content following the criteria given by the user agent.
 	 * @since 1.0.0
 	 */
-	public static final int C_406		= 406;
+	_406(406, "Not Acceptable"),
 	
 	/**
 	 * 407 Proxy Authentication Required<br><br>
 	 * This is similar to 401 but authentication is needed to be done by a proxy.
 	 * @since 1.0.0
 	 */
-	public static final int C_407		= 407;
-
+	_407(407, "Proxy Authentication Required"),
+	
 	/**
 	 * 408 Request Timeout<br><br>
 	 * This response is sent on an idle connection by some servers, even without any previous request by the client. 
@@ -410,14 +293,14 @@ public class ProtocolCode
 	 * surfing. Also note that some servers merely shut down the connection without sending this message.
 	 * @since 1.0.0
 	 */
-	public static final int C_408		= 408;
+	_408(408, "Request Timeout"),
 
 	/**
 	 * 409 Conflict<br><br>
 	 * This response is sent when a request conflicts with the current state of the server.
 	 * @since 1.0.0
 	 */
-	public static final int C_409		= 409;
+	_409(409, "Conflict"),
 	
 	/**
 	 * 410 Gone<br><br>
@@ -427,7 +310,7 @@ public class ProtocolCode
 	 * not feel compelled to indicate resources that have been deleted with this status code.
 	 * @since 1.0.0
 	 */
-	public static final int C_410		= 410;
+	_410(410, "Gone"),
 
 	/**
 	 * 411 Length Required<br><br>
@@ -435,14 +318,14 @@ public class ProtocolCode
 	 * it.
 	 * @since 1.0.0
 	 */
-	public static final int C_411		= 411;
+	_411(411, "Length Required"),
 
 	/**
 	 * 412 Precondition Failed<br><br>
 	 * The client has indicated preconditions in its headers which the server does not meet.
 	 * @since 1.0.0
 	 */
-	public static final int C_412		= 412;
+	_412(412, "Precondition Failed"),
 
 	/**
 	 * 413 Payload Too Large<br><br>
@@ -450,14 +333,14 @@ public class ProtocolCode
 	 * an Retry-After header field.
 	 * @since 1.0.0
 	 */
-	public static final int C_413		= 413;
+	_413(413, "Payload Too Large"),
 
 	/**
 	 * 414 URI Too Long<br><br>
 	 * The URI requested by the client is longer than the server is willing to interpret.
 	 * @since 1.0.0
 	 */
-	public static final int C_414		= 414;
+	_414(414, "URI Too Long"),
 
 	/**
 	 * 415 Unsupported Media Type<br><br>
@@ -465,7 +348,7 @@ public class ProtocolCode
 	 * request.
 	 * @since 1.0.0
 	 */
-	public static final int C_415		= 415;
+	_415(415, "Unsupported Media Type"),
 
 	/**
 	 * 416 Requested Range Not Satisfiable<br><br>
@@ -473,7 +356,7 @@ public class ProtocolCode
 	 * the range is outside the size of the target URI's data.
 	 * @since 1.0.0
 	 */
-	public static final int C_416		= 416;
+	_416(416, "Requested Range Not Satisfiable"),
 
 	/**
 	 * 417 Expectation Failed<br><br>
@@ -481,7 +364,7 @@ public class ProtocolCode
 	 * server.
 	 * @since 1.0.0
 	 */
-	public static final int C_417		= 417;
+	_417(417, "Expectation Failed"),
 
 	/**
 	 * 418 I'm a teapot<br><br>
@@ -489,7 +372,7 @@ public class ProtocolCode
 	 * Control Protocol (HTCPCP).
 	 * @since 1.0.0
 	 */
-	public static final int C_418		= 418;
+	_418(418, "I'm a teapot"),
 	
 	/**
 	 * 421 Misdirected Request<br><br>
@@ -498,28 +381,28 @@ public class ProtocolCode
 	 * in the request URI.
 	 * @since 1.0.0
 	 */
-	public static final int C_421		= 421;
+	_421(421, "Misdirected Request"),
 	
 	/**
 	 * 422 Unprocessable Entity (WebDAV)<br><br>
 	 * The request was well-formed but was unable to be followed due to semantic errors.
 	 * @since 1.0.0
 	 */
-	public static final int C_422		= 422;
+	_422(422, "Unprocessable Entity (WebDAV)"),
 	
 	/**
 	 * 423 Locked (WebDAV)<br><br>
 	 * The resource that is being accessed is locked.
 	 * @since 1.0.0
 	 */
-	public static final int C_423		= 423;
+	_423(423, "Locked (WebDAV)"),
 	
 	/**
 	 * 424 Failed Dependency (WebDAV)<br><br>
 	 * The request failed due to failure of a previous request.
 	 * @since 1.0.0
 	 */
-	public static final int C_424		= 424;
+	_424(424, "Failed Dependency (WebDAV)"),
 	
 	/**
 	 * 426 Upgrade Required<br><br>
@@ -528,7 +411,7 @@ public class ProtocolCode
 	 * indicate the required protocol(s).
 	 * @since 1.0.0
 	 */
-	public static final int C_426		= 426;
+	_426(426, "Upgrade Required"),
 	
 	/**
 	 * 428 Precondition Required<br><br>
@@ -537,14 +420,14 @@ public class ProtocolCode
 	 * third party has modified the state on the server, leading to a conflict.
 	 * @since 1.0.0
 	 */
-	public static final int C_428		= 428;
+	_428(428, "Precondition Required"),
 	
 	/**
 	 * 429 Too Many Requests<br><br>
 	 * The user has sent too many requests in a given amount of time ("rate limiting").
 	 * @since 1.0.0
 	 */
-	public static final int C_429		= 429;
+	_429(429, "Too Many Requests"),
 	
 	/**
 	 * 431 Request Header Fields Too Large<br><br>
@@ -552,14 +435,14 @@ public class ProtocolCode
 	 * be resubmitted after reducing the size of the request header fields.
 	 * @since 1.0.0
 	 */
-	public static final int C_431		= 431;
+	_431(431, "Request Header Fields Too Large"),
 	
 	/**
 	 * 451 Unavailable For Legal Reasons<br><br>
 	 * The user requests an illegal resource, such as a web page censored by a government.
 	 * @since 1.0.0
 	 */
-	public static final int C_451		= 451;
+	_451(451, "Unavailable For Legal Reasons"),
 	
 	/*
 	 * Server error responses
@@ -570,7 +453,7 @@ public class ProtocolCode
 	 * The server has encountered a situation it doesn't know how to handle.
 	 * @since 1.0.0
 	 */
-	public static final int C_500		= 500;
+	_500(500, "Internal Server Error"),
 	
 	/**
 	 * 501 Not Implemented<br><br>
@@ -578,7 +461,7 @@ public class ProtocolCode
 	 * are required to support (and therefore that must not return this code) are GET and HEAD.
 	 * @since 1.0.0
 	 */
-	public static final int C_501		= 501;
+	_501(501, "Not Implemented"),
 	
 	/**
 	 * 502 Bad Gateway<br><br>
@@ -586,7 +469,7 @@ public class ProtocolCode
 	 * the request, got an invalid response.
 	 * @since 1.0.0
 	 */
-	public static final int C_502		= 502;
+	_502(502, "Bad Gateway"),
 	
 	/**
 	 * 503 Service Unavailable<br><br>
@@ -598,21 +481,21 @@ public class ProtocolCode
 	 * condition responses should usually not be cached.
 	 * @since 1.0.0
 	 */
-	public static final int C_503		= 503;
+	_503(503, "Service Unavailable"),
 	
 	/**
 	 * 504 Gateway Timeout<br><br>
 	 * This error response is given when the server is acting as a gateway and cannot get a response in time.
 	 * @since 1.0.0
 	 */
-	public static final int C_504		= 504;
+	_504(504, "Gateway Timeout"),
 	
 	/**
 	 * 505 HTTP Version Not Supported<br><br>
 	 * The HTTP version used in the request is not supported by the server.
 	 * @since 1.0.0
 	 */
-	public static final int C_505		= 505;
+	_505(505, "HTTP Version Not Supported"),
 	
 	/**
 	 * 506 Variant Also Negotiates<br><br>
@@ -620,7 +503,7 @@ public class ProtocolCode
 	 * in a circular reference.
 	 * @since 1.0.0
 	 */
-	public static final int C_506		= 506;
+	_506(506, "Variant Also Negotiates"),
 	
 	/**
 	 * 507 Insufficient Storage<br><br>
@@ -628,27 +511,144 @@ public class ProtocolCode
 	 * transparent content negotiation itself, and is therefore not a proper end point in the negotiation process.
 	 * @since 1.0.0
 	 */
-	public static final int C_507		= 507;
+	_507(507, "Insufficient Storage"),
 	
 	/**
 	 * 508 Loop Detected (WebDAV)<br><br>
 	 * The server detected an infinite loop while processing the request.
 	 * @since 1.0.0
 	 */
-	public static final int C_508		= 508;
+	_508(508, "Loop Detected (WebDAV)"),
 	
 	/**
 	 * 510 Not Extended<br><br>
 	 * Further extensions to the request are required for the server to fulfill it.
 	 * @since 1.0.0
 	 */
-	public static final int C_510		= 510;
+	_510(510, "Not Extended"),
 	
 	/**
 	 * 511 Network Authentication Required<br><br>
 	 * The 511 status code indicates that the client needs to authenticate to gain network access. 
 	 * @since 1.0.0
 	 */
-	public static final int C_511		= 511;
+	_511(511, "Network Authentication Required");
 	
+	private final int code;
+	private final String text;
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	private StatusCode(int code, String text)
+	{
+		this.code=code;
+		this.text=text;
+	}
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public final String toString()
+	{
+		return asInteger()+" "+asText();
+	}
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public final String asText()
+	{
+		return text;
+	}
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public int asInteger() 
+	{
+		return code;
+	}
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public static StatusCode getByCode(int code)
+	{
+		switch(code)
+		{
+		case 100: return StatusCode._100;
+		case 101: return StatusCode._101;
+		case 102: return StatusCode._102;
+		
+		case 200: return StatusCode._200;
+		case 201: return StatusCode._201;
+		case 202: return StatusCode._202;
+		case 203: return StatusCode._203;
+		case 204: return StatusCode._204;
+		case 205: return StatusCode._205;
+		case 206: return StatusCode._206;
+		case 207: return StatusCode._207;
+		case 208: return StatusCode._208;
+		case 226: return StatusCode._226;
+		
+		case 300: return StatusCode._300;
+		case 301: return StatusCode._301;
+		case 302: return StatusCode._302;
+		case 303: return StatusCode._303;
+		case 304: return StatusCode._304;
+		case 305: return StatusCode._305;
+		case 306: return StatusCode._306;
+		case 307: return StatusCode._307;
+		case 308: return StatusCode._308;
+
+		case 400: return StatusCode._400;
+		case 401: return StatusCode._401;
+		case 402: return StatusCode._402;
+		case 403: return StatusCode._403;
+		case 404: return StatusCode._404;
+		case 405: return StatusCode._405;
+		case 406: return StatusCode._406;
+		case 407: return StatusCode._407;
+		case 408: return StatusCode._408;
+		case 409: return StatusCode._409;
+		case 410: return StatusCode._410;
+		case 411: return StatusCode._411;
+		case 412: return StatusCode._412;
+		case 413: return StatusCode._413;
+		case 414: return StatusCode._414;
+		case 415: return StatusCode._415;
+		case 416: return StatusCode._416;
+		case 417: return StatusCode._417;
+		case 118: return StatusCode._418;
+		case 421: return StatusCode._421;
+		case 422: return StatusCode._422;
+		case 423: return StatusCode._423;
+		case 424: return StatusCode._424;
+		case 426: return StatusCode._426;
+		case 428: return StatusCode._428;
+		case 429: return StatusCode._429;
+		case 431: return StatusCode._431;
+		case 451: return StatusCode._451;
+
+		case 500: return StatusCode._500;
+		case 501: return StatusCode._501;
+		case 502: return StatusCode._502;
+		case 503: return StatusCode._503;
+		case 504: return StatusCode._504;
+		case 505: return StatusCode._505;
+		case 506: return StatusCode._506;
+		case 507: return StatusCode._507;
+		case 508: return StatusCode._508;
+		case 510: return StatusCode._510;
+		case 511: return StatusCode._511;
+		
+		default: return StatusCode.NULL;
+		}
+	}
 }

@@ -14,19 +14,19 @@ import java.text.SimpleDateFormat;
 
 import com.nullpointerworks.util.StringUtil;
 
-import exp.nullpointerworks.http.types.MIMEType;
+import exp.nullpointerworks.http.MIMEType;
 
 /**
  * 
  * @since 1.0.0
+ * @author Michiel Drost - Nullpointer Works
  */
 public class WebFile implements IWebFile 
 {
 	private String filepath = "";
 	private String filename = "";
-	private String filetype = "";
 	private String filelastMod = "";
-	private String fileMIME = "";
+	private MIMEType fileMIME = MIMEType.NULL;
 	private byte[] filebytes = {};
 	private boolean isloaded = false;
 	
@@ -53,7 +53,7 @@ public class WebFile implements IWebFile
 		filename = t[t.length-1]; // get filename
 		
 		t = StringUtil.tokenize(filename,"\\.");
-		filetype = (t)[t.length-1]; // get extension
+		var filetype = (t)[t.length-1]; // get extension
 		fileMIME = MIMEType.getFromFileExtension(filetype);
 		
 		File f = new File(filepath);
@@ -76,8 +76,8 @@ public class WebFile implements IWebFile
 	@Override public String getName() {return filename;}
 	@Override public String getLastModified() {return filelastMod;}
 	@Override public String getPath() {return filepath;}
-	@Override public String getExtension() {return filetype;}
-	@Override public String getMIMEType() {return fileMIME;}
+	@Override public String getExtension() {return fileMIME.getExtension();}
+	@Override public MIMEType getMIMEType() {return fileMIME;}
 	@Override public int getLength() {return filebytes.length;}
 	@Override public byte[] getBytes() {return filebytes;}
 }
