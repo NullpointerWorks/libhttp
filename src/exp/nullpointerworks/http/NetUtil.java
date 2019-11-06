@@ -1,3 +1,8 @@
+/*
+ * Creative Commons - Attribution, Share Alike 4.0 
+ * Nullpointer Works (2019)
+ * Use is subject to license terms.
+ */
 package exp.nullpointerworks.http;
 
 import java.net.DatagramSocket;
@@ -9,10 +14,19 @@ import java.util.regex.Pattern;
 
 import com.nullpointerworks.util.Convert;
 
+/**
+ * 
+ * @author Michiel Drost - Nullpointer Works
+ * @since 1.0.0
+ */
 public class NetUtil 
 {
 	private static final String ip4Regex = "^([0-9]{1,3})\\.([0-9]{1,3})\\.([0-9]{1,3})\\.([0-9]{1,3})$";
 	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
 	public static String getLocalIPAddress()
 	{
 		String ip = "127.0.0.1";
@@ -45,6 +59,10 @@ public class NetUtil
 		return ip;
 	}
 	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
 	public static boolean isIPv4Address(String ip)
 	{
 		if (ip.matches(ip4Regex))

@@ -28,31 +28,25 @@ public interface RequestListener
 	 * 
 	 * @since 1.0.0
 	 */
-	public Response onHEAD(Request o);
-	
-	/**
-	 * 
-	 * @since 1.0.0
-	 */
 	public Response onPUT(Request o);
 	
 	/**
 	 * 
 	 * @since 1.0.0
 	 */
-	public Response onDELETE(Request o);
-	
-	/**
-	 * 
-	 * @since 1.0.0
-	 */
-	public Response onOPTIONS(Request o);
+	public Response onHEAD(Request o);
 	
 	/**
 	 * 
 	 * @since 1.0.0
 	 */
 	public Response onTRACE(Request o);
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public Response onDELETE(Request o);
 	
 	/**
 	 * 
@@ -65,6 +59,12 @@ public interface RequestListener
 	 * @since 1.0.0
 	 */
 	public Response onPATCH(Request o);
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public Response onOPTIONS(Request o);
 	
 	/**
 	 * 

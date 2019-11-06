@@ -86,7 +86,7 @@ implements SocketListener, RequestListener, Runnable
 	}
 	
 	/**
-	 * Start the server with a custom port
+	 * Start the server with a custom port.
 	 * @since 1.0.0
 	 */
 	public void start(int port) throws IOException
@@ -95,13 +95,16 @@ implements SocketListener, RequestListener, Runnable
 		start();
 	}
 	
+	/**
+	 * Start the server with a custom port and IP.
+	 * @since 1.0.0
+	 */
 	public void start(String ip, int port) throws IOException
 	{
 		addr = InetAddress.getByName(ip);
 		setPort(port);
 		start();
 	}
-	
 	
 	/**
 	 * Returns the time and date of this machine in GMT<br><br>
@@ -162,7 +165,7 @@ implements SocketListener, RequestListener, Runnable
 	{
 		if (!NetUtil.isIPv4Address(ip)) return;
 		
-		try 
+		try
 		{
 			addr = InetAddress.getByName(ip);
 		} 
@@ -270,7 +273,7 @@ implements SocketListener, RequestListener, Runnable
         {
             Socket s = null;
             
-            try 
+            try
             {
                 s = ss.accept();
             }

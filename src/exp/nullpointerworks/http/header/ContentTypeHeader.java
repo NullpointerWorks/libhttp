@@ -12,6 +12,11 @@ import com.nullpointerworks.util.StringUtil;
 import exp.nullpointerworks.http.types.FormContent;
 import exp.nullpointerworks.http.types.HeaderType;
 
+/**
+ * 
+ * @since 1.0.0
+ * @author Michiel Drost - Nullpointer Works
+ */
 public class ContentTypeHeader implements Header
 {
 	private FormContent ctype = FormContent.NULL;

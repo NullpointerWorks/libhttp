@@ -165,6 +165,7 @@ public class Response
 			byte[] d = (h.getString()+"\r\n").getBytes();
 			data = ArrayUtil.concatenate(data, d);
 		}
+		data = ArrayUtil.concatenate(data, "\r\n".getBytes());
 		data = ArrayUtil.concatenate(data, content);
 		return data;
 	}

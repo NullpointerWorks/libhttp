@@ -33,6 +33,7 @@ public class Method
 	{
 		parameters = new HashMap<String,String>();
 	}
+	
 	/**
 	 * 
 	 * @since 1.0.0
