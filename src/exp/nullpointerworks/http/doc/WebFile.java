@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
 
 import com.nullpointerworks.util.StringUtil;
 
-import exp.nullpointerworks.http.MIMEType;
+import exp.nullpointerworks.http.types.MIMEType;
 
 /**
  * 
@@ -54,7 +54,7 @@ public class WebFile implements IWebFile
 		
 		t = StringUtil.tokenize(filename,"\\.");
 		var filetype = (t)[t.length-1]; // get extension
-		fileMIME = MIMEType.getFromFileExtension(filetype);
+		fileMIME = MIMEType.fromFileExtension(filetype);
 		
 		File f = new File(filepath);
 		if (!f.exists()) return;

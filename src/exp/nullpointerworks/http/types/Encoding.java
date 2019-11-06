@@ -10,37 +10,44 @@ package exp.nullpointerworks.http.types;
  * @since 1.0.0
  * @author Michiel Drost - Nullpointer Works
  */
-public class Encoding
+public enum Encoding
 {
-	private Encoding() {}
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	GZIP("gzip"),
 	
 	/**
 	 * 
 	 * @since 1.0.0
 	 */
-	public final static String GZIP 		= "gzip";
+	DEFLATE("deflate"),
 	
 	/**
 	 * 
 	 * @since 1.0.0
 	 */
-	public final static String DEFLATE 		= "deflate";
+	COMPRESS("compress"),
 	
 	/**
 	 * 
 	 * @since 1.0.0
 	 */
-	public final static String COMPRESS 	= "compress";
+	IDENTITY("identity"),
 	
 	/**
 	 * 
 	 * @since 1.0.0
 	 */
-	public final static String IDENTITY 	= "identity";
+	WILDCARD("*");
+	
+	private final String type;
+	private Encoding(String type) {this.type=type;}
 	
 	/**
 	 * 
 	 * @since 1.0.0
 	 */
-	public final static String WILDCARD 	= "*";
+	public final String getString() {return type;}
 }

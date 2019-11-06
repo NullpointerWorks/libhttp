@@ -13,6 +13,9 @@ import com.nullpointerworks.util.ArrayUtil;
 import exp.nullpointerworks.http.header.GenericHeader;
 import exp.nullpointerworks.http.header.Header;
 import exp.nullpointerworks.http.header.Protocol;
+import exp.nullpointerworks.http.types.ApplicationProtocol;
+import exp.nullpointerworks.http.types.HeaderType;
+import exp.nullpointerworks.http.types.StatusCode;
 
 /**
  * 
@@ -57,7 +60,7 @@ public class Response
 	 * 
 	 * @since 1.0.0
 	 */
-	public void addHeader(int htype, String data)
+	public void addHeader(HeaderType htype, String data)
 	{
 		addHeader( new GenericHeader(htype, data) );
 	}

@@ -5,6 +5,8 @@
  */
 package exp.nullpointerworks.http;
 
+import exp.nullpointerworks.http.types.StatusCode;
+
 /**
  * 
  * @author Michiel Drost - Nullpointer Works
@@ -27,7 +29,7 @@ public class HttpException extends Exception
 	 */
 	public HttpException(int code)
 	{
-		this.code=StatusCode.getByCode(code);
+		this.code=StatusCode.fromInteger(code);
 	}
 	
 	/**

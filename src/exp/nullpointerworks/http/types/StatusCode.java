@@ -3,7 +3,7 @@
  * Nullpointer Works (2019)
  * Use is subject to license terms.
  */
-package exp.nullpointerworks.http;
+package exp.nullpointerworks.http.types;
 
 /**
  * 
@@ -551,16 +551,16 @@ public enum StatusCode
 	 * 
 	 * @since 1.0.0
 	 */
-	public final String toString()
+	public final String getString()
 	{
-		return asInteger()+" "+asText();
+		return getInteger()+" "+getString();
 	}
 	
 	/**
 	 * 
 	 * @since 1.0.0
 	 */
-	public final String asText()
+	public final String getName()
 	{
 		return text;
 	}
@@ -569,7 +569,7 @@ public enum StatusCode
 	 * 
 	 * @since 1.0.0
 	 */
-	public int asInteger() 
+	public int getInteger() 
 	{
 		return code;
 	}
@@ -578,7 +578,7 @@ public enum StatusCode
 	 * 
 	 * @since 1.0.0
 	 */
-	public static StatusCode getByCode(int code)
+	public static StatusCode fromInteger(int code)
 	{
 		switch(code)
 		{

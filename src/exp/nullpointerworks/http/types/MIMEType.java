@@ -3,7 +3,7 @@
  * Nullpointer Works (2019)
  * Use is subject to license terms.
  */
-package exp.nullpointerworks.http;
+package exp.nullpointerworks.http.types;
 
 /**
  * 
@@ -118,7 +118,7 @@ public enum MIMEType
 	 * Returns the MIME type as a String.
 	 * @since 1.0.0
 	 */
-	public final String getType() {return type;}
+	public final String getString() {return type;}
 
 	/**
 	 * Returns the file extension associated with the MIME type as a String.
@@ -130,7 +130,7 @@ public enum MIMEType
 	 * Returns the MIME (Multipurpose Internet Mail Extension) type associated with the given extension.
 	 * @since 1.0.0
 	 */
-	public static MIMEType getFromFileExtension(String extension)
+	public static MIMEType fromFileExtension(String extension)
 	{
 		switch(extension)
 		{

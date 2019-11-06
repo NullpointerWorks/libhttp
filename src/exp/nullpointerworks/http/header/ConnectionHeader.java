@@ -26,9 +26,9 @@ public class ConnectionHeader implements Header
 	{
 		if (!raw.isNull()) parseHeader(raw.getString());
 	}
-
+	
 	@Override
-	public int getHeaderType() 
+	public HeaderType getHeaderType() 
 	{
 		return HeaderType.CONNECTION;
 	}

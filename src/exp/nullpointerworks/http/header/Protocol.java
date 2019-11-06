@@ -1,15 +1,17 @@
 package exp.nullpointerworks.http.header;
 
-import exp.nullpointerworks.http.ApplicationProtocol;
-import exp.nullpointerworks.http.StatusCode;
+import exp.nullpointerworks.http.types.ApplicationProtocol;
+import exp.nullpointerworks.http.types.StatusCode;
 
 /**
  * 
  * @since 1.0.0
+ * @author Michiel Drost - Nullpointer Works
  */
 public class Protocol
 {
-	private final String full;
+	private final ApplicationProtocol tp;
+	private final StatusCode pc;
 	
 	/**
 	 * 
@@ -17,7 +19,8 @@ public class Protocol
 	 */
 	public Protocol(ApplicationProtocol transferProtocol, StatusCode protocolCode)
 	{
-		full = transferProtocol + " " + protocolCode.asInteger();
+		tp = transferProtocol;
+		pc = protocolCode;
 	}
 	
 	/**
@@ -26,6 +29,6 @@ public class Protocol
 	 */
 	public final String getString()
 	{
-		return full;
+		return tp.getString()+" "+pc.getString();
 	}
 }

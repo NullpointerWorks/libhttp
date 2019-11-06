@@ -5,16 +5,16 @@
  */
 package exp.nullpointerworks.http.header;
 
-import static exp.nullpointerworks.http.types.ContentType.*;
+import static exp.nullpointerworks.http.types.FormContent.*;
 
 import com.nullpointerworks.util.StringUtil;
 
-import exp.nullpointerworks.http.types.ContentType;
+import exp.nullpointerworks.http.types.FormContent;
 import exp.nullpointerworks.http.types.HeaderType;
 
 public class ContentTypeHeader implements Header
 {
-	private int ctype = -1;
+	private FormContent ctype = FormContent.NULL;
 	
 	public ContentTypeHeader(Header raw)
 	{
@@ -22,7 +22,7 @@ public class ContentTypeHeader implements Header
 	}
 	
 	@Override
-	public int getHeaderType() 
+	public HeaderType getHeaderType() 
 	{
 		return HeaderType.CONTENT_TYPE;
 	}
@@ -36,26 +36,26 @@ public class ContentTypeHeader implements Header
 	@Override
 	public String getData() 
 	{
-		return ContentType.getString(ctype);
+		return ctype.getString();
 	}
 	
 	private void parseHeader(String line) 
 	{
 		String argument = StringUtil.strip(line, ":");
-		if (argument.equalsIgnoreCase(ContentType.getString(FORM_URLENCODED)))
+		if ( argument.equalsIgnoreCase(FORM_URLENCODED.getString()) )
 			ctype = FORM_URLENCODED;
 		else
-		if (argument.equalsIgnoreCase(ContentType.getString(FORM_MULTIPART)))
+		if ( argument.equalsIgnoreCase(FORM_MULTIPART.getString()) )
 			ctype = FORM_MULTIPART;
 	}
 
 	@Override
 	public boolean isNull() 
 	{
-		return ctype == -1;
+		return ctype == NULL;
 	}
 
-	public int getType()
+	public FormContent getType()
 	{
 		return ctype;
 	}

@@ -5,8 +5,6 @@
  */
 package exp.nullpointerworks.http;
 
-import static exp.nullpointerworks.http.types.HeaderType.*;
-
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +15,7 @@ import com.nullpointerworks.util.StringUtil;
 
 import exp.nullpointerworks.http.encoding.FormData;
 import exp.nullpointerworks.http.header.*;
-import exp.nullpointerworks.http.types.ContentType;
+import exp.nullpointerworks.http.types.FormContent;
 import exp.nullpointerworks.http.types.HeaderType;
 
 /**
@@ -86,7 +84,7 @@ public class Request
 	 * 
 	 * @since 1.0.0
 	 */
-	public Header findHeader(final int htype)
+	public Header findHeader(final HeaderType htype)
 	{
 		for (Header h : headers) if (h.getHeaderType() == htype) return h;
 		return new GenericHeader("");
@@ -105,10 +103,10 @@ public class Request
 		if (data.length < 1) return;
 		
 		// check how to interpret the data
-		int ctype = getContentTypeHeader().getType();
+		FormContent ctype = getContentTypeHeader().getType();
 		switch(ctype)
 		{
-		case ContentType.FORM_URLENCODED:
+		case FORM_URLENCODED:
 			formd.clear();
 			
 			String text = "";
@@ -133,8 +131,10 @@ public class Request
 			}
 			
 			break;
-		case ContentType.FORM_MULTIPART:
-			
+		case FORM_MULTIPART:
+			/*
+			 * TODO future implementation
+			 */
 			break;
 		default: 
 			break;
@@ -171,6 +171,7 @@ public class Request
 		{
 		case UNKNOWN_HEADER:
 		case NULL:
+		default:
 			Log.err("Unknown header: \""+line+"\"");
 			break;
 		}

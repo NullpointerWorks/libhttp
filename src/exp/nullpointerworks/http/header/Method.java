@@ -8,7 +8,10 @@ package exp.nullpointerworks.http.header;
 import java.util.HashMap;
 import java.util.Map;
 
-import exp.nullpointerworks.http.ApplicationProtocol;
+import exp.nullpointerworks.http.types.ApplicationProtocol;
+import exp.nullpointerworks.http.types.MethodType;
+
+import static exp.nullpointerworks.http.types.MethodType.*;
 
 /**
  * 
@@ -17,60 +20,7 @@ import exp.nullpointerworks.http.ApplicationProtocol;
  */
 public class Method
 {
-	public static final int NULL 	= 0;
-	
-	/**
-	 * The GET method is used to retrieve information from the given server using a given URI. Requests using GET should only retrieve data and should have no other effect on the data.
-	 * @since 1.0.0
-	 */
-	public static final int GET 	= 1;
-	
-	/**
-	 * Same as GET, but transfers the status line and header section only.
-	 * @since 1.0.0
-	 */
-	public static final int HEAD 	= 2;
-	
-	/**
-	 * A POST request is used to send data to the server, for example, customer information, file upload, etc. using HTML forms.
-	 * @since 1.0.0
-	 */
-	public static final int POST 	= 3;
-	
-	/**
-	 * Performs a message loop-back test along the path to the target resource.
-	 * @since 1.0.0
-	 */
-	public static final int TRACE 	= 4;
-	
-	/**
-	 * Replaces all current representations of the target resource with the uploaded content.
-	 * @since 1.0.0
-	 */
-	public static final int PUT 	= 5;
-	
-	/**
-	 * Removes all current representations of the target resource given by a URI.
-	 * @since 1.0.0
-	 */
-	public static final int DELETE 	= 6;
-	
-	/**
-	 * Establishes a tunnel to the server identified by a given URI.
-	 * @since 1.0.0
-	 */
-	public static final int CONNECT = 7;
-	
-	/**
-	 * Describes the communication options for the target resource.
-	 * @since 1.0.0
-	 */
-	public static final int OPTIONS = 8;
-	
-	// =============================================
-	
-	private int method 		= NULL;
-	private String smethod 	= "NULL";
+	private MethodType method = UNKNOWN;
 	private ApplicationProtocol protocol = ApplicationProtocol.HTTP10;
 	private String target 	= "/";
 	private Map<String,String> parameters;
@@ -92,23 +42,9 @@ public class Method
 		String[] t = m.split(" ");
 		String met = t[0];
 		String pag = t[1];
-		ApplicationProtocol ver = ApplicationProtocol.fromString(t[2]);
 		
-		// get method
-		switch(met)
-		{
-		case "GET": method = GET; break;
-		case "HEAD": method = HEAD; break;
-		case "POST": method = POST; break;
-		case "TRACE": method = TRACE; break;
-		case "PUT": method = PUT; break;
-		case "DELETE": method = DELETE; break;
-		case "CONNECT": method = CONNECT; break;
-		case "OPTIONS": method = OPTIONS; break;
-		default: method = NULL; break;
-		}
-		
-		smethod = met;
+		protocol = ApplicationProtocol.fromString(t[2]);
+		method = MethodType.fromString(met);
 		
 		// get page with options, if any..
 		if (pag.contains("?"))
@@ -136,27 +72,24 @@ public class Method
 		{
 			target = pag;
 		}
-		
-		// set transfer protocol
-		protocol = ver;
 	}
 	
 	/**
 	 * Returns the integer method code
 	 * @since 1.0.0
 	 */
-	public int getMethodType()
+	public MethodType getMethodType()
 	{
 		return method;
 	}
 	
 	/**
-	 * Returns the method type
+	 * Returns the transfer protocol used for this connection
 	 * @since 1.0.0
 	 */
-	public String getMethodName()
+	public ApplicationProtocol getTransferProtocol()
 	{
-		return smethod;
+		return protocol;
 	}
 	
 	/**
@@ -175,14 +108,5 @@ public class Method
 	public String getParameter(String key)
 	{
 		return parameters.get(key);
-	}
-	
-	/**
-	 * Returns the transfer protocol used for this connection
-	 * @since 1.0.0
-	 */
-	public ApplicationProtocol getTransferProtocol()
-	{
-		return protocol;
 	}
 }

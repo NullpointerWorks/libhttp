@@ -5,6 +5,8 @@
  */
 package exp.nullpointerworks.http.header;
 
+import exp.nullpointerworks.http.types.HeaderType;
+
 /**
  * 
  * @author Michiel Drost - Nullpointer Works
@@ -16,7 +18,7 @@ public interface Header
 	 * 
 	 * @since 1.0.0
 	 */
-	int getHeaderType();
+	HeaderType getHeaderType();
 	
 	/**
 	 * 

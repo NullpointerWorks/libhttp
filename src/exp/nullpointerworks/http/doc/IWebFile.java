@@ -5,7 +5,7 @@
  */
 package exp.nullpointerworks.http.doc;
 
-import exp.nullpointerworks.http.MIMEType;
+import exp.nullpointerworks.http.types.MIMEType;
 
 /**
  * 

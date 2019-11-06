@@ -6,6 +6,7 @@
 package exp.nullpointerworks.http.header;
 
 import com.nullpointerworks.util.StringUtil;
+
 import exp.nullpointerworks.http.types.HeaderType;
 
 /**
@@ -15,7 +16,7 @@ import exp.nullpointerworks.http.types.HeaderType;
  */
 public class GenericHeader implements Header
 {
-	private final int htype;
+	private final HeaderType htype;
 	private final String full;
 	private final String header;
 	private final String arguments;
@@ -37,18 +38,18 @@ public class GenericHeader implements Header
 		
 		header = StringUtil.scan(line, ":").toLowerCase();
 		arguments = StringUtil.strip(line, ":");
-		htype = HeaderType.getCodeFromString(header);
+		htype = HeaderType.fromString(header);
 	}
 	
 	/**
 	 * 
 	 * @since 1.0.0
 	 */
-	public GenericHeader(int htype, String arguments) 
+	public GenericHeader(HeaderType htype, String arguments) 
 	{
 		this.htype = htype;
 		this.arguments = arguments;
-		header = HeaderType.getStringFromCode(htype);
+		header = htype.getString();
 		full = header+": "+arguments;
 	}
 	
@@ -62,7 +63,7 @@ public class GenericHeader implements Header
 	public String getString() {return full;}
 	
 	@Override
-	public int getHeaderType() {return htype;}
+	public HeaderType getHeaderType() {return htype;}
 
 	@Override
 	public boolean isNull() {return htype == HeaderType.NULL;}

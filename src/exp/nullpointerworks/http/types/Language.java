@@ -10,55 +10,62 @@ package exp.nullpointerworks.http.types;
  * @since 1.0.0
  * @author Michiel Drost - Nullpointer Works
  */
-public class Language
+public enum Language
 {
-	private Language() {}
-	
 	/**
 	 * Dutch
 	 * @since 1.0.0
 	 */
-	public final static String NL 			= "nl";
+	NL("nl"),
 	
 	/**
 	 * German
 	 * @since 1.0.0
 	 */
-	public final static String DE 			= "de";
+	DE("de"),
 	
 	/**
 	 * English
 	 * @since 1.0.0
 	 */
-	public final static String EN 			= "en";
+	EN("en"),
 	
 	/**
 	 * English-USA
 	 * @since 1.0.0
 	 */
-	public final static String US 		= "en-US";
+	US("en-US"),
 	
 	/**
 	 * English-Britain
 	 * @since 1.0.0
 	 */
-	public final static String GB 		= "en-GB";
+	GB("en-GB"),
 	
 	/**
 	 * French
 	 * @since 1.0.0
 	 */
-	public final static String FR 			= "fr";
+	FR("fr"),
 	
 	/**
 	 * French Canadian
 	 * @since 1.0.0
 	 */
-	public final static String frCA 		= "fr-CA";
+	frCA("fr-CA"),
 	
 	/**
 	 * French Swiss
 	 * @since 1.0.0
 	 */
-	public final static String frCH 		= "fr-CH";
+	frCH("fr-CH");
+	
+	private final String type;
+	private Language(String type) {this.type=type;}
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public final String getString() {return type;}
 }

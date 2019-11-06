@@ -10,33 +10,35 @@ package exp.nullpointerworks.http.types;
  * @since 1.0.0
  * @author Michiel Drost - Nullpointer Works
  */
-public class ContentType
+public enum FormContent
 {
-	private ContentType() {}
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	NULL(""),
 	
 	/**
 	 * 
 	 * @since 1.0.0
 	 */
-	public final static int FORM_URLENCODED = 0;
+	FORM_URLENCODED("application/x-www-form-urlencoded"),
 	
 	/**
 	 * 
 	 * @since 1.0.0
 	 */
-	public final static int FORM_MULTIPART 	= 1;
+	FORM_MULTIPART("multipart/form-data");
 	
-	/**
-	 * 
-	 * @since 1.0.0
-	 */
-	public final static String getString(int type)
+	private final String type;
+	private FormContent(String type) 
 	{
-		switch(type)
-		{
-		case 0: return "application/x-www-form-urlencoded";
-		case 1: return "multipart/form-data";
-		default: return "";
-		}
+		this.type=type;
 	}
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public final String getString() {return type;}
 }
