@@ -553,7 +553,7 @@ public enum StatusCode
 	 */
 	public final String getString()
 	{
-		return getInteger()+" "+getString();
+		return getInteger()+" "+getName();
 	}
 	
 	/**
@@ -580,75 +580,14 @@ public enum StatusCode
 	 */
 	public static StatusCode fromInteger(int code)
 	{
-		switch(code)
+		StatusCode[] list = StatusCode.values();
+		for (StatusCode sc : list)
 		{
-		case 100: return StatusCode._100;
-		case 101: return StatusCode._101;
-		case 102: return StatusCode._102;
-		
-		case 200: return StatusCode._200;
-		case 201: return StatusCode._201;
-		case 202: return StatusCode._202;
-		case 203: return StatusCode._203;
-		case 204: return StatusCode._204;
-		case 205: return StatusCode._205;
-		case 206: return StatusCode._206;
-		case 207: return StatusCode._207;
-		case 208: return StatusCode._208;
-		case 226: return StatusCode._226;
-		
-		case 300: return StatusCode._300;
-		case 301: return StatusCode._301;
-		case 302: return StatusCode._302;
-		case 303: return StatusCode._303;
-		case 304: return StatusCode._304;
-		case 305: return StatusCode._305;
-		case 306: return StatusCode._306;
-		case 307: return StatusCode._307;
-		case 308: return StatusCode._308;
-
-		case 400: return StatusCode._400;
-		case 401: return StatusCode._401;
-		case 402: return StatusCode._402;
-		case 403: return StatusCode._403;
-		case 404: return StatusCode._404;
-		case 405: return StatusCode._405;
-		case 406: return StatusCode._406;
-		case 407: return StatusCode._407;
-		case 408: return StatusCode._408;
-		case 409: return StatusCode._409;
-		case 410: return StatusCode._410;
-		case 411: return StatusCode._411;
-		case 412: return StatusCode._412;
-		case 413: return StatusCode._413;
-		case 414: return StatusCode._414;
-		case 415: return StatusCode._415;
-		case 416: return StatusCode._416;
-		case 417: return StatusCode._417;
-		case 118: return StatusCode._418;
-		case 421: return StatusCode._421;
-		case 422: return StatusCode._422;
-		case 423: return StatusCode._423;
-		case 424: return StatusCode._424;
-		case 426: return StatusCode._426;
-		case 428: return StatusCode._428;
-		case 429: return StatusCode._429;
-		case 431: return StatusCode._431;
-		case 451: return StatusCode._451;
-
-		case 500: return StatusCode._500;
-		case 501: return StatusCode._501;
-		case 502: return StatusCode._502;
-		case 503: return StatusCode._503;
-		case 504: return StatusCode._504;
-		case 505: return StatusCode._505;
-		case 506: return StatusCode._506;
-		case 507: return StatusCode._507;
-		case 508: return StatusCode._508;
-		case 510: return StatusCode._510;
-		case 511: return StatusCode._511;
-		
-		default: return StatusCode.NULL;
+			if (sc.getInteger() == code)
+			{
+				return sc;
+			}
 		}
+		return NULL;
 	}
 }

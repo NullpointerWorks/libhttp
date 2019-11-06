@@ -81,13 +81,15 @@ public enum ApplicationProtocol
 	 */
 	public static ApplicationProtocol fromString(String proto) 
 	{
-		switch(proto)
+		proto = proto.toUpperCase();
+		ApplicationProtocol[] list = ApplicationProtocol.values();
+		for (ApplicationProtocol mt : list)
 		{
-		case "HTTP/0.9": return ApplicationProtocol.HTTP09;
-		case "HTTP/1.0": return ApplicationProtocol.HTTP10;
-		case "HTTP/1.1": return ApplicationProtocol.HTTP11;
-		case "HTTP/2": return ApplicationProtocol.HTTP2;
+			if (mt.getString().equals(proto))
+			{
+				return mt;
+			}
 		}
-		return ApplicationProtocol.HTTP10;
+		return UNKNOWN;
 	}
 }

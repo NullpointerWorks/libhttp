@@ -166,12 +166,11 @@ public class Request
 		
 		GenericHeader genhead = new GenericHeader(line);
 		headers.add( genhead );
-		
 		switch(genhead.getHeaderType())
 		{
+		default: break;
 		case UNKNOWN_HEADER:
 		case NULL:
-		default:
 			Log.err("Unknown header: \""+line+"\"");
 			break;
 		}

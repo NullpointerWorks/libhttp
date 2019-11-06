@@ -132,101 +132,15 @@ public enum MIMEType
 	 */
 	public static MIMEType fromFileExtension(String extension)
 	{
-		switch(extension)
+		extension = extension.toLowerCase();
+		MIMEType[] list = MIMEType.values();
+		for (MIMEType mt : list)
 		{
-			case "aac": return MIMEType.AAC;
-			case "abw": return MIMEType.ABW;
-			case "arc": return MIMEType.ARC;
-			case "avi": return MIMEType.AVI;
-			case "azw": return MIMEType.AZW;
-			
-			case "bin": return MIMEType.BIN;
-			case "bmp": return MIMEType.BMP;
-			case "bz": return MIMEType.BZ;
-			case "bz2": return MIMEType.BZ2;
-			
-			case "csh": return MIMEType.CSH;
-			case "css": return MIMEType.CSS;
-			case "csv": return MIMEType.CSV;
-			
-			case "doc": return MIMEType.DOC;
-			case "docx": return MIMEType.DOCX;
-			
-			case "eot": return MIMEType.AAC;
-			case "epub": return MIMEType.AAC;
-			
-			case "gif": return MIMEType.GIF;
-			
-			case "htm": return MIMEType.HTM;
-			case "html": return MIMEType.HTML;
-			
-			case "ico": return MIMEType.ICO;
-			case "ics": return MIMEType.ICS;
-			
-			case "jar": return MIMEType.JAR;
-			case "jpeg": return MIMEType.JPEG;
-			case "jpg": return MIMEType.JPG;
-			
-			case "mjs": return MIMEType.MJS;
-			
-			case "js": return MIMEType.JS;
-			case "json": return MIMEType.JSON;
-			case "jsonld": return MIMEType.JSONLD;
-			
-			case "mid": return MIMEType.MID;
-			case "midi": return MIMEType.MIDI;
-			case "mp3": return MIMEType.MP3;
-			case "mpeg": return MIMEType.MPEG;
-			case "mpkg": return MIMEType.MPKG;
-			
-			case "odp": return MIMEType.ODP;
-			case "ods": return MIMEType.ODS;
-			case "odt": return MIMEType.ODT;
-			case "oga": return MIMEType.OGA;
-			case "ogv": return MIMEType.OGV;
-			case "ogx": return MIMEType.OGX;
-			case "otf": return MIMEType.OTF;
-			
-			case "png": return MIMEType.PNG;
-			case "pdf": return MIMEType.PDF;
-			case "ppt": return MIMEType.PPT;
-			case "pptx": return MIMEType.PPTX;
-			
-			case "rar": return MIMEType.AAC;
-			case "rtf": return MIMEType.AAC;
-			
-			case "sh": return MIMEType.SH;
-			case "svg": return MIMEType.SVG;
-			case "swf": return MIMEType.SWF;
-			
-			case "tar": return MIMEType.TAR;
-			case "tif": return MIMEType.TIF;
-			case "tiff": return MIMEType.TIFF;
-			case "ttf": return MIMEType.TTF;
-			case "txt": return MIMEType.TXT;
-			
-			case "vsd": return MIMEType.VSD;
-			
-			case "wav": return MIMEType.WAV;
-			case "weba": return MIMEType.WEBA;
-			case "webm": return MIMEType.WEBM;
-			case "webp": return MIMEType.WEBP;
-			case "woff": return MIMEType.WOFF;
-			case "woff2": return MIMEType.WOFF2;
-			
-			case "xhtml": return MIMEType.XHTML;
-			case "xls": return MIMEType.XLS;
-			case "xlsx": return MIMEType.XLSX;
-			case "xml": return MIMEType.XML;
-			case "xul": return MIMEType.XUL;
-			
-			case "zip": return MIMEType.ZIP;
-			
-			case "3gp": return MIMEType._3GP;
-			case "3g2": return MIMEType._3G2;
-			case "7z": return MIMEType._7Z;
-			
-			default: return MIMEType.BIN;
+			if (mt.getExtension().equals(extension))
+			{
+				return mt;
+			}
 		}
+		return MIMEType.BIN;
 	}
 }

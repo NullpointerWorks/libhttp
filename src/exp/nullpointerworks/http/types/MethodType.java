@@ -61,6 +61,12 @@ public enum MethodType
 	CONNECT,
 	
 	/**
+	 * The HTTP PATCH request method applies partial modifications to a resource.
+	 * @since 1.0.0
+	 */
+	PATCH,
+	
+	/**
 	 * Describes the communication options for the target resource.
 	 * @since 1.0.0
 	 */
@@ -78,6 +84,7 @@ public enum MethodType
 		case "PUT": return PUT;
 		case "DELETE": return DELETE;
 		case "CONNECT": return CONNECT;
+		case "PATCH": return PATCH;
 		case "OPTIONS": return OPTIONS;
 		default: return UNKNOWN;
 		}
