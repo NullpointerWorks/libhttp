@@ -3,15 +3,15 @@
  * Nullpointer Works (2019)
  * Use is subject to license terms.
  */
-package exp.nullpointerworks.http.header;
+package exp.nullpointerworks.http;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import exp.nullpointerworks.http.types.ApplicationProtocol;
-import exp.nullpointerworks.http.types.MethodType;
+import exp.nullpointerworks.http.types.RequestMethod;
 
-import static exp.nullpointerworks.http.types.MethodType.*;
+import static exp.nullpointerworks.http.types.RequestMethod.*;
 
 /**
  * 
@@ -20,7 +20,7 @@ import static exp.nullpointerworks.http.types.MethodType.*;
  */
 public class Method
 {
-	private MethodType method = UNKNOWN;
+	private RequestMethod method = UNKNOWN;
 	private ApplicationProtocol protocol = ApplicationProtocol.HTTP10;
 	private String target 	= "/";
 	private Map<String,String> parameters;
@@ -45,7 +45,7 @@ public class Method
 		String pag = t[1];
 		
 		protocol = ApplicationProtocol.fromString(t[2]);
-		method = MethodType.fromString(met);
+		method = RequestMethod.fromString(met);
 		
 		// get page with options, if any..
 		if (pag.contains("?"))
@@ -79,7 +79,7 @@ public class Method
 	 * Returns the integer method code
 	 * @since 1.0.0
 	 */
-	public MethodType getMethodType()
+	public RequestMethod getMethodType()
 	{
 		return method;
 	}

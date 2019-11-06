@@ -17,20 +17,20 @@ import java.text.SimpleDateFormat;
 
 import com.nullpointerworks.util.ArrayUtil;
 import com.nullpointerworks.util.StringUtil;
-import exp.nullpointerworks.http.types.MIMEType;
+import exp.nullpointerworks.http.types.MediaType;
 
 /**
  * 
  * @since 1.0.0
  * @author Michiel Drost - Nullpointer Works
  */
-public class WebResource
+public class WebResource implements Resource
 {
 	private final SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 	private final String filepath;
 	private final String filename;
 	private final String filelastMod;
-	private final MIMEType fileMIME;
+	private final MediaType fileMIME;
 	private final byte[] filebytes;
 	
 	/**
@@ -50,7 +50,7 @@ public class WebResource
 		
 		t = StringUtil.tokenize(filename,"\\.");
 		var filetype = (t)[t.length-1]; // get extension
-		fileMIME = MIMEType.fromFileExtension(filetype);
+		fileMIME = MediaType.fromFileExtension(filetype);
 		
 		Path rawpath = Paths.get( filepath );
 		filebytes = Files.readAllBytes( rawpath );
@@ -67,7 +67,7 @@ public class WebResource
 		filepath = f.getAbsolutePath();
 		filename = f.getName();
 		filelastMod = sdf.format( f.lastModified() );
-		fileMIME = getMIMEType(filename);
+		fileMIME = getMediaType(filename);
 		InputStream in = new FileInputStream(f);
 		filebytes = readAllBytes(in);
 		in.close();
@@ -82,7 +82,7 @@ public class WebResource
 	{
 		filepath = filename = fileName;
 		filelastMod = "";
-		fileMIME = MIMEType.BIN;
+		fileMIME = MediaType.BIN;
 		filebytes = readAllBytes(in);
 		in.close();
 	}
@@ -119,19 +119,19 @@ public class WebResource
 		return bytes;
     }
 	
-	private final MIMEType getMIMEType(String file) 
+	private final MediaType getMediaType(String file) 
 	{
 		String[] t = StringUtil.tokenize(file,"\\.");
 		String filetype = (t)[t.length-1]; // get extension
-		return MIMEType.fromFileExtension(filetype);
+		return MediaType.fromFileExtension(filetype);
 	}
 	
-	public boolean isNull() {return filebytes==null;}
-	public String getName() {return filename;}
-	public String getLastModified() {return filelastMod;}
-	public String getPath() {return filepath;}
-	public MIMEType getMIMEType() {return fileMIME;}
-	public String getExtension() {return fileMIME.getExtension();}
-	public byte[] getBytes() {return filebytes;}
-	public int getLength() {return filebytes.length;}
+	@Override public boolean isNull() {return filebytes==null;}
+	@Override public String getName() {return filename;}
+	@Override public String getLastModified() {return filelastMod;}
+	@Override public String getPath() {return filepath;}
+	@Override public MediaType getMediaType() {return fileMIME;}
+	@Override public String getExtension() {return fileMIME.getExtension();}
+	@Override public byte[] getBytes() {return filebytes;}
+	@Override public int getLength() {return filebytes.length;}
 }

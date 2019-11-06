@@ -11,7 +11,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 
-import exp.nullpointerworks.http.types.MethodType;
+import exp.nullpointerworks.http.types.RequestMethod;
 
 /**
  * Connection socket. This may be closed or kept alive on request
@@ -120,7 +120,7 @@ public class SocketWorker extends Thread
 	 		if (req != null)
 	 		{
 		 		Response resp = null;
-		 		MethodType mtype = req.getMethod().getMethodType();
+		 		RequestMethod mtype = req.getMethod().getMethodType();
 	 			switch(mtype)
 	 			{
 	 			case PUT: resp = rl.onPUT(req); break;

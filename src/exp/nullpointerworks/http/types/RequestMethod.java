@@ -10,7 +10,7 @@ package exp.nullpointerworks.http.types;
  * @since 1.0.0
  * @author Michiel Drost - Nullpointer Works
  */
-public enum MethodType
+public enum RequestMethod
 {
 	/**
 	 * The GET method is used to retrieve information from the given server using a given URI. Requests using GET should only retrieve data and should have no other effect on the data.
@@ -72,7 +72,7 @@ public enum MethodType
 	 */
 	UNKNOWN;
 	
-	public static MethodType fromString(String method)
+	public static RequestMethod fromString(String method)
 	{
 		method = method.toUpperCase();
 		switch(method)

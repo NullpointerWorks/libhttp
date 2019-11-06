@@ -1,4 +1,4 @@
-package exp.nullpointerworks.http.header;
+package exp.nullpointerworks.http;
 
 import exp.nullpointerworks.http.types.ApplicationProtocol;
 import exp.nullpointerworks.http.types.StatusCode;

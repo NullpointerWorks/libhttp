@@ -12,7 +12,6 @@ import com.nullpointerworks.util.ArrayUtil;
 
 import exp.nullpointerworks.http.header.GenericHeader;
 import exp.nullpointerworks.http.header.Header;
-import exp.nullpointerworks.http.header.Protocol;
 import exp.nullpointerworks.http.types.ApplicationProtocol;
 import exp.nullpointerworks.http.types.HeaderType;
 import exp.nullpointerworks.http.types.StatusCode;

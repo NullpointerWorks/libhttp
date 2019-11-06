@@ -6,11 +6,12 @@
 package exp.nullpointerworks.http.types;
 
 /**
- * 
+ * A media type (formerly known as MIME type) is a two-part identifier for file formats and format contents transmitted on the Internet. The Internet Assigned Numbers Authority (IANA) is the official authority for the standardization and publication of these classifications. Media types were originally defined in Request for Comments 2045 in November 1996 as a part of MIME (Multipurpose Internet Mail Extensions) specification, for denoting type of email message content and attachments; hence the original name, MIME type. Media types are also used by other internet protocols such as HTTP and document file formats such as HTML, for similar purpose.
  * @since 1.0.0
  * @author Michiel Drost - Nullpointer Works
+ * @see https://en.wikipedia.org/wiki/Media_type
  */
-public enum MIMEType
+public enum MediaType
 {
 	/**
 	 * 
@@ -440,7 +441,7 @@ public enum MIMEType
 
 	private final String exts;
 	private final String type;
-	private MIMEType(String exts, String type) 
+	private MediaType(String exts, String type) 
 	{
 		this.exts = exts;
 		this.type = type;
@@ -462,17 +463,17 @@ public enum MIMEType
 	 * Returns the MIME (Multipurpose Internet Mail Extension) type associated with the given extension.
 	 * @since 1.0.0
 	 */
-	public static MIMEType fromFileExtension(String extension)
+	public static MediaType fromFileExtension(String extension)
 	{
 		extension = extension.toLowerCase();
-		MIMEType[] list = MIMEType.values();
-		for (MIMEType mt : list)
+		MediaType[] list = MediaType.values();
+		for (MediaType mt : list)
 		{
 			if (mt.getExtension().equals(extension))
 			{
 				return mt;
 			}
 		}
-		return MIMEType.BIN;
+		return MediaType.BIN;
 	}
 }
