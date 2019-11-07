@@ -97,7 +97,7 @@ public class Method
 	 * Returns the target page
 	 * @since 1.0.0
 	 */
-	public String getTargetPage()
+	public String getTargetResource()
 	{
 		return target;
 	}

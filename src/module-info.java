@@ -2,7 +2,7 @@
  * Creative Commons - Attribution, Share Alike 4.0<br>
  * Nullpointer Works (2019)<br>
  * Use of this library is subject to license terms.<br>
- * @version 0.8.0 experimental pre-release
+ * @version 0.8.2 experimental pre-release
  * @author Michiel Drost - Nullpointer Works
  */
 module libnpw.http
