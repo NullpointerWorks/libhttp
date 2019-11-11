@@ -464,6 +464,30 @@ public enum HeaderType
 	 * 
 	 * @since 1.0.0
 	 */
+	SEC_FETCH_DEST("Sec-Fetch-Dest"),
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	SEC_FETCH_MODE("Sec-Fetch-Mode"),
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	SEC_FETCH_SITE("Sec-Fetch-Site"),
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	SEC_FETCH_USER("Sec-Fetch-User"),
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
 	SEC_WEBSOCKET_ACCEPT("Sec-WebSocket-Accept"),
 	
 	/**
