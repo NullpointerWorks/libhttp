@@ -60,19 +60,29 @@ public class Method
 				for (String o : t)
 				{
 					t = o.split("=");
-					parameters.put(t[0], t[1]);
+					putParam(t[0], t[1]);
 				}
 			}
 			else
 			{
 				t = t[1].split("=");
-				parameters.put(t[0], t[1]);
+				putParam(t[0], t[1]);
 			}
 		}
 		else
 		{
 			target = pag;
 		}
+		
+		//target = RequestParser.parseEscaped(target);
+	}
+	
+	/*
+	 * 
+	 */
+	private final void putParam(String header, String data)
+	{
+		parameters.put(header, RequestParser.parseEscaped(data) );
 	}
 	
 	/**
