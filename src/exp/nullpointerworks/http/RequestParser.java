@@ -6,8 +6,11 @@
 package exp.nullpointerworks.http;
 
 import java.io.UnsupportedEncodingException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.nullpointerworks.util.ArrayUtil;
+import com.nullpointerworks.util.Convert;
 import com.nullpointerworks.util.ASCII;
 
 /**
@@ -29,24 +32,27 @@ public class RequestParser
 	}
 	
 	/**
-	 * 
+	 * Some characters are invalid URL characters. For example, 
+	 * the space character is translated to a %20. An % implies 
+	 * that the following two characters are to be interpreted 
+	 * as hexadecimal. Encoding a % character would become %25.
 	 * @since 1.0.0
 	 */
-	private static String toString(byte[] buffer, int length)
+	public static final String parseEscaped(String text) 
 	{
-		byte[] bytes = new byte[length];
-		int i=0;
-		int l=length;
-		for (;i<l;i++) bytes[i] = buffer[i];
-		// try http default byte decoding 
-		try
+		if (text==null) return null;
+		if (text.contains("%"))
 		{
-			return new String(bytes, "ISO-8859-1"); // RFC 6266 - page 11
-		} 
-		catch (UnsupportedEncodingException e) { }
-		
-		// default java encoding/decoding (probably UTF-16)
-		return new String(bytes);
+			Pattern patt = Pattern.compile("\\%[0-9a-fA-F]{2}");
+			Matcher m = patt.matcher(text);
+			while (m.find()) 
+			{
+				String match = m.group();
+				int v = Convert.parseHexToInt(match.substring(1));
+				text = text.replaceAll(match, ""+(char)v);
+			}
+		}
+		return text;
 	}
 	
 	/**
@@ -115,5 +121,25 @@ public class RequestParser
 		req.add(data);
 		
 		return req;
+	}
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	private static String toString(byte[] buffer, int length)
+	{
+		byte[] bytes = new byte[length];
+		int i=0;
+		int l=length;
+		for (;i<l;i++) bytes[i] = buffer[i];
+		
+		// try http default byte decoding 
+		try { return new String(bytes, "ISO-8859-1"); } // RFC 6266 - page 11 
+		catch (UnsupportedEncodingException e) { }
+		
+		// default java encoding/decoding (probably UTF-16)
+		var text = new String(bytes);
+		return text;
 	}
 }
