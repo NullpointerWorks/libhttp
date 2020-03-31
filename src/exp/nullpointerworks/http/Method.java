@@ -5,8 +5,12 @@
  */
 package exp.nullpointerworks.http;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import exp.nullpointerworks.http.types.ApplicationProtocol;
 import exp.nullpointerworks.http.types.RequestMethod;
@@ -119,5 +123,35 @@ public class Method
 	public String getParameter(String key)
 	{
 		return parameters.get(key);
+	}
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public List<String> getKeys()
+	{
+		var list = new ArrayList<String>();
+		Set<Entry<String, String>> entries = parameters.entrySet();
+		for (Entry<String, String> e : entries)
+		{
+			list.add(e.getKey());
+		}
+		return list;
+	}
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public List<String> getValues()
+	{
+		var list = new ArrayList<String>();
+		Set<Entry<String, String>> entries = parameters.entrySet();
+		for (Entry<String, String> e : entries)
+		{
+			list.add(e.getValue());
+		}
+		return list;
 	}
 }

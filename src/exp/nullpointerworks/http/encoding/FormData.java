@@ -6,9 +6,12 @@
 package exp.nullpointerworks.http.encoding;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.Map.Entry;
@@ -80,6 +83,36 @@ public class FormData
 			return data.get(n);
 		}
 		return "";
+	}
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public List<String> getKeys()
+	{
+		var list = new ArrayList<String>();
+		Set<Entry<String, String>> entries = data.entrySet();
+		for (Entry<String, String> e : entries)
+		{
+			list.add(e.getKey());
+		}
+		return list;
+	}
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public List<String> getValues()
+	{
+		var list = new ArrayList<String>();
+		Set<Entry<String, String>> entries = data.entrySet();
+		for (Entry<String, String> e : entries)
+		{
+			list.add(e.getValue());
+		}
+		return list;
 	}
 	
 	/**
