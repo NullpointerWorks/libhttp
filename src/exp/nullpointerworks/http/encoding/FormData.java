@@ -82,7 +82,7 @@ public class FormData
 		{
 			return data.get(n);
 		}
-		return "";
+		return null;
 	}
 	
 	/**
