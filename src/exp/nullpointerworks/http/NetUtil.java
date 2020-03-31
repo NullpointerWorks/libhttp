@@ -14,6 +14,8 @@ import java.util.regex.Pattern;
 
 import com.nullpointerworks.util.Convert;
 
+import exp.nullpointerworks.http.types.ApplicationProtocol;
+
 /**
  * 
  * @author Michiel Drost - Nullpointer Works
@@ -79,5 +81,20 @@ public class NetUtil
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * Returns a keep-alive/close string based on the request's transfer protocol.
+	 * @param o - request object
+	 * @return "keep-alive" or "close"
+	 * @since 1.0.0
+	 */
+	public static String isKeepAlive(Request o)
+	{
+		ApplicationProtocol protocol = o.getMethod().getTransferProtocol();
+		if (ApplicationProtocol.HTTP10 == protocol)
+			if (o.getConnectionHeader().isKeepAlive()) 
+				return "close";
+		return "keep-alive";
 	}
 }
