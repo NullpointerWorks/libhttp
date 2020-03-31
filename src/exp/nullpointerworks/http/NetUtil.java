@@ -72,12 +72,15 @@ public class NetUtil
 			String patternString = "([0-9]{1,3})";
 	        Pattern pattern = Pattern.compile(patternString);
 	        Matcher matcher = pattern.matcher(ip);
+	        int count = 0;
 	        while(matcher.find())
 	        {
 	        	String g = matcher.group();
 	        	int v = Convert.toInt(g);
 	        	if (v > 255) return false;
+	        	count++;
 	        }
+        	if (count != 4) return false;
 			return true;
 		}
 		return false;
