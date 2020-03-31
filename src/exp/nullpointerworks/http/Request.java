@@ -12,6 +12,7 @@ import java.util.List;
 import com.nullpointerworks.util.ArrayUtil;
 import com.nullpointerworks.util.Log;
 import com.nullpointerworks.util.StringUtil;
+import com.nullpointerworks.util.pattern.Iterator;
 
 import exp.nullpointerworks.http.encoding.FormData;
 import exp.nullpointerworks.http.header.*;
@@ -90,6 +91,15 @@ public class Request
 		return new GenericHeader("");
 	}
 	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public Iterator<Header> getHeaders()
+	{
+		return new Iterator<Header>(headers);
+	}
+	
 	// ==============================================================
 	
 	/**
@@ -106,7 +116,7 @@ public class Request
 		FormContent ctype = getContentTypeHeader().getType();
 		switch(ctype)
 		{
-		case FORM_URLENCODED:
+		case URLENCODED:
 			formd.clear();
 			
 			String text = "";
@@ -131,7 +141,12 @@ public class Request
 			}
 			
 			break;
-		case FORM_MULTIPART:
+		case TEXTPLAIN:
+			/*
+			 * TODO future implementation
+			 */
+			break;
+		case MULTIPART:
 			/*
 			 * TODO future implementation
 			 */

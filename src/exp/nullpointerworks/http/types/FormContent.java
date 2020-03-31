@@ -22,13 +22,19 @@ public enum FormContent
 	 * 
 	 * @since 1.0.0
 	 */
-	FORM_URLENCODED("application/x-www-form-urlencoded"),
+	URLENCODED("application/x-www-form-urlencoded"),
 	
 	/**
 	 * 
 	 * @since 1.0.0
 	 */
-	FORM_MULTIPART("multipart/form-data");
+	TEXTPLAIN("text/plain"),
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	MULTIPART("multipart/form-data");
 	
 	private final String type;
 	private FormContent(String type) 

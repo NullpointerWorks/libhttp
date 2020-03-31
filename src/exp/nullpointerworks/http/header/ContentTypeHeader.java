@@ -47,11 +47,14 @@ public class ContentTypeHeader implements Header
 	private void parseHeader(String line) 
 	{
 		String argument = StringUtil.strip(line, ":");
-		if ( argument.equalsIgnoreCase(FORM_URLENCODED.getString()) )
-			ctype = FORM_URLENCODED;
+		if ( argument.equalsIgnoreCase(URLENCODED.getString()) )
+			ctype = URLENCODED;
 		else
-		if ( argument.equalsIgnoreCase(FORM_MULTIPART.getString()) )
-			ctype = FORM_MULTIPART;
+		if ( argument.equalsIgnoreCase(TEXTPLAIN.getString()) )
+			ctype = TEXTPLAIN;
+		else
+		if ( argument.equalsIgnoreCase(MULTIPART.getString()) )
+			ctype = MULTIPART;
 	}
 
 	@Override

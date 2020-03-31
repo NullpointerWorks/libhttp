@@ -120,7 +120,7 @@ public class Method
 	 * Returns the value of the given parameter given through the page parameters, or {@code null} if the value is not available
 	 * @since 1.0.0
 	 */
-	public String getParameter(String key)
+	public String getQueryParameter(String key)
 	{
 		return parameters.get(key);
 	}
@@ -129,7 +129,7 @@ public class Method
 	 * 
 	 * @since 1.0.0
 	 */
-	public List<String> getKeys()
+	public List<String> getQueryKeys()
 	{
 		var list = new ArrayList<String>();
 		Set<Entry<String, String>> entries = parameters.entrySet();
@@ -144,7 +144,7 @@ public class Method
 	 * 
 	 * @since 1.0.0
 	 */
-	public List<String> getValues()
+	public List<String> getQueryValues()
 	{
 		var list = new ArrayList<String>();
 		Set<Entry<String, String>> entries = parameters.entrySet();
