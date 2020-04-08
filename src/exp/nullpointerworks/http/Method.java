@@ -64,13 +64,13 @@ public class Method
 				for (String o : t)
 				{
 					t = o.split("=");
-					putParam(t[0], t[1]);
+					putParam(t);
 				}
 			}
 			else
 			{
 				t = t[1].split("=");
-				putParam(t[0], t[1]);
+				putParam(t);
 			}
 		}
 		else
@@ -79,6 +79,17 @@ public class Method
 		}
 		
 		//target = RequestParser.parseEscaped(target);
+	}
+	
+	/*
+	 * 
+	 */
+	private final void putParam(String[] query)
+	{
+		String param0 = query[0];
+		String param1 = "";
+		if (query.length>1) param1 = query[1];
+		putParam(param0, param1);
 	}
 	
 	/*
