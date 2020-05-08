@@ -9,6 +9,9 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -84,6 +87,21 @@ public class NetUtil
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * Returns the time and date of this machine in GMT<br><br>
+	 * For example: <br>
+	 * EEE, d MMM yyyy hh:mm:ss z<br>
+	 * Tue, 11 Jun 2019 11:56:53 GMT<br>
+	 * @since 1.0.0
+	 */
+	public final String getDateTimeStamp()
+	{
+		final Date currentTime = new Date();
+		final SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM yyyy hh:mm:ss z");
+		sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+		return sdf.format(currentTime);
 	}
 	
 	/**

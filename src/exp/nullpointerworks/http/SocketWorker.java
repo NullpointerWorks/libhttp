@@ -11,6 +11,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 
+import exp.nullpointerworks.http.server.StandardWebServer;
 import exp.nullpointerworks.http.types.RequestMethod;
 
 /**
@@ -25,6 +26,8 @@ public class SocketWorker extends Thread
 	private final Socket s;
 	private final RequestListener rl;
 	private final SocketListener sl;
+	private final WebServer ss;
+	
 	private long timeout = 60_000_000_000l; // nano
 	private long timealive = 0;
 	private int read_buffer_size = 512 * 1024; // 512 KiB
@@ -35,20 +38,16 @@ public class SocketWorker extends Thread
 	 * 
 	 * @since 1.0.0
 	 */
-	public SocketWorker(Socket s, WebServer ws) throws IOException
+	public SocketWorker(Socket s, StandardWebServer ws, boolean verbose) throws IOException
  	{ 
-        is = s.getInputStream();
-        os = s.getOutputStream();
- 		this.s 		= s;
- 		this.rl		= (RequestListener)ws;
- 		this.sl 	= (SocketListener)ws;
+        this(s,ws,ws,ws,verbose);
  	}
 	
 	/**
 	 * 
 	 * @since 1.0.0
 	 */
- 	public SocketWorker(Socket s, RequestListener rl, SocketListener sl, boolean verbose) 
+ 	public SocketWorker(Socket s, RequestListener rl, SocketListener sl, WebServer ss, boolean verbose) 
  			throws IOException
  	{ 
         is = s.getInputStream();
@@ -56,6 +55,7 @@ public class SocketWorker extends Thread
  		this.s 	= s;
  		this.rl	= rl;
  		this.sl = sl;
+ 		this.ss = ss;
  		this.verbose = verbose;
  	}
  	
@@ -115,6 +115,12 @@ public class SocketWorker extends Thread
 				e.printStackTrace();
 	 			break;
 			}
+	 		
+	 		// check server state
+	 		if (!ss.isRunning())
+	 		{
+	 			break;
+	 		}
 	 		
 	 		// if we have a request
 	 		if (req != null)

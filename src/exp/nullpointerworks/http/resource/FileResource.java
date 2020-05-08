@@ -3,7 +3,7 @@
  * Nullpointer Works (2019)
  * Use is subject to license terms.
  */
-package exp.nullpointerworks.http;
+package exp.nullpointerworks.http.resource;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +15,9 @@ import java.text.SimpleDateFormat;
 
 import com.nullpointerworks.util.ArrayUtil;
 import com.nullpointerworks.util.StringUtil;
+
+import exp.nullpointerworks.http.HttpException;
+import exp.nullpointerworks.http.Resource;
 import exp.nullpointerworks.http.types.MediaType;
 
 /**
@@ -22,7 +25,7 @@ import exp.nullpointerworks.http.types.MediaType;
  * @since 1.0.0
  * @author Michiel Drost - Nullpointer Works
  */
-public class WebResource implements Resource
+public class FileResource implements Resource
 {
 	private final SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 	private final String filepath;
@@ -35,7 +38,7 @@ public class WebResource implements Resource
 	 * 
 	 * @since 1.0.0
 	 */
-	public WebResource(String path) throws HttpException, IOException
+	public FileResource(String path) throws HttpException, IOException
 	{
 		this( new File(path) );
 	}
@@ -45,7 +48,7 @@ public class WebResource implements Resource
 	 * @throws IOException 
 	 * @since 1.0.0
 	 */
-	public WebResource(File f) throws HttpException, IOException
+	public FileResource(File f) throws HttpException, IOException
 	{
 		if (!f.exists()) throw new HttpException(404);
 		
@@ -68,7 +71,7 @@ public class WebResource implements Resource
 	 * @throws IOException 
 	 * @since 1.0.0
 	 */
-	public WebResource(InputStream in, String fileName) throws IOException
+	public FileResource(InputStream in, String fileName) throws IOException
 	{
 		filepath 	= filename = fileName;
 		filelastMod = "";
