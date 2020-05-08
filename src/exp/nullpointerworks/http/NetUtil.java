@@ -96,7 +96,7 @@ public class NetUtil
 	 * Tue, 11 Jun 2019 11:56:53 GMT<br>
 	 * @since 1.0.0
 	 */
-	public final String getDateTimeStamp()
+	public static final String getDateTimeStamp()
 	{
 		final Date currentTime = new Date();
 		final SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM yyyy hh:mm:ss z");

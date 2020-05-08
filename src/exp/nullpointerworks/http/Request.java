@@ -65,6 +65,27 @@ public class Request
 	 * 
 	 * @since 1.0.0
 	 */
+	public Header findHeader(final HeaderType htype)
+	{
+		for (Header h : headers) if (h.getHeaderType() == htype) return h;
+		return new GenericHeader("");
+	}
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public Iterator<Header> getHeaders()
+	{
+		return new Iterator<Header>(headers);
+	}
+
+	// ==============================================================
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
 	public ConnectionHeader getConnectionHeader()
 	{
 		Header h = findHeader( HeaderType.CONNECTION );
@@ -79,25 +100,6 @@ public class Request
 	{
 		Header h = findHeader( HeaderType.CONTENT_TYPE );
 		return new ContentTypeHeader(h);
-	}
-	
-	/**
-	 * 
-	 * @since 1.0.0
-	 */
-	public Header findHeader(final HeaderType htype)
-	{
-		for (Header h : headers) if (h.getHeaderType() == htype) return h;
-		return new GenericHeader("");
-	}
-	
-	/**
-	 * 
-	 * @since 1.0.0
-	 */
-	public Iterator<Header> getHeaders()
-	{
-		return new Iterator<Header>(headers);
 	}
 	
 	// ==============================================================
