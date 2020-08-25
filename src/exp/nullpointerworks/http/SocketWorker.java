@@ -125,8 +125,9 @@ public class SocketWorker extends Thread
 	 		// if we have a request
 	 		if (req != null)
 	 		{
-		 		Response resp = null;
+				req.setClientSocket(this);
 		 		RequestMethod mtype = req.getMethod().getMethodType();
+		 		Response resp = null;
 	 			switch(mtype)
 	 			{
 	 			case PUT: resp = rl.onPUT(req); break;

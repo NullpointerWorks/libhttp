@@ -26,6 +26,7 @@ import exp.nullpointerworks.http.types.HeaderType;
  */
 public class Request
 {
+	private SocketWorker socket = null;
 	private FormData formd;
 	private Method method;
 	private List<Header> headers;
@@ -37,10 +38,45 @@ public class Request
 	 */
 	public Request()
 	{
+		setup();
+	}
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public Request(SocketWorker sw)
+	{
+		setup();
+		setClientSocket(sw);
+	}
+	
+	/*
+	 * @since 1.0.0
+	 */
+	private void setup()
+	{
 		method = new Method();
 		formd = new FormData();
 		data = new byte[0];
 		headers = new ArrayList<Header>();
+	}
+	
+	/*
+	 * @since 1.0.0
+	 */
+	void setClientSocket(SocketWorker socket) 
+	{
+		this.socket=socket;
+	}
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public SocketWorker getClientSocket()
+	{
+		return socket;
 	}
 	
 	/**
@@ -65,19 +101,19 @@ public class Request
 	 * 
 	 * @since 1.0.0
 	 */
-	public Header findHeader(final HeaderType htype)
+	public Iterator<Header> getHeaders()
 	{
-		for (Header h : headers) if (h.getHeaderType() == htype) return h;
-		return new GenericHeader("");
+		return new Iterator<Header>(headers);
 	}
 	
 	/**
 	 * 
 	 * @since 1.0.0
 	 */
-	public Iterator<Header> getHeaders()
+	public Header findHeader(final HeaderType htype)
 	{
-		return new Iterator<Header>(headers);
+		for (Header h : headers) if (h.getHeaderType() == htype) return h;
+		return new GenericHeader("");
 	}
 
 	// ==============================================================
