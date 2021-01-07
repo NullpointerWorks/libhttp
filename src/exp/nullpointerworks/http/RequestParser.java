@@ -59,7 +59,7 @@ public class RequestParser
 	 * 
 	 * @since 1.0.0
 	 */
-	public static Request generate(byte[] request, boolean verbose)
+	public static Request generate(byte[] request)
 	{
 		Request req = new Request();
 		byte[] buffer = new byte[read_buffer_size];
@@ -99,7 +99,6 @@ public class RequestParser
 				{
 					String line = toString(buffer,length-2); // dont include previous two characters, \r\n
 					req.add(line);
-					if (verbose) System.out.println(line);
 				}
 				
 				// reset buffer back to zero

@@ -11,7 +11,6 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 
-import exp.nullpointerworks.http.server.StandardWebServer;
 import exp.nullpointerworks.http.types.RequestMethod;
 
 /**
@@ -32,22 +31,12 @@ public class SocketWorker extends Thread
 	private long timealive = 0;
 	private int read_buffer_size = 512 * 1024; // 512 KiB
 	private Boolean isRunning = false;
-	private boolean verbose = false;
 	
 	/**
 	 * 
 	 * @since 1.0.0
 	 */
-	public SocketWorker(Socket s, StandardWebServer ws, boolean verbose) throws IOException
- 	{ 
-        this(s,ws,ws,ws,verbose);
- 	}
-	
-	/**
-	 * 
-	 * @since 1.0.0
-	 */
- 	public SocketWorker(Socket s, RequestListener rl, SocketListener sl, WebServer ss, boolean verbose) 
+ 	public SocketWorker(Socket s, RequestListener rl, SocketListener sl, WebServer ss) 
  			throws IOException
  	{ 
         is = s.getInputStream();
@@ -56,7 +45,6 @@ public class SocketWorker extends Thread
  		this.rl	= rl;
  		this.sl = sl;
  		this.ss = ss;
- 		this.verbose = verbose;
  	}
  	
  	/**
@@ -83,7 +71,7 @@ public class SocketWorker extends Thread
 		long timestart = System.nanoTime();
 		boolean ka = false;
 		
-		sl.onConnect(this);
+		sl.onSocketConnect(this);
 		
 		// check for connection data. 
 		// its rare that I can actually use a do-while loop in a useful manner
@@ -101,7 +89,7 @@ public class SocketWorker extends Thread
 	 			byte[] inp = readBytes(is);
 	 			if (inp.length > 0)
 	 			{
-					req = RequestParser.generate(inp, verbose);
+					req = RequestParser.generate(inp);
 	 			}
 			}
 	 		catch(SocketException ex)
@@ -191,7 +179,7 @@ public class SocketWorker extends Thread
 			e.printStackTrace();
 		}
      	
-		sl.onDisconnect(this);
+		sl.onSocketDisconnect(this);
  	}
 	
 	/**

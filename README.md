@@ -7,7 +7,6 @@ An experimental library for creating a web interface.
 * exports exp.nullpointerworks.http.encoding
 * exports exp.nullpointerworks.http.header
 * exports exp.nullpointerworks.http.resource
-* exports exp.nullpointerworks.http.server
 * exports exp.nullpointerworks.http.types
 	
 # http v1.0

@@ -1,11 +1,9 @@
 /*
  * Creative Commons - Attribution, Share Alike 4.0 
- * Nullpointer Works (2019)
+ * Nullpointer Works (2021)
  * Use is subject to license terms.
  */
 package exp.nullpointerworks.http;
-
-import java.io.IOException;
 
 /**
  * 
@@ -21,10 +19,11 @@ public interface WebServer
 	void setBackLog(int bl);
 	
 	/**
-	 * Allow/disallow console printing.
+	 * Set the maximum number of threads for this server.
+	 * @param max
 	 * @since 1.0.0
 	 */
-	void setVerbose(boolean b);
+	void setMaxThreads(int max);
 	
 	/**
 	 * Set the port for this webserver.
@@ -37,6 +36,20 @@ public interface WebServer
 	 * @since 1.0.0
 	 */
 	void setAddress(String ip);
+	
+	/**
+	 * 
+	 * @param sl
+	 * @since 1.0.0
+	 */
+	void addSocketListener(SocketListener sl);
+	
+	/**
+	 * 
+	 * @param sl
+	 * @since 1.0.0
+	 */
+	void removeSocketListener(SocketListener sl);
 	
 	/**
 	 * Returns the port allocated to this server.
@@ -53,11 +66,6 @@ public interface WebServer
 	String getAddress();
 	
 	/**
-	 * Returns true if the new connection is allowed. This method returns true by default. Override to implement. 
-	 * @return true if the new connection is allowed
-	 */
-	boolean allowConnection();
-	/**
 	 * 
 	 * @since 1.0.0
 	 */
@@ -67,7 +75,7 @@ public interface WebServer
 	 * Starts listening to connections.
 	 * @since 1.0.0
 	 */
-	void listen(RequestListener rl, SocketListener sl) throws IOException;
+	void start();
 	
 	/**
 	 * Stops the server from listening.
