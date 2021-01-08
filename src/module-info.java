@@ -1,13 +1,16 @@
 /**
- * Creative Commons - Attribution, Share Alike 4.0<br>
- * Nullpointer Works (2021)<br>
- * Use of this library is subject to license terms.<br>
- * @version 0.14.0 experimental pre-release
+ * Creative Commons - Attribution, Share Alike 4.0 
+ * Nullpointer Works (2021)
+ * Using this library make you subject to its license terms.
+ * 
+ * @version 0.14.0
  * @author Michiel Drost - Nullpointer Works
  */
-module libnpw.http
+module httptest
 {
 	requires transitive libnpw.util;
+	requires java.desktop;
+	
 	exports exp.nullpointerworks.http;
 	exports exp.nullpointerworks.http.encoding;
 	exports exp.nullpointerworks.http.header;

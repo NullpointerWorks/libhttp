@@ -1,7 +1,7 @@
 /*
  * Creative Commons - Attribution, Share Alike 4.0 
- * Nullpointer Works (2019)
- * Use is subject to license terms.
+ * Nullpointer Works (2021)
+ * Using this library make you subject to its license terms.
  */
 package exp.nullpointerworks.http;
 
@@ -18,13 +18,12 @@ import exp.nullpointerworks.http.types.RequestMethod;
  * @author Michiel Drost - Nullpointer Works
  * @since 1.0.0
  */
-public class SocketWorker extends Thread  
+public class WebSocketWorker implements WebSocket, Runnable
 { 
 	private final InputStream is;
 	private final OutputStream os;
 	private final Socket s;
 	private final RequestListener rl;
-	private final SocketListener sl;
 	private final WebServer ss;
 	
 	private long timeout = 60_000_000_000l; // nano
@@ -36,42 +35,40 @@ public class SocketWorker extends Thread
 	 * 
 	 * @since 1.0.0
 	 */
- 	public SocketWorker(Socket s, RequestListener rl, SocketListener sl, WebServer ss) 
- 			throws IOException
- 	{ 
+ 	public WebSocketWorker(Socket s, WebServer ss, RequestListener rl) throws IOException
+ 	{
         is = s.getInputStream();
         os = s.getOutputStream();
  		this.s 	= s;
  		this.rl	= rl;
- 		this.sl = sl;
  		this.ss = ss;
+ 		setReadBufferSize(512);
  	}
- 	
- 	/**
- 	 * Set the connection timeout in milliseconds
-	 * @since 1.0.0
- 	 */
+    
+    @Override
  	public void setTimeoutLimit(int timeout) 
  	{
  		this.timeout = timeout * 1000_000;
  	}
- 	
-	/**
-	 * Set the read data buffer
-	 * @since 1.0.0
-	 */
+    
+    @Override
 	public void setReadBufferSize(int rbs)
 	{
-		read_buffer_size = rbs;
+		read_buffer_size = rbs * 1024;
 	}
- 	
-	@Override
- 	public void run()  
+	
+ 	@Override
+ 	public void open()
  	{
-		long timestart = System.nanoTime();
+ 		Thread t = new Thread(this);
+		t.start();
+ 	}
+ 	
+ 	@Override
+ 	public void run()
+ 	{
 		boolean ka = false;
-		
-		sl.onSocketConnect(this);
+		long timestart = System.nanoTime();
 		
 		// check for connection data. 
 		// its rare that I can actually use a do-while loop in a useful manner
@@ -86,16 +83,16 @@ public class SocketWorker extends Thread
 	 		
 	 		try
 			{
-	 			byte[] inp = readBytes(is);
+	 			byte[] inp = readBytes();
 	 			if (inp.length > 0)
 	 			{
-					req = RequestParser.generate(inp);
+					req = RequestParser.generate(inp, 512);
 	 			}
 			}
 	 		catch(SocketException ex)
 	 		{
-	 			ex.printStackTrace();
 	 			// if something went wrong with the socket, break out of the loop
+	 			ex.printStackTrace();
 	 			break;
 	 		}
 	 		catch (IOException e)
@@ -178,20 +175,14 @@ public class SocketWorker extends Thread
 		{
 			e.printStackTrace();
 		}
-     	
-		sl.onSocketDisconnect(this);
  	}
-	
-	/**
-	 * Returns the byte array of the read bytes. Set the buffer size to adjust the byte stream data limit.
-	 * @throws IOException 
-	 * @since 1.0.0
-	 */
-	public final synchronized byte[] readBytes(InputStream in) throws IOException
+    
+    @Override
+	public final synchronized byte[] readBytes() throws IOException
     {
     	byte[] bytes 	= new byte[0];
     	byte[] toread 	= new byte[read_buffer_size];
-    	int allocate = in.read(toread);
+    	int allocate	= is.read(toread);
 		if (allocate>0)
 		{
 			bytes = new byte[allocate];
@@ -205,34 +196,15 @@ public class SocketWorker extends Thread
 		return bytes;
     }
 	
-	/**
-	 * Returns true if the worker is still processing IO streams
-	 * @since 1.0.0
-	 */
-	public boolean isRunning()
-	{
-		synchronized(isRunning)
-		{
-			return isRunning;
-		}
-	}
-    
-	/**
-	 * @throws IOException 
-	 * @since 1.0.0
-	 */
+    @Override
     public final synchronized void sendBytes(byte[] msg) throws IOException
     {
 		os.write(msg);
     	os.flush();
     }
     
- 	/**
- 	 * Closes all I/O streams.
- 	 * @throws IOException 
-	 * @since 1.0.0
- 	 */
- 	private final synchronized void close() throws IOException
+    @Override
+    public final synchronized void close() throws IOException
  	{
  		is.close();
  		os.close();

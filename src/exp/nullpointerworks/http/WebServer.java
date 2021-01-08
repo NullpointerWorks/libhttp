@@ -29,27 +29,13 @@ public interface WebServer
 	 * Set the port for this webserver.
 	 * @since 1.0.0
 	 */
-	void setPort(int port);
+	void setPort(short port);
 	
 	/**
 	 * Set the IP v4 address for this webserver to connect to.
 	 * @since 1.0.0
 	 */
 	void setAddress(String ip);
-	
-	/**
-	 * 
-	 * @param sl
-	 * @since 1.0.0
-	 */
-	void addSocketListener(SocketListener sl);
-	
-	/**
-	 * 
-	 * @param sl
-	 * @since 1.0.0
-	 */
-	void removeSocketListener(SocketListener sl);
 	
 	/**
 	 * Returns the port allocated to this server.
@@ -64,6 +50,12 @@ public interface WebServer
 	 * @since 1.0.0
 	 */
 	String getAddress();
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	void onSocketCreation(WebSocket ws);
 	
 	/**
 	 * 

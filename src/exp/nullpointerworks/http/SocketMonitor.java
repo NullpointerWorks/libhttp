@@ -10,17 +10,17 @@ package exp.nullpointerworks.http;
  * @since 1.0.0
  * @author Michiel Drost - Nullpointer Works
  */
-public interface SocketListener
+public interface SocketMonitor
 {
 	/**
 	 * Notify all listeners when a client has connected
 	 * @since 1.0.0
 	 */
-	public void onSocketConnect(SocketWorker sw);
+	public void onSocketConnect(WebSocketWorker sw);
 	
 	/**
 	 * Notify all listeners when a client has disconnected
 	 * @since 1.0.0
 	 */
-	public void onSocketDisconnect(SocketWorker sw);
+	public void onSocketDisconnect(WebSocketWorker sw);
 }

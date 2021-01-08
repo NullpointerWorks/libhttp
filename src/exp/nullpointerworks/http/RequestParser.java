@@ -1,7 +1,7 @@
 /*
  * Creative Commons - Attribution, Share Alike 4.0 
- * Nullpointer Works (2019)
- * Use is subject to license terms.
+ * Nullpointer Works (2021)
+ * Using this library make you subject to its license terms.
  */
 package exp.nullpointerworks.http;
 
@@ -20,17 +20,6 @@ import com.nullpointerworks.util.ASCII;
  */
 public class RequestParser
 {
-	private static int read_buffer_size = 512;
-	
-	/**
-	 * Set the read data buffer
-	 * @since 1.0.0
-	 */
-	public static void setReadBufferSize(int rbs)
-	{
-		read_buffer_size = rbs;
-	}
-	
 	/**
 	 * Some characters are invalid URL characters. For example, 
 	 * the space character is translated to a %20. An % implies 
@@ -59,10 +48,10 @@ public class RequestParser
 	 * 
 	 * @since 1.0.0
 	 */
-	public static Request generate(byte[] request)
+	public static Request generate(byte[] request, int buffer_size)
 	{
 		Request req = new Request();
-		byte[] buffer = new byte[read_buffer_size];
+		byte[] buffer = new byte[buffer_size];
 		byte[] data = new byte[0];
         int length = 0;
         byte p, c=0;
@@ -78,7 +67,7 @@ public class RequestParser
 			
 			// buffer overflow
 			// probably indicated by fetch() limit of 65536 bytes (64 KiB)
-			if (length >= read_buffer_size)
+			if (length >= buffer_size)
 			{
 				data = ArrayUtil.concatenate(data, buffer);
 				break;

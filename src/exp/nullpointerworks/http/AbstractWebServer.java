@@ -1,7 +1,7 @@
 /*
  * Creative Commons - Attribution, Share Alike 4.0 
  * Nullpointer Works (2021)
- * Use is subject to license terms.
+ * Using this library make you subject to its license terms.
  */
 package exp.nullpointerworks.http;
 
@@ -11,8 +11,6 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.List;
-import java.util.Vector;
 
 import com.nullpointerworks.util.concurrency.Counter;
 
@@ -21,7 +19,7 @@ import com.nullpointerworks.util.concurrency.Counter;
  * @author Michiel Drost - Nullpointer Works
  * @since 1.0.0
  */
-public abstract class AbstractWebServer implements WebServer, RequestListener, SocketListener
+public abstract class AbstractWebServer implements WebServer, RequestListener
 {
 	/**
 	 * Default TCP-IP port for web servers is assumed to be 80.
@@ -41,11 +39,8 @@ public abstract class AbstractWebServer implements WebServer, RequestListener, S
 	private Counter count;
 	private Thread serverThread;
 	
-	private List<SocketListener> socketListeners;
-	
 	public AbstractWebServer()
 	{
-		socketListeners = new Vector<SocketListener>();
 		maxThreads = 265;
 		count = new Counter();
 	}
@@ -63,9 +58,9 @@ public abstract class AbstractWebServer implements WebServer, RequestListener, S
 	}
 	
 	@Override
-	public void setPort(int port) 
+	public void setPort(short port) 
 	{
-		this.port = (short)(port & 0x0000FFFF);
+		this.port = port;
 	}
 	
 	@Override
@@ -79,24 +74,6 @@ public abstract class AbstractWebServer implements WebServer, RequestListener, S
 		} 
 		catch (UnknownHostException e) 
 		{ }
-	}
-	
-	@Override
-	public void addSocketListener(SocketListener sl)
-	{
-		if (!socketListeners.contains(sl))
-		{
-			socketListeners.add(sl);
-		}
-	}
-
-	@Override
-	public void removeSocketListener(SocketListener sl)
-	{
-		if (socketListeners.contains(sl))
-		{
-			socketListeners.remove(sl);
-		}
 	}
 	
 	@Override
@@ -119,6 +96,12 @@ public abstract class AbstractWebServer implements WebServer, RequestListener, S
 	public String getAddress() 
 	{
 		return addr.getHostAddress();
+	}
+
+	@Override
+	public void onSocketCreation(WebSocket ws)
+	{
+		
 	}
 	
 	@Override
@@ -151,28 +134,6 @@ public abstract class AbstractWebServer implements WebServer, RequestListener, S
 		catch (IOException e) 
 		{
 			e.printStackTrace();
-		}
-	}
-	
-	/*
-	 * =========================================================
-	 */
-	
-	@Override
-	public void onSocketConnect(SocketWorker sw)
-	{
-		for (SocketListener sl : socketListeners)
-		{
-			sl.onSocketConnect(sw);
-		}
-	}
-	
-	@Override
-	public void onSocketDisconnect(SocketWorker sw)
-	{
-		for (SocketListener sl : socketListeners)
-		{
-			sl.onSocketDisconnect(sw);
 		}
 	}
 	
@@ -224,9 +185,10 @@ public abstract class AbstractWebServer implements WebServer, RequestListener, S
 	            {
 	            	try
 					{
-						SocketWorker sw = new SocketWorker(s, this, this, this);
-						sw.start();
-					} 
+	            		WebSocket ws = new WebSocketWorker(s, this, this);
+						onSocketCreation(ws);
+						ws.open();
+					}
 					catch (IOException e)
 					{
 						e.printStackTrace();
@@ -254,7 +216,7 @@ public abstract class AbstractWebServer implements WebServer, RequestListener, S
 			return;
 		}
 	}
-	
+
 	private final void close() throws IOException
  	{
 		if (ss==null) return;

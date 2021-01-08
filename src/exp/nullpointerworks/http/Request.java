@@ -1,7 +1,7 @@
 /*
  * Creative Commons - Attribution, Share Alike 4.0 
- * Nullpointer Works (2019)
- * Use is subject to license terms.
+ * Nullpointer Works (2021)
+ * Using this library make you subject to its license terms.
  */
 package exp.nullpointerworks.http;
 
@@ -26,7 +26,7 @@ import exp.nullpointerworks.http.types.HeaderType;
  */
 public class Request
 {
-	private SocketWorker socket = null;
+	private WebSocket socket = null;
 	private FormData formd;
 	private Method method;
 	private List<Header> headers;
@@ -45,7 +45,7 @@ public class Request
 	 * 
 	 * @since 1.0.0
 	 */
-	public Request(SocketWorker sw)
+	public Request(WebSocket sw)
 	{
 		setup();
 		setClientSocket(sw);
@@ -65,7 +65,7 @@ public class Request
 	/*
 	 * @since 1.0.0
 	 */
-	void setClientSocket(SocketWorker socket) 
+	void setClientSocket(WebSocket socket) 
 	{
 		this.socket=socket;
 	}
@@ -74,7 +74,7 @@ public class Request
 	 * 
 	 * @since 1.0.0
 	 */
-	public SocketWorker getClientSocket()
+	public WebSocket getClientSocket()
 	{
 		return socket;
 	}
@@ -179,15 +179,17 @@ public class Request
 			}
 			
 			break;
-		case TEXTPLAIN:
-			/*
-			 * TODO future implementation
-			 */
-			break;
 		case MULTIPART:
-			/*
-			 * TODO future implementation
-			 */
+			Log.out("--- multipart");
+			
+			for (byte b : data)
+			{
+				System.out.print( (char)b );
+			}
+			
+			
+			break;
+		case TEXTPLAIN: // TODO future implementation
 			break;
 		default: 
 			break;

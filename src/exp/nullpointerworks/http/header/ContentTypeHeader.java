@@ -46,6 +46,18 @@ public class ContentTypeHeader implements Header
 	
 	private void parseHeader(String line) 
 	{
+		String[] tokens = line.split(";");
+		setType(tokens[0].trim());
+		
+		int l = tokens.length;
+		for (int i=1; i<l; i++)
+		{
+			String token = tokens[i].trim();
+		}
+	}
+	
+	private void setType(String line)
+	{
 		String argument = StringUtil.strip(line, ":");
 		if ( argument.equalsIgnoreCase(URLENCODED.getString()) )
 			ctype = URLENCODED;
