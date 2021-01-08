@@ -11,6 +11,9 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 
+import exp.nullpointerworks.http.header.ConnectionHeader;
+import exp.nullpointerworks.http.header.Header;
+import exp.nullpointerworks.http.types.HeaderType;
 import exp.nullpointerworks.http.types.RequestMethod;
 
 /**
@@ -86,7 +89,7 @@ public class WebSocketWorker implements WebSocket, Runnable
 	 			byte[] inp = readBytes();
 	 			if (inp.length > 0)
 	 			{
-					req = RequestParser.generate(inp, 512);
+					req = RequestParser.generate(inp);
 	 			}
 			}
 	 		catch(SocketException ex)
@@ -141,7 +144,9 @@ public class WebSocketWorker implements WebSocket, Runnable
 		 		}
 		 		
 		 		// check if we keep the connection alive
-		 		ka = req.getConnectionHeader().isKeepAlive();
+		 		Header h = req.findHeader( HeaderType.CONNECTION );
+				ConnectionHeader ch = new ConnectionHeader(h);
+		 		ka = ch.isKeepAlive();
 	 		}
 	 		else
 	 		{

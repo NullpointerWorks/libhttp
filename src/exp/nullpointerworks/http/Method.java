@@ -24,6 +24,7 @@ import static exp.nullpointerworks.http.types.RequestMethod.*;
  */
 public class Method
 {
+	private String methodString = "";
 	private RequestMethod method = UNKNOWN;
 	private ApplicationProtocol protocol = ApplicationProtocol.HTTP10;
 	private String target 	= "/";
@@ -42,8 +43,19 @@ public class Method
 	 * 
 	 * @since 1.0.0
 	 */
+	public String getString()
+	{
+		return methodString;
+	}
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
 	public void set(String m)
 	{
+		methodString = m;
+		
 		String[] t = m.split(" ");
 		String met = t[0];
 		String pag = t[1];

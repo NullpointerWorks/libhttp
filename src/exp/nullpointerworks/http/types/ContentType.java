@@ -10,7 +10,7 @@ package exp.nullpointerworks.http.types;
  * @since 1.0.0
  * @author Michiel Drost - Nullpointer Works
  */
-public enum FormContent
+public enum ContentType
 {
 	/**
 	 * 
@@ -37,7 +37,7 @@ public enum FormContent
 	MULTIPART("multipart/form-data");
 	
 	private final String type;
-	private FormContent(String type) 
+	private ContentType(String type) 
 	{
 		this.type=type;
 	}

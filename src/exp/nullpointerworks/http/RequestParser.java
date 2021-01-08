@@ -9,7 +9,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.nullpointerworks.util.ArrayUtil;
 import com.nullpointerworks.util.Convert;
 import com.nullpointerworks.util.ASCII;
 
@@ -48,37 +47,35 @@ public class RequestParser
 	 * 
 	 * @since 1.0.0
 	 */
-	public static Request generate(byte[] request, int buffer_size)
+	public static Request generate(byte[] request)
 	{
-		Request req = new Request();
-		byte[] buffer = new byte[buffer_size];
-		byte[] data = new byte[0];
-        int length = 0;
-        byte p, c=0;
-		int i=0, l=request.length;
+		Request req 		= new Request();
+		req.setRawRequestData(request);
+		
+		int buffer_size 	= request.length;
+		byte[] buffer 		= new byte[buffer_size];
+        int length 			= 0;
+        
+        byte p, c=0; // previous and currently read byte
+		int i=0; // incrementor through the request data
 		
 		// first we read bytes as text to understand the http request
-		while (i<l)
+		while (i<buffer_size)
 		{
 			// get next byte
 			p = c;
 			c = request[i];
 			i++;
 			
-			// buffer overflow
-			// probably indicated by fetch() limit of 65536 bytes (64 KiB)
-			if (length >= buffer_size)
-			{
-				data = ArrayUtil.concatenate(data, buffer);
-				break;
-			}
-			
+			/*
+			 * records a line from the request data until \r\n has been detected.
+			 */
 			buffer[length] = c;
 			length++;
 			
-			// detect '\r\n'
-			if (c == ASCII.LF) // line feed
+			// detect \r\n
 			if (p == ASCII.CR) // carriage return
+			if (c == ASCII.LF) // line feed
 			{
 				// empty line mark, break loop, prepare for data
 				if (length == 2) break;
@@ -86,7 +83,7 @@ public class RequestParser
 				// if larger than two, we have a line to parse
 				if (length > 2)
 				{
-					String line = toString(buffer,length-2); // dont include previous two characters, \r\n
+					String line = toString(buffer,length-2); // don't include previous two characters \r\n
 					req.add(line);
 				}
 				
@@ -95,12 +92,13 @@ public class RequestParser
 			}
 		}
 		
-		// get http body byte data
+		/*
+		 * parse the remainder of the request data as bytes
+		 */
 		length = 0;
-		data = new byte[l-i];
-		while (i<l)
+		byte[] data = new byte[buffer_size-i];
+		while (i<buffer_size)
 		{
-			p = c;
 			c = request[i];
 			i++;
 			data[length] = c;

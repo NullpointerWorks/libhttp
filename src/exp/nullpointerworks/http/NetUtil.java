@@ -17,7 +17,10 @@ import java.util.regex.Pattern;
 
 import com.nullpointerworks.util.Convert;
 
+import exp.nullpointerworks.http.header.ConnectionHeader;
+import exp.nullpointerworks.http.header.Header;
 import exp.nullpointerworks.http.types.ApplicationProtocol;
+import exp.nullpointerworks.http.types.HeaderType;
 
 /**
  * 
@@ -114,8 +117,12 @@ public class NetUtil
 	{
 		ApplicationProtocol protocol = o.getMethod().getTransferProtocol();
 		if (ApplicationProtocol.HTTP10 == protocol)
-			if (o.getConnectionHeader().isKeepAlive()) 
+		{
+			Header h = o.findHeader( HeaderType.CONNECTION );
+			ConnectionHeader ka = new ConnectionHeader(h);
+			if (ka.isKeepAlive()) 
 				return "close";
+		}
 		return "keep-alive";
 	}
 }

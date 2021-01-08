@@ -28,6 +28,19 @@ public class ConnectionHeader implements Header
 		if (!raw.isNull()) parseHeader(raw.getString());
 	}
 	
+	private void parseHeader(String line) 
+	{
+		String argument = StringUtil.strip(line, ":");
+		
+		keepAlive = false;
+		if (argument.equalsIgnoreCase("keep-alive"))
+		{
+			keepAlive = true;
+		}
+		
+		isNull = false;
+	}
+	
 	@Override
 	public HeaderType getHeaderType() 
 	{
@@ -44,19 +57,6 @@ public class ConnectionHeader implements Header
 	public String getData() 
 	{
 		return (keepAlive)?"keep-alive":"close";
-	}
-	
-	private void parseHeader(String line) 
-	{
-		String argument = StringUtil.strip(line, ":");
-		
-		keepAlive = false;
-		if (argument.equalsIgnoreCase("keep-alive"))
-		{
-			keepAlive = true;
-		}
-		
-		isNull = false;
 	}
 	
 	@Override

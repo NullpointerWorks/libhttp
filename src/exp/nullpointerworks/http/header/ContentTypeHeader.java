@@ -5,11 +5,11 @@
  */
 package exp.nullpointerworks.http.header;
 
-import static exp.nullpointerworks.http.types.FormContent.*;
+import static exp.nullpointerworks.http.types.ContentType.*;
 
 import com.nullpointerworks.util.StringUtil;
 
-import exp.nullpointerworks.http.types.FormContent;
+import exp.nullpointerworks.http.types.ContentType;
 import exp.nullpointerworks.http.types.HeaderType;
 
 /**
@@ -19,29 +19,13 @@ import exp.nullpointerworks.http.types.HeaderType;
  */
 public class ContentTypeHeader implements Header
 {
-	private FormContent ctype = FormContent.NULL;
+	private ContentType ctype = ContentType.NULL;
+	private String boundary;
 	
 	public ContentTypeHeader(Header raw)
 	{
+		boundary = "";
 		if (!raw.isNull()) parseHeader(raw.getString());
-	}
-	
-	@Override
-	public HeaderType getHeaderType() 
-	{
-		return HeaderType.CONTENT_TYPE;
-	}
-
-	@Override
-	public String getName() 
-	{
-		return "Content-Type";
-	}
-
-	@Override
-	public String getData() 
-	{
-		return ctype.getString();
 	}
 	
 	private void parseHeader(String line) 
@@ -53,6 +37,10 @@ public class ContentTypeHeader implements Header
 		for (int i=1; i<l; i++)
 		{
 			String token = tokens[i].trim();
+			if (token.startsWith("boundary="))
+			{
+				boundary = token.substring(9);
+			}
 		}
 	}
 	
@@ -68,15 +56,42 @@ public class ContentTypeHeader implements Header
 		if ( argument.equalsIgnoreCase(MULTIPART.getString()) )
 			ctype = MULTIPART;
 	}
-
+	
+	/*
+	 * ======================================================
+	 */
+	
+	@Override
+	public HeaderType getHeaderType() 
+	{
+		return HeaderType.CONTENT_TYPE;
+	}
+	
+	@Override
+	public String getName() 
+	{
+		return "Content-Type";
+	}
+	
+	@Override
+	public String getData() 
+	{
+		return ctype.getString();
+	}
+	
 	@Override
 	public boolean isNull() 
 	{
 		return ctype == NULL;
 	}
-
-	public FormContent getType()
+	
+	public ContentType getType()
 	{
 		return ctype;
+	}
+	
+	public String getBoundary()
+	{
+		return boundary;
 	}
 }
