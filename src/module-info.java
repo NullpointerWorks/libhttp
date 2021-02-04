@@ -6,7 +6,7 @@
  * @version 0.14.0
  * @author Michiel Drost - Nullpointer Works
  */
-module httptest
+module libnpw.http
 {
 	requires transitive libnpw.util;
 	requires java.desktop;
