@@ -1,70 +1,35 @@
-/*
- * Creative Commons - Attribution, Share Alike 4.0 
- * Nullpointer Works (2019)
- * Use is subject to license terms.
- */
 package exp.nullpointerworks.http.header;
 
-import com.nullpointerworks.util.StringUtil;
+import exp.nullpointerworks.http.Header;
 
-import exp.nullpointerworks.http.types.HeaderType;
-
-/**
- * HTTP headers allow the client and the server to pass additional information with the request or the response. An HTTP header consists of its case-insensitive name followed by a colon ':', then by its value (without line breaks). Leading white space before the value is ignored.
- * @author Michiel Drost - Nullpointer Works
- * @since 1.0.0
- */
-public class GenericHeader implements Header
+public final class GenericHeader implements Header
 {
-	private final HeaderType htype;
-	private final String full;
-	private final String header;
-	private final String arguments;
+	private final boolean isValid;
+	private final String hname;
+	private final String hdata;
 	
-	/**
-	 * 
-	 * @since 1.0.0
-	 */
-	public GenericHeader(String line)
+	public GenericHeader(String n, String d)
 	{
-		full = line;
-		
-		if (!line.contains(":"))
-		{
-			header = arguments = "";
-			htype = HeaderType.NULL;
-			return;
-		}
-		
-		header = StringUtil.scan(line, ":").toLowerCase();
-		arguments = StringUtil.strip(line, ":");
-		htype = HeaderType.fromString(header);
-	}
-	
-	/**
-	 * 
-	 * @since 1.0.0
-	 */
-	public GenericHeader(HeaderType htype, String arguments) 
-	{
-		this.htype = htype;
-		this.arguments = arguments;
-		header = htype.getString();
-		full = header+": "+arguments;
+		hname = n;
+		hdata = d;
+		isValid = true;
 	}
 	
 	@Override
-	public String getName() {return header;}
+	public boolean isValid()
+	{
+		return isValid;
+	}
 	
 	@Override
-	public String getData() {return arguments;}
+	public String getName()
+	{
+		return hname;
+	}
 	
 	@Override
-	public String getString() {return full;}
-	
-	@Override
-	public HeaderType getHeaderType() {return htype;}
-
-	@Override
-	public boolean isNull() {return htype == HeaderType.NULL;}
+	public String getData()
+	{
+		return hdata;
+	}
 }

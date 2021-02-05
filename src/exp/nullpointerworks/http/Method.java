@@ -1,180 +1,87 @@
-/*
- * Creative Commons - Attribution, Share Alike 4.0 
- * Nullpointer Works (2019)
- * Use is subject to license terms.
- */
 package exp.nullpointerworks.http;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import exp.nullpointerworks.http.types.ApplicationProtocol;
-import exp.nullpointerworks.http.types.RequestMethod;
-
-import static exp.nullpointerworks.http.types.RequestMethod.*;
-
-/**
- * 
- * @author Michiel Drost - Nullpointer Works
- * @since 1.0.0
- */
-public class Method
+public enum Method
 {
-	private String methodString = "";
-	private RequestMethod method = UNKNOWN;
-	private ApplicationProtocol protocol = ApplicationProtocol.HTTP10;
-	private String target 	= "/";
-	private Map<String,String> parameters;
+	/**
+	 * The GET method is used to retrieve information from the given server using a given URI. Requests using GET should only retrieve data and should have no other effect on the data.
+	 * @since 1.0.0
+	 */
+	GET,
+	
+	/**
+	 * A POST request is used to send data to the server, for example, customer information, file upload, etc. using HTML forms.
+	 * @since 1.0.0
+	 */
+	POST,
+	
+	/**
+	 * Replaces all current representations of the target resource with the uploaded content.
+	 * @since 1.0.0
+	 */
+	PUT,
+	
+	/**
+	 * Same as GET, but transfers the status line and header section only.
+	 * @since 1.0.0
+	 */
+	HEAD,
+	
+	/**
+	 * Performs a message loop-back test along the path to the target resource.
+	 * @since 1.0.0
+	 */
+	TRACE,
+	
+	/**
+	 * Removes all current representations of the target resource given by a URI.
+	 * @since 1.0.0
+	 */
+	DELETE,
+	
+	/**
+	 * Establishes a tunnel to the server identified by a given URI.
+	 * @since 1.0.0
+	 */
+	CONNECT,
+	
+	/**
+	 * The HTTP PATCH request method applies partial modifications to a resource.
+	 * @since 1.0.0
+	 */
+	PATCH,
+	
+	/**
+	 * Describes the communication options for the target resource.
+	 * @since 1.0.0
+	 */
+	OPTIONS,
 	
 	/**
 	 * 
 	 * @since 1.0.0
 	 */
-	public Method()
-	{
-		parameters = new HashMap<String,String>();
-	}
+	UNKNOWN;
 	
 	/**
 	 * 
+	 * @return
 	 * @since 1.0.0
 	 */
-	public String getString()
+	public static Method fromString(String method)
 	{
-		return methodString;
-	}
-	
-	/**
-	 * 
-	 * @since 1.0.0
-	 */
-	public void set(String m)
-	{
-		methodString = m;
-		
-		String[] t = m.split(" ");
-		String met = t[0];
-		String pag = t[1];
-		
-		protocol = ApplicationProtocol.fromString(t[2]);
-		method = RequestMethod.fromString(met);
-		
-		// get page with options, if any..
-		if (pag.contains("?"))
+		method = method.toUpperCase();
+		switch(method)
 		{
-			t = pag.split("\\?");
-			target = t[0];
-			
-			// if it has multiple..
-			if (t[1].contains("&"))
-			{
-				t = t[1].split("\\&");
-				for (String o : t)
-				{
-					t = o.split("=");
-					putParam(t);
-				}
-			}
-			else
-			{
-				t = t[1].split("=");
-				putParam(t);
-			}
+		case "GET": return GET;
+		case "HEAD": return HEAD;
+		case "POST": return POST;
+		case "TRACE": return TRACE;
+		case "PUT": return PUT;
+		case "DELETE": return DELETE;
+		case "CONNECT": return CONNECT;
+		case "PATCH": return PATCH;
+		case "OPTIONS": return OPTIONS;
+		default: return UNKNOWN;
 		}
-		else
-		{
-			target = pag;
-		}
-		
-		//target = RequestParser.parseEscaped(target);
-	}
-	
-	/*
-	 * 
-	 */
-	private final void putParam(String[] query)
-	{
-		String param0 = query[0];
-		String param1 = "";
-		if (query.length>1) param1 = query[1];
-		putParam(param0, param1);
-	}
-	
-	/*
-	 * 
-	 */
-	private final void putParam(String header, String data)
-	{
-		parameters.put(header, RequestParser.parseEscaped(data) );
-	}
-	
-	/**
-	 * Returns the integer method code
-	 * @since 1.0.0
-	 */
-	public RequestMethod getMethodType()
-	{
-		return method;
-	}
-	
-	/**
-	 * Returns the transfer protocol used for this connection
-	 * @since 1.0.0
-	 */
-	public ApplicationProtocol getTransferProtocol()
-	{
-		return protocol;
-	}
-	
-	/**
-	 * Returns the target page
-	 * @since 1.0.0
-	 */
-	public String getTargetResource()
-	{
-		return target;
-	}
-	
-	/**
-	 * Returns the value of the given parameter given through the page parameters, or {@code null} if the value is not available
-	 * @since 1.0.0
-	 */
-	public String getQueryParameter(String key)
-	{
-		return parameters.get(key);
-	}
-	
-	/**
-	 * 
-	 * @since 1.0.0
-	 */
-	public List<String> getQueryKeys()
-	{
-		var list = new ArrayList<String>();
-		Set<Entry<String, String>> entries = parameters.entrySet();
-		for (Entry<String, String> e : entries)
-		{
-			list.add(e.getKey());
-		}
-		return list;
-	}
-	
-	/**
-	 * 
-	 * @since 1.0.0
-	 */
-	public List<String> getQueryValues()
-	{
-		var list = new ArrayList<String>();
-		Set<Entry<String, String>> entries = parameters.entrySet();
-		for (Entry<String, String> e : entries)
-		{
-			list.add(e.getValue());
-		}
-		return list;
 	}
 }

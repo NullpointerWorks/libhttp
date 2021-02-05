@@ -1,44 +1,47 @@
 package exp.nullpointerworks.http.resource;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import com.nullpointerworks.util.FileUtil;
-
 import exp.nullpointerworks.http.Resource;
-import exp.nullpointerworks.http.types.MediaType;
 
+/**
+ * 
+ * @author Michiel
+ */
 public class GenericResource implements Resource
 {
-	private String filepath = "<dynamically generated>/";
-	private String filename = "";
-	private String filelastMod = "";
-	private MediaType fileMIME = MediaType.NULL;
-	private byte[] filebytes = {};
-	private boolean isloaded = false;
+	private final String fileName;
+	private byte[] rawdata;
+	private int length = 0;
 	
-	public GenericResource(String fname)
+	public GenericResource(String fname, String content)
 	{
-		filename = fname;
-		var filetype = FileUtil.getFileExtension(fname);
-		fileMIME = MediaType.fromFileExtension(filetype);
-		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-		filelastMod = sdf.format( new Date() );
+		fileName = fname;
+		copy( content.getBytes() );
 	}
 	
-	public void setData(byte[] data)
+	@Override
+	public int getLength()
 	{
-		filebytes = data;
-		isloaded = true;
+		return length;
 	}
 	
-	@Override public String toString() {return "FILE "+getName()+" - MIME "+getMediaType().getString();}
-	@Override public boolean isNull() {return !isloaded;}
-	@Override public String getName() {return filename;}
-	@Override public String getLastModified() {return filelastMod;}
-	@Override public String getPath() {return filepath;}
-	@Override public String getExtension() {return fileMIME.getExtension();}
-	@Override public MediaType getMediaType() {return fileMIME;}
-	@Override public int getLength() {return filebytes.length;}
-	@Override public byte[] getBytes() {return filebytes;}
+	@Override
+	public byte[] getBytes()
+	{
+		return rawdata;
+	}
+	
+	@Override
+	public String getName()
+	{
+		return fileName;
+	}
+	
+	private void copy(byte[] bytes)
+	{
+		int i = 0;
+		length = bytes.length;
+		rawdata = new byte[length];
+		for (;i<length;i++) 
+			rawdata[i] = bytes[i];
+	}
 }

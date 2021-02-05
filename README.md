@@ -2,12 +2,13 @@
 An experimental library for creating a web interface. 
 
 # module
-* requires transitive libnpw.util
-* exports exp.nullpointerworks.http
-* exports exp.nullpointerworks.http.encoding
+* exports exp.nullpointerworks.http;
 * exports exp.nullpointerworks.http.header
+* exports exp.nullpointerworks.http.request
 * exports exp.nullpointerworks.http.resource
-* exports exp.nullpointerworks.http.types
+* exports exp.nullpointerworks.http.response
+* exports exp.nullpointerworks.http.service
+* exports exp.nullpointerworks.http.util
 	
-# http v1.0
-* util 1.0.x
+# http v0.12
+* npw independent

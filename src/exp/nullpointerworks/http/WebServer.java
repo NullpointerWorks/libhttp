@@ -26,10 +26,17 @@ public interface WebServer
 	void setMaxThreads(int max);
 	
 	/**
+	 * 
+	 * @param milies
+	 * @since 1.0.0
+	 */
+	void setSocketTimeout(int milies);
+	
+	/**
 	 * Set the port for this webserver.
 	 * @since 1.0.0
 	 */
-	void setPort(short port);
+	void setPort(int port);
 	
 	/**
 	 * Set the IP v4 address for this webserver to connect to.
@@ -50,12 +57,6 @@ public interface WebServer
 	 * @since 1.0.0
 	 */
 	String getAddress();
-	
-	/**
-	 * 
-	 * @since 1.0.0
-	 */
-	void onSocketCreation(WebSocket ws);
 	
 	/**
 	 * 

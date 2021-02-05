@@ -1,9 +1,9 @@
 /*
  * Creative Commons - Attribution, Share Alike 4.0 
- * Nullpointer Works (2019)
+ * Nullpointer Works (2021)
  * Use is subject to license terms.
  */
-package exp.nullpointerworks.http.types;
+package exp.nullpointerworks.http;
 
 /**
  * 
@@ -28,7 +28,7 @@ public enum StatusCode
 	 * the request or ignore it if it is already finished.
 	 * @since 1.0.0
 	 */
-	_100(100, "Continue"),
+	STATUS_100(100, "Continue"),
 	
 	/**
 	 * 101 Switching Protocol<br><br>
@@ -36,7 +36,7 @@ public enum StatusCode
 	 * the server is switching too.
 	 * @since 1.0.0
 	 */
-	_101(101, "Switching Protocol"),
+	STATUS_101(101, "Switching Protocol"),
 
 	/**
 	 * 102 Processing (WebDAV)<br><br>
@@ -44,7 +44,7 @@ public enum StatusCode
 	 * available yet.
 	 * @since 1.0.0
 	 */
-	_102(102, "Processing (WebDAV)"),
+	STATUS_102(102, "Processing (WebDAV)"),
 	
 	/*
 	 * Successful responses
@@ -59,7 +59,7 @@ public enum StatusCode
 	 * TRACE: The message body contains the request message as received by the server<br>
 	 * @since 1.0.0
 	 */
-	_200(200, "OK"),
+	STATUS_200(200, "OK"),
 	
 	/**
 	 * 201 Created<br><br>
@@ -67,7 +67,7 @@ public enum StatusCode
 	 * response sent after a PUT request.
 	 * @since 1.0.0
 	 */
-	_201(201, "Created"),
+	STATUS_201(201, "Created"),
 	
 	/**
 	 * 202 Accepted<br><br>
@@ -76,7 +76,7 @@ public enum StatusCode
 	 * intended for cases where another process or server handles the request, or for batch processing.
 	 * @since 1.0.0
 	 */
-	_202(202, "Accepted"),
+	STATUS_202(202, "Accepted"),
 	
 	/**
 	 * 203 Non-Authoritative Information<br><br>
@@ -85,7 +85,7 @@ public enum StatusCode
 	 * be preferred instead of this response.
 	 * @since 1.0.0
 	 */
-	_203(203, "Non-Authoritative Information"),
+	STATUS_203(203, "Non-Authoritative Information"),
 	
 	/**
 	 * 204 No Content<br><br>
@@ -93,7 +93,7 @@ public enum StatusCode
 	 * its cached headers for this resource with the new ones.
 	 * @since 1.0.0
 	 */
-	_204(204, "No Content"),
+	STATUS_204(204, "No Content"),
 	
 	/**
 	 * 205 Reset Content<br><br>
@@ -101,7 +101,7 @@ public enum StatusCode
 	 * this request.
 	 * @since 1.0.0
 	 */
-	_205(205, "Reset Content"),
+	STATUS_205(205, "Reset Content"),
 	
 	/**
 	 * 206 Partial Content<br><br>
@@ -109,7 +109,7 @@ public enum StatusCode
 	 * streams.
 	 * @since 1.0.0
 	 */
-	_206(206, "Partial Content"),
+	STATUS_206(206, "Partial Content"),
 	
 	/**
 	 * 207 Multi-Status (WebDAV)<br><br>
@@ -117,7 +117,7 @@ public enum StatusCode
 	 * codes might be appropriate.
 	 * @since 1.0.0
 	 */
-	_207(207, "Multi-Status (WebDAV)"),
+	STATUS_207(207, "Multi-Status (WebDAV)"),
 	
 	/**
 	 * 208 Multi-Status (WebDAV)<br><br>
@@ -125,7 +125,7 @@ public enum StatusCode
 	 * to the same collection repeatedly.
 	 * @since 1.0.0
 	 */
-	_208(208, "Multi-Status (WebDAV)"),
+	STATUS_208(208, "Multi-Status (WebDAV)"),
 	
 	/**
 	 * 226 IM Used (HTTP Delta encoding)<br><br>
@@ -133,7 +133,7 @@ public enum StatusCode
 	 * result of one or more instance-manipulations applied to the current instance.
 	 * @since 1.0.0
 	 */
-	_226(226, "IM Used (HTTP Delta encoding)"),
+	STATUS_226(226, "IM Used (HTTP Delta encoding)"),
 	
 	/*
 	 * Redirection messages
@@ -145,7 +145,7 @@ public enum StatusCode
 	 * standardized way to choose one of the responses.
 	 * @since 1.0.0
 	 */
-	_300(300, "Multiple Choice"),
+	STATUS_300(300, "Multiple Choice"),
 	
 	/**
 	 * 301 Moved Permanently<br><br>
@@ -153,7 +153,7 @@ public enum StatusCode
 	 * in the response.
 	 * @since 1.0.0
 	 */
-	_301(301, "Moved Permanently"),
+	STATUS_301(301, "Moved Permanently"),
 	
 	/**
 	 * 302 Found<br><br>
@@ -161,14 +161,14 @@ public enum StatusCode
 	 * URI might be made in the future. Therefore, this same URI should be used by the client in future requests.
 	 * @since 1.0.0
 	 */
-	_302(302, "Found"),
+	STATUS_302(302, "Found"),
 	
 	/**
 	 * 303 See Other<br><br>
 	 * Server sent this response to directing client to get requested resource to another URI with an GET request.
 	 * @since 1.0.0
 	 */
-	_303(303, "See Other"),
+	STATUS_303(303, "See Other"),
 	
 	/**
 	 * 304 Not Modified<br><br>
@@ -176,7 +176,7 @@ public enum StatusCode
 	 * can continue to use same cached version of response.
 	 * @since 1.0.0
 	 */
-	_304(304, "Not Modified"),
+	STATUS_304(304, "Not Modified"),
 	
 	/**
 	 * 305 Use Proxy<br><br>
@@ -186,7 +186,7 @@ public enum StatusCode
 	 * @since 1.0.0
 	 */
 	@Deprecated
-	_305(305, "Use Proxy"),
+	STATUS_305(305, "Use Proxy"),
 	
 	/**
 	 * 306 Unused<br><br>
@@ -194,7 +194,7 @@ public enum StatusCode
 	 * the HTTP 1.1 specification.
 	 * @since 1.0.0
 	 */
-	_306(306, "Unused"),
+	STATUS_306(306, "Unused"),
 	
 	/**
 	 * 307 Temporary Redirect<br><br>
@@ -204,7 +204,7 @@ public enum StatusCode
 	 * a POST must be used in the second request.
 	 * @since 1.0.0
 	 */
-	_307(307, "Temporary Redirect"),
+	STATUS_307(307, "Temporary Redirect"),
 	
 	/**
 	 * 308 Permanent Redirect<br><br>
@@ -214,7 +214,7 @@ public enum StatusCode
 	 * a POST must be used in the second request.
 	 * @since 1.0.0
 	 */
-	_308(308, "Permanent Redirect"),
+	STATUS_308(308, "Permanent Redirect"),
 	
 	/*
 	 * Client error responses
@@ -225,7 +225,7 @@ public enum StatusCode
 	 * This response means that server could not understand the request due to invalid syntax.
 	 * @since 1.0.0
 	 */
-	_400(400, "Bad Request"),
+	STATUS_400(400, "Bad Request"),
 	
 	/**
 	 * 401 Unauthorized<br><br>
@@ -233,7 +233,7 @@ public enum StatusCode
 	 * That is, the client must authenticate itself to get the requested response.
 	 * @since 1.0.0
 	 */
-	_401(401, "Unauthorized"),
+	STATUS_401(401, "Unauthorized"),
 	
 	/**
 	 * 402 Payment Required<br><br>
@@ -241,7 +241,7 @@ public enum StatusCode
 	 * payment systems however this is not used currently.
 	 * @since 1.0.0
 	 */
-	_402(402, "Payment Required"),
+	STATUS_402(402, "Payment Required"),
 	
 	/**
 	 * 403 Forbidden<br><br>
@@ -249,7 +249,7 @@ public enum StatusCode
 	 * to give proper response. Unlike 401, the client's identity is known to the server.
 	 * @since 1.0.0
 	 */
-	_403(403, "Forbidden"),
+	STATUS_403(403, "Forbidden"),
 	
 	/**
 	 * 404 Not Found<br><br>
@@ -259,7 +259,7 @@ public enum StatusCode
 	 * response code is probably the most famous one due to its frequent occurrence on the web.
 	 * @since 1.0.0
 	 */
-	_404(404, "Not Found"),
+	STATUS_404(404, "Not Found"),
 	
 	/**
 	 * 405 Method Not Allowed<br><br>
@@ -268,7 +268,7 @@ public enum StatusCode
 	 * not return this error code.
 	 * @since 1.0.0
 	 */
-	_405(405, "Method Not Allowed"),
+	STATUS_405(405, "Method Not Allowed"),
 	
 	/**
 	 * 406 Not Acceptable<br><br>
@@ -276,14 +276,14 @@ public enum StatusCode
 	 * find any content following the criteria given by the user agent.
 	 * @since 1.0.0
 	 */
-	_406(406, "Not Acceptable"),
+	STATUS_406(406, "Not Acceptable"),
 	
 	/**
 	 * 407 Proxy Authentication Required<br><br>
 	 * This is similar to 401 but authentication is needed to be done by a proxy.
 	 * @since 1.0.0
 	 */
-	_407(407, "Proxy Authentication Required"),
+	STATUS_407(407, "Proxy Authentication Required"),
 	
 	/**
 	 * 408 Request Timeout<br><br>
@@ -293,14 +293,14 @@ public enum StatusCode
 	 * surfing. Also note that some servers merely shut down the connection without sending this message.
 	 * @since 1.0.0
 	 */
-	_408(408, "Request Timeout"),
+	STATUS_408(408, "Request Timeout"),
 
 	/**
 	 * 409 Conflict<br><br>
 	 * This response is sent when a request conflicts with the current state of the server.
 	 * @since 1.0.0
 	 */
-	_409(409, "Conflict"),
+	STATUS_409(409, "Conflict"),
 	
 	/**
 	 * 410 Gone<br><br>
@@ -310,7 +310,7 @@ public enum StatusCode
 	 * not feel compelled to indicate resources that have been deleted with this status code.
 	 * @since 1.0.0
 	 */
-	_410(410, "Gone"),
+	STATUS_410(410, "Gone"),
 
 	/**
 	 * 411 Length Required<br><br>
@@ -318,14 +318,14 @@ public enum StatusCode
 	 * it.
 	 * @since 1.0.0
 	 */
-	_411(411, "Length Required"),
+	STATUS_411(411, "Length Required"),
 
 	/**
 	 * 412 Precondition Failed<br><br>
 	 * The client has indicated preconditions in its headers which the server does not meet.
 	 * @since 1.0.0
 	 */
-	_412(412, "Precondition Failed"),
+	STATUS_412(412, "Precondition Failed"),
 
 	/**
 	 * 413 Payload Too Large<br><br>
@@ -333,14 +333,14 @@ public enum StatusCode
 	 * an Retry-After header field.
 	 * @since 1.0.0
 	 */
-	_413(413, "Payload Too Large"),
+	STATUS_413(413, "Payload Too Large"),
 
 	/**
 	 * 414 URI Too Long<br><br>
 	 * The URI requested by the client is longer than the server is willing to interpret.
 	 * @since 1.0.0
 	 */
-	_414(414, "URI Too Long"),
+	STATUS_414(414, "URI Too Long"),
 
 	/**
 	 * 415 Unsupported Media Type<br><br>
@@ -348,7 +348,7 @@ public enum StatusCode
 	 * request.
 	 * @since 1.0.0
 	 */
-	_415(415, "Unsupported Media Type"),
+	STATUS_415(415, "Unsupported Media Type"),
 
 	/**
 	 * 416 Requested Range Not Satisfiable<br><br>
@@ -356,7 +356,7 @@ public enum StatusCode
 	 * the range is outside the size of the target URI's data.
 	 * @since 1.0.0
 	 */
-	_416(416, "Requested Range Not Satisfiable"),
+	STATUS_416(416, "Requested Range Not Satisfiable"),
 
 	/**
 	 * 417 Expectation Failed<br><br>
@@ -364,7 +364,7 @@ public enum StatusCode
 	 * server.
 	 * @since 1.0.0
 	 */
-	_417(417, "Expectation Failed"),
+	STATUS_417(417, "Expectation Failed"),
 
 	/**
 	 * 418 I'm a teapot<br><br>
@@ -372,7 +372,7 @@ public enum StatusCode
 	 * Control Protocol (HTCPCP).
 	 * @since 1.0.0
 	 */
-	_418(418, "I'm a teapot"),
+	STATUS_418(418, "I'm a teapot"),
 	
 	/**
 	 * 421 Misdirected Request<br><br>
@@ -381,28 +381,28 @@ public enum StatusCode
 	 * in the request URI.
 	 * @since 1.0.0
 	 */
-	_421(421, "Misdirected Request"),
+	STATUS_421(421, "Misdirected Request"),
 	
 	/**
 	 * 422 Unprocessable Entity (WebDAV)<br><br>
 	 * The request was well-formed but was unable to be followed due to semantic errors.
 	 * @since 1.0.0
 	 */
-	_422(422, "Unprocessable Entity (WebDAV)"),
+	STATUS_422(422, "Unprocessable Entity (WebDAV)"),
 	
 	/**
 	 * 423 Locked (WebDAV)<br><br>
 	 * The resource that is being accessed is locked.
 	 * @since 1.0.0
 	 */
-	_423(423, "Locked (WebDAV)"),
+	STATUS_423(423, "Locked (WebDAV)"),
 	
 	/**
 	 * 424 Failed Dependency (WebDAV)<br><br>
 	 * The request failed due to failure of a previous request.
 	 * @since 1.0.0
 	 */
-	_424(424, "Failed Dependency (WebDAV)"),
+	STATUS_424(424, "Failed Dependency (WebDAV)"),
 	
 	/**
 	 * 426 Upgrade Required<br><br>
@@ -411,7 +411,7 @@ public enum StatusCode
 	 * indicate the required protocol(s).
 	 * @since 1.0.0
 	 */
-	_426(426, "Upgrade Required"),
+	STATUS_426(426, "Upgrade Required"),
 	
 	/**
 	 * 428 Precondition Required<br><br>
@@ -420,14 +420,14 @@ public enum StatusCode
 	 * third party has modified the state on the server, leading to a conflict.
 	 * @since 1.0.0
 	 */
-	_428(428, "Precondition Required"),
+	STATUS_428(428, "Precondition Required"),
 	
 	/**
 	 * 429 Too Many Requests<br><br>
 	 * The user has sent too many requests in a given amount of time ("rate limiting").
 	 * @since 1.0.0
 	 */
-	_429(429, "Too Many Requests"),
+	STATUS_429(429, "Too Many Requests"),
 	
 	/**
 	 * 431 Request Header Fields Too Large<br><br>
@@ -435,14 +435,14 @@ public enum StatusCode
 	 * be resubmitted after reducing the size of the request header fields.
 	 * @since 1.0.0
 	 */
-	_431(431, "Request Header Fields Too Large"),
+	STATUS_431(431, "Request Header Fields Too Large"),
 	
 	/**
 	 * 451 Unavailable For Legal Reasons<br><br>
 	 * The user requests an illegal resource, such as a web page censored by a government.
 	 * @since 1.0.0
 	 */
-	_451(451, "Unavailable For Legal Reasons"),
+	STATUS_451(451, "Unavailable For Legal Reasons"),
 	
 	/*
 	 * Server error responses
@@ -453,7 +453,7 @@ public enum StatusCode
 	 * The server has encountered a situation it doesn't know how to handle.
 	 * @since 1.0.0
 	 */
-	_500(500, "Internal Server Error"),
+	STATUS_500(500, "Internal Server Error"),
 	
 	/**
 	 * 501 Not Implemented<br><br>
@@ -461,7 +461,7 @@ public enum StatusCode
 	 * are required to support (and therefore that must not return this code) are GET and HEAD.
 	 * @since 1.0.0
 	 */
-	_501(501, "Not Implemented"),
+	STATUS_501(501, "Not Implemented"),
 	
 	/**
 	 * 502 Bad Gateway<br><br>
@@ -469,7 +469,7 @@ public enum StatusCode
 	 * the request, got an invalid response.
 	 * @since 1.0.0
 	 */
-	_502(502, "Bad Gateway"),
+	STATUS_502(502, "Bad Gateway"),
 	
 	/**
 	 * 503 Service Unavailable<br><br>
@@ -481,21 +481,21 @@ public enum StatusCode
 	 * condition responses should usually not be cached.
 	 * @since 1.0.0
 	 */
-	_503(503, "Service Unavailable"),
+	STATUS_503(503, "Service Unavailable"),
 	
 	/**
 	 * 504 Gateway Timeout<br><br>
 	 * This error response is given when the server is acting as a gateway and cannot get a response in time.
 	 * @since 1.0.0
 	 */
-	_504(504, "Gateway Timeout"),
+	STATUS_504(504, "Gateway Timeout"),
 	
 	/**
 	 * 505 HTTP Version Not Supported<br><br>
 	 * The HTTP version used in the request is not supported by the server.
 	 * @since 1.0.0
 	 */
-	_505(505, "HTTP Version Not Supported"),
+	STATUS_505(505, "HTTP Version Not Supported"),
 	
 	/**
 	 * 506 Variant Also Negotiates<br><br>
@@ -503,7 +503,7 @@ public enum StatusCode
 	 * in a circular reference.
 	 * @since 1.0.0
 	 */
-	_506(506, "Variant Also Negotiates"),
+	STATUS_506(506, "Variant Also Negotiates"),
 	
 	/**
 	 * 507 Insufficient Storage<br><br>
@@ -511,28 +511,28 @@ public enum StatusCode
 	 * transparent content negotiation itself, and is therefore not a proper end point in the negotiation process.
 	 * @since 1.0.0
 	 */
-	_507(507, "Insufficient Storage"),
+	STATUS_507(507, "Insufficient Storage"),
 	
 	/**
 	 * 508 Loop Detected (WebDAV)<br><br>
 	 * The server detected an infinite loop while processing the request.
 	 * @since 1.0.0
 	 */
-	_508(508, "Loop Detected (WebDAV)"),
+	STATUS_508(508, "Loop Detected (WebDAV)"),
 	
 	/**
 	 * 510 Not Extended<br><br>
 	 * Further extensions to the request are required for the server to fulfill it.
 	 * @since 1.0.0
 	 */
-	_510(510, "Not Extended"),
+	STATUS_510(510, "Not Extended"),
 	
 	/**
 	 * 511 Network Authentication Required<br><br>
 	 * The 511 status code indicates that the client needs to authenticate to gain network access. 
 	 * @since 1.0.0
 	 */
-	_511(511, "Network Authentication Required");
+	STATUS_511(511, "Network Authentication Required");
 	
 	private final int code;
 	private final String text;

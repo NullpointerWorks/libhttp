@@ -1,76 +1,75 @@
-/*
- * Creative Commons - Attribution, Share Alike 4.0 
- * Nullpointer Works (2019)
- * Use is subject to license terms.
- */
 package exp.nullpointerworks.http.header;
 
-import com.nullpointerworks.util.StringUtil;
+import exp.nullpointerworks.http.Header;
 
-import exp.nullpointerworks.http.types.HeaderType;
-
-/**
- * 
- * @since 1.0.0
- * @author Michiel Drost - Nullpointer Works
- */
 public class ConnectionHeader implements Header
 {
-	private boolean keepAlive = false; // defaults to false, even if null
-	private boolean isNull = true;
+	private final Header raw;
+	private int kaState = -1;
 	
-	/**
-	 * 
-	 * @since 1.0.0
-	 */
-	public ConnectionHeader(Header raw)
+	public ConnectionHeader(Header r)
 	{
-		if (!raw.isNull()) parseHeader(raw.getString());
+		raw = r;
+		parse(raw);
 	}
 	
-	private void parseHeader(String line) 
+	public ConnectionHeader(boolean keepAlive)
 	{
-		String argument = StringUtil.strip(line, ":");
-		
-		keepAlive = false;
-		if (argument.equalsIgnoreCase("keep-alive"))
-		{
-			keepAlive = true;
-		}
-		
-		isNull = false;
+		String data = (keepAlive)?"keep-alive":"closed";
+		kaState = (keepAlive)?1:0;
+		raw = new GenericHeader(getName(), data);
+	}
+	
+	public ConnectionHeader(Connection ka)
+	{
+		boolean keepAlive = ka.getBoolean();
+		String data = (keepAlive)?"keep-alive":"closed";
+		kaState = (keepAlive)?1:0;
+		raw = new GenericHeader(getName(), data);
 	}
 	
 	@Override
-	public HeaderType getHeaderType() 
-	{
-		return HeaderType.CONNECTION;
-	}
-
-	@Override
-	public String getName() 
+	public String getName()
 	{
 		return "Connection";
 	}
-
+	
 	@Override
-	public String getData() 
+	public String getData()
 	{
-		return (keepAlive)?"keep-alive":"close";
+		return raw.getData();
 	}
 	
 	@Override
-	public boolean isNull() 
+	public boolean isValid()
 	{
-		return isNull;
+		return kaState != -1;
 	}
 	
-	/**
-	 * 
-	 * @since 1.0.0
+	/*
+	 * =================================================================
 	 */
-	public boolean isKeepAlive() 
+	
+	private void parse(Header raw)
 	{
-		return keepAlive;
+		String ka = raw.getData();
+		if (ka.equalsIgnoreCase("keep-alive"))
+		{
+			kaState = 1;
+		}
+		else
+		if (ka.equalsIgnoreCase("close"))
+		{
+			kaState = 0;
+		}
+		else
+		{
+			kaState = -1;
+		}
+	}
+	
+	public boolean isKeepAlive()
+	{
+		return (kaState==1)?true:false;
 	}
 }

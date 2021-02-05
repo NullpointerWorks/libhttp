@@ -1,479 +1,495 @@
-/*
- * Creative Commons - Attribution, Share Alike 4.0 
- * Nullpointer Works (2019)
- * Use is subject to license terms.
- */
-package exp.nullpointerworks.http.types;
+package exp.nullpointerworks.http.header;
 
 /**
- * A media type (formerly known as MIME type) is a two-part identifier for file formats and format contents transmitted on the Internet. The Internet Assigned Numbers Authority (IANA) is the official authority for the standardization and publication of these classifications. Media types were originally defined in Request for Comments 2045 in November 1996 as a part of MIME (Multipurpose Internet Mail Extensions) specification, for denoting type of email message content and attachments; hence the original name, MIME type. Media types are also used by other internet protocols such as HTTP and document file formats such as HTML, for similar purpose.
+ * 
  * @since 1.0.0
- * @author Michiel Drost - Nullpointer Works
- * @see https://en.wikipedia.org/wiki/Media_type
  */
-public enum MediaType
+public enum ContentType
 {
 	/**
 	 * 
 	 * @since 1.0.0
 	 */
-	NULL("","null"),
+	NULL("null","null"),
 	
 	/**
 	 * 
+	 * @since 1.0.0
+	 */
+	URLENCODED("URLEncoded","application/x-www-form-urlencoded"),
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	TEXTPLAIN("plain", "text/plain"),
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	MULTIPART("multipart", "multipart/form-data"),
+	
+	/**
+	 * audio/aac
 	 * @since 1.0.0
 	 */
 	AAC("aac","audio/aac"),
 	
 	/**
-	 * 
+	 * application/x-abiword
 	 * @since 1.0.0
 	 */
 	ABW("abw","application/x-abiword"),
 	
 	/**
-	 * 
+	 * application/x-freearc
 	 * @since 1.0.0
 	 */
 	ARC("arc","application/x-freearc"),
 	
 	/**
-	 * 
+	 * video/x-msvideo
 	 * @since 1.0.0
 	 */
 	AVI("avi","video/x-msvideo"),
 	
 	/**
-	 * 
+	 * application/vnd.amazon.ebook
 	 * @since 1.0.0
 	 */
 	AZW("azw","application/vnd.amazon.ebook"),
 	
 	/**
-	 * 
+	 * application/octet-stream
 	 * @since 1.0.0
 	 */
 	BIN("bin","application/octet-stream"),
 	
 	/**
-	 * 
+	 * image/bmp
 	 * @since 1.0.0
 	 */
 	BMP("bmp","image/bmp"),
 	
 	/**
-	 * 
+	 * application/x-bzip
 	 * @since 1.0.0
 	 */
 	BZ("bz","application/x-bzip"),
 	
 	/**
-	 * 
+	 * application/x-bzip
 	 * @since 1.0.0
 	 */
 	BZ2("bz2","application/x-bzip"),
 	
 	/**
-	 * 
+	 * application/x-csh
 	 * @since 1.0.0
 	 */
 	CSH("csh","application/x-csh"),
 	
 	/**
-	 * 
+	 * text/css
 	 * @since 1.0.0
 	 */
 	CSS("css","text/css"),
 	
 	/**
-	 * 
+	 * text/csv
 	 * @since 1.0.0
 	 */
 	CSV("csv","text/csv"),
 	
 	/**
-	 * 
+	 * application/msword
 	 * @since 1.0.0
 	 */
 	DOC("doc","application/msword"),
 	
 	/**
-	 * 
+	 * application/vnd.openxmlformats-officedocument.wordprocessingml.document
 	 * @since 1.0.0
 	 */
 	DOCX("docx","application/vnd.openxmlformats-officedocument.wordprocessingml.document"),
 	
 	/**
-	 * 
+	 * application/vnd.ms-fontobject
 	 * @since 1.0.0
 	 */
 	EOT("eot","application/vnd.ms-fontobject"),
 	
 	/**
-	 * 
+	 * application/epub+zip
 	 * @since 1.0.0
 	 */
 	EPUB("epub","application/epub+zip"),
 	
 	/**
-	 * 
+	 * image/gif
 	 * @since 1.0.0
 	 */
 	GIF("gif","image/gif"),
 	
 	/**
-	 * 
+	 * text/html
 	 * @since 1.0.0
 	 */
 	HTM("htm","text/html"),
 	
 	/**
-	 * 
+	 * text/html
 	 * @since 1.0.0
 	 */
 	HTML("html","text/html"),
 	
 	/**
-	 * 
+	 * image/vnd.microsoft.icon
 	 * @since 1.0.0
 	 */
 	ICO("ico","image/vnd.microsoft.icon"),
 	
 	/**
-	 * 
+	 * text/calendar
 	 * @since 1.0.0
 	 */
 	ICS("ics","text/calendar"),
 	
 	/**
-	 * 
+	 * application/java-archive
 	 * @since 1.0.0
 	 */
 	JAR("jar","application/java-archive"),
 	
 	/**
-	 * 
+	 * image/jpeg
 	 * @since 1.0.0
 	 */
 	JPEG("jpeg","image/jpeg"),
 	
 	/**
-	 * 
+	 * image/jpeg
 	 * @since 1.0.0
 	 */
 	JPG("jpg","image/jpeg"),
 	
 	/**
-	 * 
+	 * text/javascript
 	 * @since 1.0.0
 	 */
 	MJS("mjs","text/javascript"),
 	
 	/**
-	 * 
+	 * text/javascript
 	 * @since 1.0.0
 	 */
 	JS("js","text/javascript"),
 	
 	/**
-	 * 
+	 * application/json
 	 * @since 1.0.0
 	 */
 	JSON("json","application/json"),
 	
 	/**
-	 * 
+	 * application/ld+json
 	 * @since 1.0.0
 	 */
 	JSONLD("jsonld","application/ld+json"),
 	
 	/**
-	 * 
+	 * audio/midi
 	 * @since 1.0.0
 	 */
 	MID("mid","audio/midi"), 
 	
 	/**
-	 * 
+	 * audio/midi
 	 * @since 1.0.0
 	 */
 	MIDI("midi","audio/midi"), // audio/x-midi
 	
 	/**
-	 * 
+	 * audio/mpeg
 	 * @since 1.0.0
 	 */
 	MP3("mp3","audio/mpeg"),
 	
 	/**
-	 * 
+	 * video/mpeg
 	 * @since 1.0.0
 	 */
 	MPEG("mpeg","video/mpeg"),
 	
 	/**
-	 * 
+	 * application/vnd.apple.installer+xml
 	 * @since 1.0.0
 	 */
 	MPKG("mpkg","application/vnd.apple.installer+xml"),
 	
 	/**
-	 * 
+	 * application/vnd.oasis.opendocument.presentation
 	 * @since 1.0.0
 	 */
 	ODP("odp","application/vnd.oasis.opendocument.presentation"),
 	
 	/**
-	 * 
+	 * application/vnd.oasis.opendocument.spreadsheet
 	 * @since 1.0.0
 	 */
 	ODS("ods","application/vnd.oasis.opendocument.spreadsheet"),
 	
 	/**
-	 * 
+	 * application/vnd.oasis.opendocument.text
 	 * @since 1.0.0
 	 */
 	ODT("odt","application/vnd.oasis.opendocument.text"),
 	
 	/**
-	 * 
+	 * audio/ogg
 	 * @since 1.0.0
 	 */
 	OGA("oga","audio/ogg"),
 	
 	/**
-	 * 
+	 * video/ogg
 	 * @since 1.0.0
 	 */
 	OGV("ogv","video/ogg"),
 	
 	/**
-	 * 
+	 * application/ogg
 	 * @since 1.0.0
 	 */
 	OGX("ogx","application/ogg"),
 	
 	/**
-	 * 
+	 * font/otf
 	 * @since 1.0.0
 	 */
 	OTF("otf","font/otf"),
 	
 	/**
-	 * 
+	 * image/png
 	 * @since 1.0.0
 	 */
 	PNG("png","image/png"),
 	
 	/**
-	 * 
+	 * application/pdf
 	 * @since 1.0.0
 	 */
 	PDF("pdf","application/pdf"),
 	
 	/**
-	 * 
+	 * application/vnd.ms-powerpoint
 	 * @since 1.0.0
 	 */
 	PPT("ppt","application/vnd.ms-powerpoint"),
 	
 	/**
-	 * 
+	 * application/vnd.openxmlformats-officedocument.presentationml.presentation
 	 * @since 1.0.0
 	 */
 	PPTX("pptx","application/vnd.openxmlformats-officedocument.presentationml.presentation"),
 	
 	/**
-	 * 
+	 * application/x-rar-compressed
 	 * @since 1.0.0
 	 */
 	RAR("rar","application/x-rar-compressed"),
 	
 	/**
-	 * 
+	 * application/rtf
 	 * @since 1.0.0
 	 */
 	RTF("rtf","application/rtf"),
 	
 	/**
-	 * 
+	 * application/x-sh
 	 * @since 1.0.0
 	 */
 	SH("sh","application/x-sh"),
 	
 	/**
-	 * 
+	 * image/svg+xml
 	 * @since 1.0.0
 	 */
 	SVG("svg","image/svg+xml"),
 	
 	/**
-	 * 
+	 * application/x-shockwave-flash
 	 * @since 1.0.0
 	 */
 	SWF("swf","application/x-shockwave-flash"),
 	
 	/**
-	 * 
+	 * application/x-tar
 	 * @since 1.0.0
 	 */
 	TAR("tar","application/x-tar"),
 	
 	/**
-	 * 
+	 * image/tiff
 	 * @since 1.0.0
 	 */
 	TIF("tif","image/tiff"),
 	
 	/**
-	 * 
+	 * image/tiff
 	 * @since 1.0.0
 	 */
 	TIFF("tiff","image/tiff"),
 	
 	/**
-	 * 
+	 * font/ttf
 	 * @since 1.0.0
 	 */
 	TTF("ttf","font/ttf"),
 	
 	/**
-	 * 
+	 * text/plain
 	 * @since 1.0.0
 	 */
 	TXT("txt","text/plain"),
 	
 	/**
-	 * 
+	 * application/vnd.visio
 	 * @since 1.0.0
 	 */
 	VSD("vsd","application/vnd.visio"),
 	
 	/**
-	 * 
+	 * audio/wav
 	 * @since 1.0.0
 	 */
 	WAV("wav","audio/wav"),
 	
 	/**
-	 * 
+	 * audio/webm
 	 * @since 1.0.0
 	 */
 	WEBA("weba","audio/webm"),
 	
 	/**
-	 * 
+	 * video/webm
 	 * @since 1.0.0
 	 */
 	WEBM("webm","video/webm"),
 	
 	/**
-	 * 
+	 * image/webp
 	 * @since 1.0.0
 	 */
 	WEBP("webp","image/webp"),
 	
 	/**
-	 * 
+	 * font/woff
 	 * @since 1.0.0
 	 */
 	WOFF("woff","font/woff"),
 	
 	/**
-	 * 
+	 * font/woff2
 	 * @since 1.0.0
 	 */
 	WOFF2("woff2","font/woff2"),
 	
 	/**
-	 * 
+	 * application/xhtml+xml
 	 * @since 1.0.0
 	 */
 	XHTML("xhtml","application/xhtml+xml"),
 	
 	/**
-	 * 
+	 * application/vnd.ms-excel
 	 * @since 1.0.0
 	 */
 	XLS("xls","application/vnd.ms-excel"),
 	
 	/**
-	 * 
+	 * application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
 	 * @since 1.0.0
 	 */
 	XLSX("xlsx","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"),
 	
 	/**
-	 * 
+	 * application/xml
 	 * @since 1.0.0
 	 */
 	XML("xml","application/xml"), // text/xml
 	
 	/**
-	 * 
+	 * application/vnd.mozilla.xul+xml
 	 * @since 1.0.0
 	 */
 	XUL("xul","application/vnd.mozilla.xul+xml"),
 	
 	/**
-	 * Legacy compressed archive. Used by all Microsoft operating systems and adopted by many others.
+	 * Legacy compressed archive. Used by all Microsoft operating systems and adopted by many others. (application/zip)
 	 * @since 1.0.0
 	 */
 	ZIP("zip","application/zip"),
 	
 	/**
-	 * 
+	 * video/3gpp
 	 * @since 1.0.0
 	 */
 	_3GP("3gp","video/3gpp"),
 	
 	/**
-	 * 
+	 * video/3gpp2
 	 * @since 1.0.0
 	 */
 	_3G2("3g2","video/3gpp2"),
 	
 	/**
-	 * Compressed archive used by 7zip software
+	 * Compressed archive used by 7zip software. (application/x-7z-compressed)
 	 * @since 1.0.0
 	 */
 	_7Z("7z","application/x-7z-compressed");
-
-	private final String exts;
-	private final String type;
-	private MediaType(String exts, String type) 
-	{
-		this.exts = exts;
-		this.type = type;
-	}
 	
-	/**
-	 * Returns the MIME type as a String.
-	 * @since 1.0.0
-	 */
-	public final String getString() {return type;}
+	private String e;
+	private String s;
+	private ContentType(String e, String s)
+	{this.e=e;this.s=s;}
+	public String getName() {return e;}
+	public String getString() {return s;}
 
 	/**
-	 * Returns the file extension associated with the MIME type as a String.
+	 * 
 	 * @since 1.0.0
 	 */
-	public final String getExtension() {return exts;}
-	
-	/**
-	 * Returns the MIME (Multipurpose Internet Mail Extension) type associated with the given extension.
-	 * @since 1.0.0
-	 */
-	public static MediaType fromFileExtension(String extension)
+	public static ContentType fromName(String extension)
 	{
 		extension = extension.toLowerCase();
-		MediaType[] list = MediaType.values();
-		for (MediaType mt : list)
+		ContentType[] list = values();
+		for (ContentType mt : list)
 		{
-			if (mt.getExtension().equals(extension))
+			if (mt.getName().equals(extension))
 			{
 				return mt;
 			}
 		}
-		return MediaType.BIN;
+		return NULL;
+	}
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public static ContentType fromContentType(String extension)
+	{
+		extension = extension.toLowerCase();
+		ContentType[] list = values();
+		for (ContentType mt : list)
+		{
+			if (mt.getString().equals(extension))
+			{
+				return mt;
+			}
+		}
+		return NULL;
 	}
 }

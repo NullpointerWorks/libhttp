@@ -13,18 +13,6 @@ import java.io.IOException;
  */
 public interface WebSocket
 {
- 	/**
- 	 * Set the connection timeout in milliseconds
-	 * @since 1.0.0
- 	 */
-	void setTimeoutLimit(int timeout);
-	
-	/**
-	 * Set the read data buffer
-	 * @since 1.0.0
-	 */
-	void setReadBufferSize(int rbs);
-	
 	/**
 	 * Returns the byte array of the read bytes. Set the buffer size to adjust the byte stream data limit.
 	 * @throws IOException 

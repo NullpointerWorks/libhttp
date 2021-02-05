@@ -3,8 +3,9 @@
  * Nullpointer Works (2019)
  * Use is subject to license terms.
  */
-package exp.nullpointerworks.http;
+package exp.nullpointerworks.http.util;
 
+import java.io.UnsupportedEncodingException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
@@ -15,21 +16,42 @@ import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.nullpointerworks.util.Convert;
-
-import exp.nullpointerworks.http.header.ConnectionHeader;
-import exp.nullpointerworks.http.header.Header;
-import exp.nullpointerworks.http.types.ApplicationProtocol;
-import exp.nullpointerworks.http.types.HeaderType;
-
 /**
  * 
  * @author Michiel Drost - Nullpointer Works
  * @since 1.0.0
  */
-public class NetUtil 
+public class NetworkUtil 
 {
 	private static final String ip4Regex = "^([0-9]{1,3})\\.([0-9]{1,3})\\.([0-9]{1,3})\\.([0-9]{1,3})$";
+	
+	/*
+	 * decodes the byte data into a string with the proper encoding.
+	 */
+	public static String decodeString(byte[] data)
+	{
+		return decodeString(data,data.length);
+	}
+	
+	/**
+	 * decodes the byte data into a string with the proper encoding.
+	 * @since 1.0.0
+	 */
+	public static String decodeString(byte[] data, int length)
+	{
+		byte[] bytes = new byte[length];
+		int i=0;
+		int l=length;
+		for (;i<l;i++) bytes[i] = data[i];
+		
+		// try http default byte decoding 
+		try { return new String(bytes, "ISO-8859-1"); } // RFC 6266 - page 11 
+		catch (UnsupportedEncodingException e) { }
+		
+		// default java encoding/decoding
+		var text = new String(bytes);
+		return text;
+	}
 	
 	/**
 	 * 
@@ -82,7 +104,7 @@ public class NetUtil
 	        while(matcher.find())
 	        {
 	        	String g = matcher.group();
-	        	int v = Convert.toInt(g);
+	        	int v = Integer.parseInt(g);
 	        	if (v > 255) return false;
 	        	count++;
 	        }
@@ -101,28 +123,14 @@ public class NetUtil
 	 */
 	public static final String getDateTimeStamp()
 	{
-		final Date currentTime = new Date();
-		final SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM yyyy hh:mm:ss z");
-		sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-		return sdf.format(currentTime);
+		Date currentTime = new Date();
+		return getDateTimeStamp(currentTime);
 	}
 	
-	/**
-	 * Returns a keep-alive/close string based on the request's transfer protocol.
-	 * @param o - request object
-	 * @return "keep-alive" or "close"
-	 * @since 1.0.0
-	 */
-	public static String isKeepAlive(Request o)
+	public static final String getDateTimeStamp(Date fromDate)
 	{
-		ApplicationProtocol protocol = o.getMethod().getTransferProtocol();
-		if (ApplicationProtocol.HTTP10 == protocol)
-		{
-			Header h = o.findHeader( HeaderType.CONNECTION );
-			ConnectionHeader ka = new ConnectionHeader(h);
-			if (ka.isKeepAlive()) 
-				return "close";
-		}
-		return "keep-alive";
+		SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM yyyy hh:mm:ss z");
+		sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+		return sdf.format(fromDate);
 	}
 }
