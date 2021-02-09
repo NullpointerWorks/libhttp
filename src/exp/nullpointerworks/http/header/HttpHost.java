@@ -2,19 +2,19 @@ package exp.nullpointerworks.http.header;
 
 import exp.nullpointerworks.http.Header;
 
-public class HostHeader implements Header
+public class HttpHost implements Header
 {
 	private final Header rawheader;
 	private String IP;
 	private int port;
 	
-	public HostHeader(Header raw)
+	public HttpHost(Header raw)
 	{
 		rawheader = raw;
 		parse(rawheader);
 	}
 	
-	public HostHeader(String data)
+	public HttpHost(String data)
 	{
 		rawheader = new GenericHeader(getName(), data);
 		parse(rawheader);

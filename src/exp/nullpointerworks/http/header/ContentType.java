@@ -10,12 +10,6 @@ public enum ContentType
 	 * 
 	 * @since 1.0.0
 	 */
-	NULL("null","null"),
-	
-	/**
-	 * 
-	 * @since 1.0.0
-	 */
 	URLENCODED("URLEncoded","application/x-www-form-urlencoded"),
 	
 	/**
@@ -472,7 +466,7 @@ public enum ContentType
 				return mt;
 			}
 		}
-		return NULL;
+		return null;
 	}
 	
 	/**
@@ -490,6 +484,6 @@ public enum ContentType
 				return mt;
 			}
 		}
-		return NULL;
+		return null;
 	}
 }

@@ -2,27 +2,24 @@ package exp.nullpointerworks.http.header;
 
 import exp.nullpointerworks.http.Header;
 
-public class ConnectionHeader implements Header
+public class HttpConnection implements Header
 {
 	private final Header raw;
 	private int kaState = -1;
 	
-	public ConnectionHeader(Header r)
+	public HttpConnection(Header r)
 	{
 		raw = r;
 		parse(raw);
 	}
 	
-	public ConnectionHeader(boolean keepAlive)
+	public HttpConnection(Connection ct)
 	{
-		String data = (keepAlive)?"keep-alive":"closed";
-		kaState = (keepAlive)?1:0;
-		raw = new GenericHeader(getName(), data);
+		this(ct.getBoolean());
 	}
 	
-	public ConnectionHeader(Connection ka)
+	public HttpConnection(boolean keepAlive)
 	{
-		boolean keepAlive = ka.getBoolean();
 		String data = (keepAlive)?"keep-alive":"closed";
 		kaState = (keepAlive)?1:0;
 		raw = new GenericHeader(getName(), data);

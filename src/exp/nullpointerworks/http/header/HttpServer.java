@@ -2,16 +2,16 @@ package exp.nullpointerworks.http.header;
 
 import exp.nullpointerworks.http.Header;
 
-public class ServerHeader implements Header
+public class HttpServer implements Header
 {
 	private String description;
 	
-	public ServerHeader(Header raw)
+	public HttpServer(Header raw)
 	{
 		description = raw.getData();
 	}
 	
-	public ServerHeader(String desc)
+	public HttpServer(String desc)
 	{
 		description = desc;
 	}

@@ -1,7 +1,6 @@
 package exp.nullpointerworks.http.header;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.TimeZone;
 
 import exp.nullpointerworks.http.Header;
@@ -9,19 +8,19 @@ import exp.nullpointerworks.http.Header;
 /*
  * Mon, 27 Jul 2009 12:28:53 GMT
  */
-public class DateHeader implements Header
+public class HttpDate implements Header
 {
 	private final SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM yyyy hh:mm:ss z");
 	private final String date;
 	
-	public DateHeader(Date fromDate)
+	public HttpDate(java.util.Date fromDate)
 	{
 		date = getDateTimeStamp(fromDate);
 	}
 	
-	public DateHeader()
+	public HttpDate()
 	{
-		this( new Date() );
+		this( new java.util.Date() );
 	}
 	
 	@Override
@@ -42,7 +41,7 @@ public class DateHeader implements Header
 		return false;
 	}
 	
-	private String getDateTimeStamp(Date fromDate)
+	private String getDateTimeStamp(java.util.Date fromDate)
 	{
 		sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 		return sdf.format(fromDate);

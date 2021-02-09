@@ -2,18 +2,18 @@ package exp.nullpointerworks.http.header;
 
 import exp.nullpointerworks.http.Header;
 
-public class ContentLengthHeader implements Header
+public class HttpContentLength implements Header
 {
 	private final Header raw;
 	private int length = -1;
 	
-	public ContentLengthHeader(Header r)
+	public HttpContentLength(Header r)
 	{
 		raw = r;
 		parse(raw);
 	}
 	
-	public ContentLengthHeader(int l)
+	public HttpContentLength(int l)
 	{
 		raw = new GenericHeader(getName(), ""+l);
 		length = l;

@@ -2,7 +2,7 @@ package exp.nullpointerworks.http.request;
 
 import exp.nullpointerworks.http.util.Parameter;
 
-class NullParameter extends Parameter
+final class NullParameter extends Parameter
 {
 	public NullParameter() 
 	{

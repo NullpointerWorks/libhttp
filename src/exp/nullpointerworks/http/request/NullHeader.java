@@ -2,7 +2,7 @@ package exp.nullpointerworks.http.request;
 
 import exp.nullpointerworks.http.Header;
 
-class NullHeader implements Header
+final class NullHeader implements Header
 {
 	public NullHeader()
 	{

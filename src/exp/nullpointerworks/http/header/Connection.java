@@ -1,11 +1,28 @@
 package exp.nullpointerworks.http.header;
 
-public enum Connection
+/**
+ * 
+ * @since 1.0.0
+ */
+public enum Connection 
 {
-	KEEPALIVE(true),
-	CLOSED(false);
-
-	boolean ka = false;
-	private Connection(boolean b){ka=b;}
-	public boolean getBoolean() {return ka;}
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	CLOSED(false),
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	KEEPALIVE(true);
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public final boolean getBoolean() {return b;}
+	private final boolean b;
+	private Connection(boolean b) {this.b=b;}
 }

@@ -2,18 +2,18 @@ package exp.nullpointerworks.http.header;
 
 import exp.nullpointerworks.http.Header;
 
-public class ContentTypeHeader implements Header
+public class HttpContentType implements Header
 {
 	private final Header raw;
-	private ContentType ct;
+	private ContentType ct = null;
 	
-	public ContentTypeHeader(Header r)
+	public HttpContentType(Header r)
 	{
 		raw = r;
 		parse(raw);
 	}
 	
-	public ContentTypeHeader(ContentType ct)
+	public HttpContentType(ContentType ct)
 	{
 		raw = new GenericHeader(getName(), ct.getString());
 		this.ct=ct;
@@ -34,7 +34,7 @@ public class ContentTypeHeader implements Header
 	@Override
 	public boolean isValid()
 	{
-		return ct != ContentType.NULL;
+		return ct != null;
 	}
 	
 	/*
