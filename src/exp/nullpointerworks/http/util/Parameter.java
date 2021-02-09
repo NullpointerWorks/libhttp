@@ -1,6 +1,6 @@
 package exp.nullpointerworks.http.util;
 
-public final class Parameter
+public class Parameter
 {
 	private final String name;
 	private final String value;
