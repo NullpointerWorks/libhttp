@@ -6,12 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import exp.nullpointerworks.http.Protocol;
+import exp.nullpointerworks.http.Request;
 import exp.nullpointerworks.http.RequestListener;
 import exp.nullpointerworks.http.Header;
 import exp.nullpointerworks.http.Method;
 import exp.nullpointerworks.http.Response;
 import exp.nullpointerworks.http.header.GenericHeader;
-import exp.nullpointerworks.http.request.CreatorRequest;
+import exp.nullpointerworks.http.request.RequestBuilder;
+import exp.nullpointerworks.http.request.GenericRequest;
 import exp.nullpointerworks.http.util.Parameter;
 import static exp.nullpointerworks.http.util.NetworkUtil.decodeString;
 
@@ -38,8 +40,10 @@ public class DefaultWebSocket extends AbstractWebSocket
 	@Override
 	public void onIncomingBytes(byte[] data)
 	{
-		CreatorRequest req = new CreatorRequest();
-		req.setBodyData(data);
+		Request req = new GenericRequest();
+		RequestBuilder creareq = new RequestBuilder(req);
+		
+		creareq.setBodyData(data);
 		
 		int i = 0;
 		int l = data.length;
@@ -65,7 +69,7 @@ public class DefaultWebSocket extends AbstractWebSocket
 				if (length > 2) // parse data
 				{
 					String line = decodeString(buffer,length-2);
-					parseMethod(req, line);
+					parseMethod(creareq, line);
 					break;
 				}
 				length = 0;
@@ -91,7 +95,7 @@ public class DefaultWebSocket extends AbstractWebSocket
 				if (length > 2)
 				{
 					String line = decodeString(buffer,length-2);
-					parseHeader(req, line);
+					parseHeader(creareq, line);
 				}
 				length = 0;
 			}
@@ -112,7 +116,7 @@ public class DefaultWebSocket extends AbstractWebSocket
 		}
 		if (bodyData.length > 0)
 		{
-			req.setBodyData(bodyData);
+			creareq.setBodyData(bodyData);
 		}
 		
 		/*
@@ -136,7 +140,7 @@ public class DefaultWebSocket extends AbstractWebSocket
 	/*
 	 * parse request method
 	 */
-	private void parseMethod(CreatorRequest req, String line)
+	private void parseMethod(RequestBuilder req, String line)
 	{
 		String[] tokens = line.split(" ");
 		if (tokens.length!= 3) return;
@@ -164,7 +168,7 @@ public class DefaultWebSocket extends AbstractWebSocket
 			req.addParameter(p);
 	}
 	
-	private void parseHeader(CreatorRequest req, String line)
+	private void parseHeader(RequestBuilder req, String line)
 	{
 		String[] tok = line.split(":\\s");
 		if (tok.length!=2) return;
