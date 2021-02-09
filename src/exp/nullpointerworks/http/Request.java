@@ -29,45 +29,11 @@ public interface Request
 	 */
 	Header findHeader(String name);
 	
-	// adders
-	
 	/**
 	 * 
 	 * @since 1.0.0
 	 */
-	void addParameter(Parameter p);
-	
-	/**
-	 * 
-	 * @since 1.0.0
-	 */
-	void addHeader(Header h);
-	
-	// setters
-	
-	/**
-	 * 
-	 * @since 1.0.0
-	 */
-	void setMethod(Method m);
-	
-	/**
-	 * 
-	 * @since 1.0.0
-	 */
-	void setProtocol(Protocol p);
-	
-	/**
-	 * 
-	 * @since 1.0.0
-	 */
-	void setTarget(String t);
-	
-	/**
-	 * 
-	 * @since 1.0.0
-	 */
-	void setBodyData(byte[] data);
+	Header findHeader(HeaderType hdr);
 	
 	// getters
 	

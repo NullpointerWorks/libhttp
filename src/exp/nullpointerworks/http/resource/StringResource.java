@@ -6,13 +6,13 @@ import exp.nullpointerworks.http.Resource;
  * 
  * @author Michiel
  */
-public class GenericResource implements Resource
+public class StringResource implements Resource
 {
 	private final String fileName;
 	private byte[] rawdata;
 	private int length = 0;
 	
-	public GenericResource(String fname, String content)
+	public StringResource(String fname, String content)
 	{
 		fileName = fname;
 		copy( content.getBytes() );

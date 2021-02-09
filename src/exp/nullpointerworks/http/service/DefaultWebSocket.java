@@ -6,13 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import exp.nullpointerworks.http.Protocol;
-import exp.nullpointerworks.http.Request;
 import exp.nullpointerworks.http.RequestListener;
 import exp.nullpointerworks.http.Header;
 import exp.nullpointerworks.http.Method;
 import exp.nullpointerworks.http.Response;
 import exp.nullpointerworks.http.header.GenericHeader;
-import exp.nullpointerworks.http.request.GenericRequest;
+import exp.nullpointerworks.http.request.CreatorRequest;
 import exp.nullpointerworks.http.util.Parameter;
 import static exp.nullpointerworks.http.util.NetworkUtil.decodeString;
 
@@ -39,7 +38,7 @@ public class DefaultWebSocket extends AbstractWebSocket
 	@Override
 	public void onIncomingBytes(byte[] data)
 	{
-		Request req = new GenericRequest();
+		CreatorRequest req = new CreatorRequest();
 		req.setBodyData(data);
 		
 		int i = 0;
@@ -66,19 +65,19 @@ public class DefaultWebSocket extends AbstractWebSocket
 				if (length > 2) // parse data
 				{
 					String line = decodeString(buffer,length-2);
-					parseRequest(req, line);
+					parseMethod(req, line);
 					break;
 				}
 				length = 0;
 			}
 		}
 		
-		i++; // jumps over the previous \n character
-		c = 0;
-		length = 0;
 		/*
 		 * find header data
 		 */
+		i++; // jumps over the previous \n character
+		c = 0;
+		length = 0;
 		for (; i<l; i++)
 		{
 			p = c;
@@ -98,12 +97,12 @@ public class DefaultWebSocket extends AbstractWebSocket
 			}
 		}
 		
-		i++;
-		int j = 0;
-		byte[] bodyData = new byte[l-i];
 		/*
 		 * catch remaining body data
 		 */
+		i++;
+		int j = 0;
+		byte[] bodyData = new byte[l-i];
 		while (i<l)
 		{
 			c = data[i];
@@ -134,20 +133,10 @@ public class DefaultWebSocket extends AbstractWebSocket
 		}
 	}
 	
-	private void parseHeader(Request req, String line)
-	{
-		String[] tok = line.split(":\\s");
-		if (tok.length!=2) return;
-		String hname = tok[0];
-		String hdata = tok[1].trim();
-		Header h = new GenericHeader(hname, hdata);
-		req.addHeader(h);
-	}
-	
 	/*
 	 * parse request method
 	 */
-	private void parseRequest(Request req, String line)
+	private void parseMethod(CreatorRequest req, String line)
 	{
 		String[] tokens = line.split(" ");
 		if (tokens.length!= 3) return;
@@ -164,12 +153,6 @@ public class DefaultWebSocket extends AbstractWebSocket
 			params = par[1];
 		}
 		
-		// correct index
-		if (target.equals("/")) 
-		{
-			target = "/index.html";
-		}
-		
 		var rm = Method.fromString(method);
 		var ap = Protocol.fromString(protoc);
 		var ps = findParameters(params);
@@ -179,6 +162,16 @@ public class DefaultWebSocket extends AbstractWebSocket
 		
 		for (Parameter p: ps)
 			req.addParameter(p);
+	}
+	
+	private void parseHeader(CreatorRequest req, String line)
+	{
+		String[] tok = line.split(":\\s");
+		if (tok.length!=2) return;
+		String hname = tok[0];
+		String hdata = tok[1].trim();
+		Header h = new GenericHeader(hname, hdata);
+		req.addHeader(h);
 	}
 	
 	private List<Parameter> findParameters(String params)

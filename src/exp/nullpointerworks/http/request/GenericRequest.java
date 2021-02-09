@@ -4,21 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import exp.nullpointerworks.http.Header;
+import exp.nullpointerworks.http.HeaderType;
 import exp.nullpointerworks.http.Method;
 import exp.nullpointerworks.http.Protocol;
 import exp.nullpointerworks.http.Request;
 import exp.nullpointerworks.http.header.NullHeader;
 import exp.nullpointerworks.http.util.Parameter;
 
+/**
+ * 
+ * @since 1.0.0
+ */
 public class GenericRequest implements Request
 {
+	final List<Parameter> params;
+	final List<Header> headers;
+	
 	private Method method = null;
 	private Protocol protocol = null;
 	private String target = null;
 	private byte[] data;
-	
-	private List<Parameter> params;
-	private List<Header> headers;
 	
 	public GenericRequest()
 	{
@@ -65,48 +70,11 @@ public class GenericRequest implements Request
 		return new NullHeader();
 	}
 	
-	/*
-	 * ==== adders =========================================================
-	 */
-	
 	@Override
-	public void addParameter(Parameter p)
+	public Header findHeader(HeaderType hdr)
 	{
-		params.add(p);
-	}
-	
-	@Override
-	public void addHeader(Header h)
-	{
-		headers.add(h);
-	}
-	
-	/*
-	 * ==== setters =========================================================
-	 */
-	
-	@Override
-	public void setMethod(Method m)
-	{
-		method = m;
-	}
-	
-	@Override
-	public void setProtocol(Protocol p)
-	{
-		protocol = p;
-	}
-	
-	@Override
-	public void setTarget(String t)
-	{
-		target = t;
-	}
-
-	@Override
-	public void setBodyData(byte[] raw)
-	{
-		data = raw;
+		String name = hdr.getString().toLowerCase();
+		return findHeader(name);
 	}
 	
 	/*
@@ -135,5 +103,48 @@ public class GenericRequest implements Request
 	public byte[] getBodyData()
 	{
 		return data;
+	}
+	
+	/*
+	 * ==== adders =========================================================
+	 * package private
+	 */
+	
+	void addParameter(Parameter p)
+	{
+		params.add(p);
+	}
+	
+	void addHeader(Header h)
+	{
+		headers.add(h);
+	}
+	
+	/*
+	 * ==== setters =========================================================
+	 * package private
+	 */
+	
+	void setMethod(Method m)
+	{
+		method = m;
+	}
+	
+	void setProtocol(Protocol p)
+	{
+		protocol = p;
+	}
+	
+	void setTarget(String t)
+	{
+		target = t;
+	}
+	
+	void setBodyData(byte[] raw)
+	{
+		// perform a copy to decouple references
+		int l = raw.length;
+		data = new byte[l];
+		for (int i=0; i<l; i++) data[i] = raw[i];
 	}
 }
