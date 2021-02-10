@@ -12,6 +12,12 @@ public enum HeaderType
 	 * 
 	 * @since 1.0.0
 	 */
+	ACCEPT("Accept"),
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
 	ACCEPT_ENCODING("Accept-Encoding"),
 	
 	/**

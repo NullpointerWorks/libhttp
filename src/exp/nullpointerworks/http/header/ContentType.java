@@ -1,5 +1,8 @@
 package exp.nullpointerworks.http.header;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 
  * @since 1.0.0
@@ -7,22 +10,28 @@ package exp.nullpointerworks.http.header;
 public enum ContentType
 {
 	/**
-	 * 
+	 * application/x-www-form-urlencoded
 	 * @since 1.0.0
 	 */
 	URLENCODED("URLEncoded","application/x-www-form-urlencoded"),
 	
 	/**
-	 * 
+	 * text/plain
 	 * @since 1.0.0
 	 */
 	TEXTPLAIN("plain", "text/plain"),
 	
 	/**
-	 * 
+	 * multipart/form-data
 	 * @since 1.0.0
 	 */
 	MULTIPART("multipart", "multipart/form-data"),
+	
+	/**
+	 * application/signed-exchange
+	 * @since 1.0.0
+	 */
+	SIGNED_EXCHANGE("signed-exchange", "application/signed-exchange"),
 	
 	/**
 	 * audio/aac
@@ -37,6 +46,12 @@ public enum ContentType
 	ABW("abw","application/x-abiword"),
 	
 	/**
+	 * image/apng
+	 * @since 1.0.0
+	 */
+	APNG("apng","image/apng"),
+	
+	/**
 	 * application/x-freearc
 	 * @since 1.0.0
 	 */
@@ -47,6 +62,12 @@ public enum ContentType
 	 * @since 1.0.0
 	 */
 	AVI("avi","video/x-msvideo"),
+	
+	/**
+	 * image/avif
+	 * @since 1.0.0
+	 */
+	AVIF("avif","image/avif"),
 	
 	/**
 	 * application/vnd.amazon.ebook
@@ -130,13 +151,13 @@ public enum ContentType
 	 * text/html
 	 * @since 1.0.0
 	 */
-	HTM("htm","text/html"),
+	HTML("html","text/html"),
 	
 	/**
 	 * text/html
 	 * @since 1.0.0
 	 */
-	HTML("html","text/html"),
+	HTM("htm","text/html"),
 	
 	/**
 	 * image/vnd.microsoft.icon
@@ -445,11 +466,11 @@ public enum ContentType
 	_7Z("7z","application/x-7z-compressed");
 	
 	private String e;
-	private String s;
-	private ContentType(String e, String s)
-	{this.e=e;this.s=s;}
+	private String mime;
+	private ContentType(String e, String m)
+	{this.e=e;this.mime=m;}
 	public String getName() {return e;}
-	public String getString() {return s;}
+	public String getString() {return mime;}
 
 	/**
 	 * 
@@ -473,17 +494,39 @@ public enum ContentType
 	 * 
 	 * @since 1.0.0
 	 */
-	public static ContentType fromContentType(String extension)
+	public static ContentType fromContentType(String mime)
 	{
-		extension = extension.toLowerCase();
+		mime = mime.toLowerCase();
 		ContentType[] list = values();
 		for (ContentType mt : list)
 		{
-			if (mt.getString().equals(extension))
+			if (mt.getString().equals(mime))
 			{
 				return mt;
 			}
 		}
 		return null;
+	}
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public static ContentType[] startsWith(String mime)
+	{
+		mime = mime.toLowerCase();
+		ContentType[] list = values();
+		List<ContentType> found = new ArrayList<ContentType>();
+		for (ContentType mt : list)
+		{
+			if (mt.getString().startsWith(mime))
+			{
+				found.add(mt);
+			}
+		}
+		
+		ContentType[] result = new ContentType[found.size()];
+		for (int i=0,l=found.size(); i<l; i++) result[i] = found.get(i);
+		return result;
 	}
 }
