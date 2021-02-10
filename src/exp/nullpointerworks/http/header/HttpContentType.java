@@ -1,6 +1,7 @@
 package exp.nullpointerworks.http.header;
 
 import exp.nullpointerworks.http.Header;
+import exp.nullpointerworks.http.HeaderType;
 
 public class HttpContentType implements Header
 {
@@ -22,7 +23,7 @@ public class HttpContentType implements Header
 	@Override
 	public String getName()
 	{
-		return "Content-Type";
+		return HeaderType.CONTENT_TYPE.getString();
 	}
 	
 	@Override

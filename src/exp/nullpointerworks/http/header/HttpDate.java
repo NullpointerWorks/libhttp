@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
 import exp.nullpointerworks.http.Header;
+import exp.nullpointerworks.http.HeaderType;
 
 /*
  * Mon, 27 Jul 2009 12:28:53 GMT
@@ -26,7 +27,7 @@ public class HttpDate implements Header
 	@Override
 	public String getName()
 	{
-		return "Date";
+		return HeaderType.DATE.getString();
 	}
 
 	@Override

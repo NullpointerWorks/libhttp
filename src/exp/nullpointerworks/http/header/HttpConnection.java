@@ -1,6 +1,7 @@
 package exp.nullpointerworks.http.header;
 
 import exp.nullpointerworks.http.Header;
+import exp.nullpointerworks.http.HeaderType;
 
 public class HttpConnection implements Header
 {
@@ -28,7 +29,7 @@ public class HttpConnection implements Header
 	@Override
 	public String getName()
 	{
-		return "Connection";
+		return HeaderType.CONNECTION.getString();
 	}
 	
 	@Override

@@ -1,6 +1,7 @@
 package exp.nullpointerworks.http.header;
 
 import exp.nullpointerworks.http.Header;
+import exp.nullpointerworks.http.HeaderType;
 
 public class HttpContentLength implements Header
 {
@@ -37,7 +38,7 @@ public class HttpContentLength implements Header
 	@Override
 	public String getName()
 	{
-		return "Content-Length";
+		return HeaderType.CONTENT_LENGTH.getString();
 	}
 	
 	@Override

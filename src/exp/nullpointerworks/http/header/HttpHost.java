@@ -1,6 +1,7 @@
 package exp.nullpointerworks.http.header;
 
 import exp.nullpointerworks.http.Header;
+import exp.nullpointerworks.http.HeaderType;
 
 public class HttpHost implements Header
 {
@@ -31,7 +32,7 @@ public class HttpHost implements Header
 	@Override
 	public String getName()
 	{
-		return "Host";
+		return HeaderType.HOST.getString();
 	}
 	
 	@Override

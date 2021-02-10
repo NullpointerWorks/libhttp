@@ -1,6 +1,7 @@
 package exp.nullpointerworks.http.header;
 
 import exp.nullpointerworks.http.Header;
+import exp.nullpointerworks.http.HeaderType;
 
 public class HttpServer implements Header
 {
@@ -26,7 +27,7 @@ public class HttpServer implements Header
 	@Override
 	public String getName()
 	{
-		return "Server";
+		return HeaderType.SERVER.getString();
 	}
 	
 	@Override
