@@ -10,5 +10,5 @@ An experimental library for creating a web interface.
 * exports exp.nullpointerworks.http.service
 * exports exp.nullpointerworks.http.util
 	
-# http v0.12
+# http v0.15
 * npw independent
