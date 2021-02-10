@@ -5,6 +5,7 @@ import java.util.List;
 
 public final class OptionChooser<T>
 {
+	private T defaultOption = null;
 	private final List< Duet<T,Float> > options;
 	
 	public OptionChooser()
@@ -20,7 +21,7 @@ public final class OptionChooser<T>
 	 */
 	public T getBestMatch(T[] available)
 	{
-		T bestOption = null;
+		T bestOption = defaultOption;
 		float bestQ = 0.0f;
 		for (T pick : available)
 		{
@@ -46,6 +47,11 @@ public final class OptionChooser<T>
 		}
 	}
 	
+	public void setDefaultOption(T option)
+	{
+		defaultOption = option;
+	}
+	
 	public void setPrefferedOption(T option)
 	{
 		setOption(option, 1.1f);
@@ -56,9 +62,8 @@ public final class OptionChooser<T>
 		for (Duet<T,Float> d : options)
 		{
 			if (d.o.equals(option))
-			if (d.q < q)
 			{
-				d.q = q;
+				if (d.q < q) d.q = q;
 				return;
 			}
 		}

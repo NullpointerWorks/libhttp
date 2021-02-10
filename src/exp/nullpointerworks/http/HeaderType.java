@@ -18,6 +18,12 @@ public enum HeaderType
 	 * 
 	 * @since 1.0.0
 	 */
+	ACCEPT_LANGUAGE("Accept-Language"),
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
 	CONNECTION("Connection"),
 	
 	/**
