@@ -19,12 +19,12 @@ public abstract class AbstractWebSocket implements WebSocket, Runnable
 	private Socket socket;
 	private InputStream is;
 	private OutputStream os;
+	private Boolean isOpen = false;
+	private Boolean keepalive = false;
 	
 	public abstract void onIncomingBytes(byte[] data);
 	
 	// ===========================================================================
-	
-	private Boolean keepalive = false;
 	
 	public final void keepAlive()
 	{
@@ -42,7 +42,9 @@ public abstract class AbstractWebSocket implements WebSocket, Runnable
 			{
 	 			byte[] inp = readBytes();
 	 			if (inp.length>0)
+	 			{
 	 				onIncomingBytes(inp);
+	 			}
 			}
  			// if something goes wrong with the socket, stop the connection
 	 		catch(SocketException ex)
@@ -79,56 +81,76 @@ public abstract class AbstractWebSocket implements WebSocket, Runnable
 
 	// ===========================================================================
 	
-	public final void setSocket(Socket s) throws IOException
+	public synchronized final void setSocket(Socket s) throws IOException
 	{
 		socket = s;
 		is = socket.getInputStream();
         os = socket.getOutputStream();
 	}
 	
-	public final void setBufferSize(int bytes)
+	public synchronized final void setBufferSize(int bytes)
 	{
 		bufferSize = bytes;
 	}
 	
 	@Override
-	public final void open() 
+	public synchronized final void open() 
 	{
-		Thread t = new Thread(this);
-		t.start();
-	}
-
-	@Override
-	public final byte[] readBytes() throws IOException
-	{
-		byte[] bytes 	= new byte[0];
-    	byte[] toread 	= new byte[bufferSize];
-    	int allocate	= is.read(toread);
-		if (allocate>0)
+		if (!isOpen)
 		{
-			bytes = new byte[allocate];
-			int i=0;
-			for (byte b : toread) 
-			{ 
-				if (i>=allocate)break;
-				bytes[i++]=b;
+			Thread t = new Thread(this);
+			t.start();
+			isOpen = true;
+		}
+	}
+	
+	@Override
+	public synchronized final boolean isOpen()
+	{
+		return isOpen;
+	}
+	
+	@Override
+	public synchronized final byte[] readBytes() throws IOException
+	{
+		byte[] bytes = new byte[0];
+		if (isOpen)
+		{
+	    	byte[] toread = new byte[bufferSize];
+	    	int allocate = is.read(toread);
+			if (allocate>0)
+			{
+				bytes = new byte[allocate];
+				int i=0;
+				for (byte b : toread) 
+				{ 
+					if (i>=allocate)break;
+					bytes[i++]=b;
+				}
 			}
 		}
 		return bytes;
 	}
-
+	
 	@Override
-	public final void sendBytes(byte[] msg) throws IOException
+	public synchronized final void sendBytes(byte[] msg) throws IOException
 	{
-		os.write(msg);
-    	os.flush();
+		if (isOpen)
+		{
+			os.write(msg);
+	    	os.flush();
+		}
 	}
-
+	
 	@Override
-	public final void close() throws IOException
+	public synchronized final void close() throws IOException
 	{
-		is.close();
- 		os.close();
- 		socket.close();
+		if (isOpen)
+		{
+			is.close();
+	 		os.close();
+	 		socket.close();
+			isOpen = false;
+		}
 	}
 }

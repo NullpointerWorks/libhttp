@@ -32,6 +32,12 @@ public interface WebSocket
 	 */
 	void open();
 	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	boolean isOpen();
+	
  	/**
  	 * Closes all I/O streams.
  	 * @throws IOException 

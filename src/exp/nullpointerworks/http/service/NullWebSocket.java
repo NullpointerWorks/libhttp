@@ -14,6 +14,12 @@ public class NullWebSocket implements WebSocket
 	{
 		
 	}
+
+	@Override
+	public boolean isOpen() 
+	{
+		return false;
+	}
 	
 	@Override
 	public byte[] readBytes()
