@@ -13,6 +13,7 @@ import exp.nullpointerworks.http.HeaderType;
 import exp.nullpointerworks.http.Method;
 import exp.nullpointerworks.http.Protocol;
 import exp.nullpointerworks.http.Request;
+import exp.nullpointerworks.http.header.NullHeader;
 import exp.nullpointerworks.http.util.Parameter;
 
 /**
