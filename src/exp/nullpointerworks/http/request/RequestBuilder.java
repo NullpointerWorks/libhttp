@@ -12,7 +12,7 @@ import exp.nullpointerworks.http.Request;
 import exp.nullpointerworks.http.util.Parameter;
 
 /**
- * Request adapter class to get access to setters.
+ * A Request proxy pattern class to get access to setters.
  * @since 1.0.0
  */
 public class RequestBuilder

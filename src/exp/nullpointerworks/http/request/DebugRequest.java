@@ -15,7 +15,7 @@ import exp.nullpointerworks.http.Request;
 import exp.nullpointerworks.http.util.Parameter;
 
 /**
- * A Request adapter class to get access to private members for debugging and logging purposes.
+ * A Request proxy pattern class to get access to private members for debugging and logging purposes.
  * @since 1.0.0
  */
 public class DebugRequest implements Request
