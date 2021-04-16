@@ -7,7 +7,7 @@ package exp.nullpointerworks.http.service;
 
 class ConcurrentCounter
 {
-	private Integer count = 0;
+	private int count = 0;
 	
 	public ConcurrentCounter() {}
 	
@@ -16,75 +16,48 @@ class ConcurrentCounter
 		set(v);
 	}
 	
-	public void increment()
+	public synchronized void increment()
 	{
-		synchronized(count)
-		{
-			count += 1;
-		}
+		count += 1;
 	}
 	
-	public void decrement()
+	public synchronized void decrement()
 	{
-		synchronized(count)
-		{
-			count -= 1;
-		}
+		count -= 1;
 	}
 	
-	public void set(int v) 
+	public synchronized void set(int v) 
 	{
-		synchronized(count)
-		{
-			count = v;
-		}
+		count = v;
 	}
 	
-	public int value()
+	public synchronized int value()
 	{
-		synchronized(count)
-		{
-			return count;
-		}
+		return count;
 	}
 	
-	public boolean equals(int x)
+	public synchronized boolean equals(int x)
 	{
-		synchronized(count)
-		{
-			return count == x;
-		}
+		return count == x;
 	}
 	
-	public boolean lessThen(int x)
+	public synchronized boolean lessThen(int x)
 	{
-		synchronized(count)
-		{
-			return count < x;
-		}
+		return count < x;
 	}
 	
-	public boolean greaterThen(int x)
+	public synchronized boolean greaterThen(int x)
 	{
-		synchronized(count)
-		{
-			return count > x;
-		}
+		return count > x;
 	}
 	
-	public boolean lessEqualsThen(int x)
+	public synchronized boolean lessEqualsThen(int x)
 	{
-		synchronized(count)
-		{
-			return count < x;
-		}
+		return count < x;
 	}
 	
-	public boolean greaterEqualsThen(int x)
+	public synchronized boolean greaterEqualsThen(int x)
 	{
-		synchronized(count)
-		{
-			return count > x;
-		}
+		return count > x;
 	}
 }
