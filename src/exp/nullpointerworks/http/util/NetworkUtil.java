@@ -13,8 +13,6 @@ import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * 
@@ -23,7 +21,7 @@ import java.util.regex.Pattern;
  */
 public class NetworkUtil 
 {
-	private static final String ip4Regex = "^([0-9]{1,3})\\.([0-9]{1,3})\\.([0-9]{1,3})\\.([0-9]{1,3})$";
+	private static final String ip4Regex = "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}";
 	
 	/*
 	 * decodes the byte data into a string with the proper encoding.
@@ -93,25 +91,9 @@ public class NetworkUtil
 	 * 
 	 * @since 1.0.0
 	 */
-	public static boolean isIPv4Address(String ip)
+	public static boolean isIPv4Address(String text) 
 	{
-		if (ip.matches(ip4Regex))
-		{
-			String patternString = "([0-9]{1,3})";
-	        Pattern pattern = Pattern.compile(patternString);
-	        Matcher matcher = pattern.matcher(ip);
-	        int count = 0;
-	        while(matcher.find())
-	        {
-	        	String g = matcher.group();
-	        	int v = Integer.parseInt(g);
-	        	if (v > 255) return false;
-	        	count++;
-	        }
-        	if (count != 4) return false;
-			return true;
-		}
-		return false;
+		return text.matches(ip4Regex);
 	}
 	
 	/**
