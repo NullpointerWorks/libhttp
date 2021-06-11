@@ -13,6 +13,7 @@ import exp.nullpointerworks.http.HeaderType;
 import exp.nullpointerworks.http.Method;
 import exp.nullpointerworks.http.Protocol;
 import exp.nullpointerworks.http.Request;
+import exp.nullpointerworks.http.WebSocket;
 import exp.nullpointerworks.http.header.NullHeader;
 import exp.nullpointerworks.http.util.Parameter;
 
@@ -28,12 +29,14 @@ public class GenericRequest implements Request
 	private Method method = null;
 	private Protocol protocol = null;
 	private String target = null;
-	private byte[] data;
+	private byte[] data = null;
+	private WebSocket socket = null;
 	
-	public GenericRequest()
+	public GenericRequest(WebSocket s)
 	{
 		params = new ArrayList<Parameter>();
 		headers = new ArrayList<Header>();
+		setWebSocket(s);
 	}
 	
 	@Override
@@ -47,6 +50,7 @@ public class GenericRequest implements Request
 	
 	/*
 	 * ==== finders =========================================================
+	 * public
 	 */
 	
 	@Override
@@ -84,6 +88,7 @@ public class GenericRequest implements Request
 	
 	/*
 	 * ==== getters =========================================================
+	 * public
 	 */
 	
 	@Override
@@ -108,6 +113,12 @@ public class GenericRequest implements Request
 	public byte[] getBodyData()
 	{
 		return data;
+	}
+	
+	@Override
+	public WebSocket getWebSocket() 
+	{
+		return socket;
 	}
 	
 	/*
@@ -151,5 +162,10 @@ public class GenericRequest implements Request
 		int l = raw.length;
 		data = new byte[l];
 		for (int i=0; i<l; i++) data[i] = raw[i];
+	}
+	
+	void setWebSocket(WebSocket soc)
+	{
+		socket = soc;
 	}
 }

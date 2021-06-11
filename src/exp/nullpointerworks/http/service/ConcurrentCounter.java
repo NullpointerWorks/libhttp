@@ -26,6 +26,11 @@ class ConcurrentCounter
 		count -= 1;
 	}
 	
+	public synchronized void add(int v) 
+	{
+		count += v;
+	}
+	
 	public synchronized void set(int v) 
 	{
 		count = v;
@@ -41,6 +46,11 @@ class ConcurrentCounter
 		return count == x;
 	}
 	
+	public synchronized boolean notEquals(int x)
+	{
+		return count != x;
+	}
+	
 	public synchronized boolean lessThen(int x)
 	{
 		return count < x;
@@ -53,11 +63,11 @@ class ConcurrentCounter
 	
 	public synchronized boolean lessEqualsThen(int x)
 	{
-		return count < x;
+		return count <= x;
 	}
 	
 	public synchronized boolean greaterEqualsThen(int x)
 	{
-		return count > x;
+		return count >= x;
 	}
 }

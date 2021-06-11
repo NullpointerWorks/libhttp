@@ -45,7 +45,7 @@ public class DefaultWebSocket extends AbstractWebSocket
 	@Override
 	public synchronized void onIncomingBytes(byte[] data)
 	{
-		Request req = new GenericRequest();
+		Request req = new GenericRequest(this);
 		RequestBuilder creareq = new RequestBuilder(req);
 		creareq.setBodyData(data);
 		

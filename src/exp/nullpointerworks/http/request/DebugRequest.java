@@ -12,6 +12,7 @@ import exp.nullpointerworks.http.HeaderType;
 import exp.nullpointerworks.http.Method;
 import exp.nullpointerworks.http.Protocol;
 import exp.nullpointerworks.http.Request;
+import exp.nullpointerworks.http.WebSocket;
 import exp.nullpointerworks.http.util.Parameter;
 
 /**
@@ -38,6 +39,16 @@ public class DebugRequest implements Request
 	public List<Parameter> getParameters()
 	{
 		return req.params;
+	}
+	
+	/**
+	 * 
+	 * @param sock - the implementing socket for this request
+	 * @since 1.0.0
+	 */
+	public void setWebSocket(WebSocket sock)
+	{
+		setWebSocket(sock);
 	}
 	
 	/**
@@ -95,5 +106,11 @@ public class DebugRequest implements Request
 	public byte[] getBodyData() 
 	{
 		return req.getBodyData();
+	}
+
+	@Override
+	public WebSocket getWebSocket() 
+	{
+		return req.getWebSocket();
 	}
 }

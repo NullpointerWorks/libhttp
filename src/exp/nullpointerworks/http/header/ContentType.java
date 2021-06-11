@@ -333,6 +333,12 @@ public enum ContentType
 	SH("sh","application/x-sh"),
 	
 	/**
+	 * text/event-stream
+	 * @since 1.0.0
+	 */
+	EVENT("event-stream","text/event-stream"),
+	
+	/**
 	 * image/svg+xml
 	 * @since 1.0.0
 	 */

@@ -65,4 +65,11 @@ public interface Request
 	 * @since 1.0.0
 	 */
 	byte[] getBodyData();
+	
+	/**
+	 * Returns the requesting web socket.
+	 * @return the requesting web socket
+	 * @since 1.0.0
+	 */
+	WebSocket getWebSocket();
 }
