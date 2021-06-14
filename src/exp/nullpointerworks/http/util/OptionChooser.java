@@ -43,6 +43,34 @@ public final class OptionChooser<T>
 		return bestOption;
 	}
 	
+	/**
+	 * Returns all available options.
+	 * @return all available options
+	 */
+	public List<T> getOptions()
+	{
+		List<T> list = new ArrayList<T>();
+		for (Duet<T,Float> d : options)
+		{
+			list.add( d.o );
+		}
+		return list;
+	}
+	
+	/**
+	 * Returns true if the specified option is available in the chooser, returns false otherwise.
+	 * @param opt - The option to check for
+	 * @return true if the specified option is available
+	 */
+	public boolean hasOptions(T opt)
+	{
+		for (Duet<T,Float> d : options)
+		{
+			if (d.o.hashCode() == opt.hashCode()) return true;
+		}
+		return false;
+	}
+	
 	public void setAvailableOptions(T[] options)
 	{
 		this.options.clear();

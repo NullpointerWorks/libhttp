@@ -127,6 +127,11 @@ public class HttpAccept implements Header
 		return oc.getBestMatch(available);
 	}
 	
+	public boolean hasContentType(ContentType ct)
+	{
+		return oc.hasOptions(ct);
+	}
+	
 	@Override
 	public String getName()
 	{
