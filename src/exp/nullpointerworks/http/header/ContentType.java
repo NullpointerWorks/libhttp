@@ -336,7 +336,7 @@ public enum ContentType
 	 * text/event-stream
 	 * @since 1.0.0
 	 */
-	EVENT("event-stream","text/event-stream"),
+	EVENTSTREAM("event-stream","text/event-stream"),
 	
 	/**
 	 * image/svg+xml
