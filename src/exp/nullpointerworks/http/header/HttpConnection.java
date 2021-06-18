@@ -26,7 +26,7 @@ public class HttpConnection implements Header
 	
 	public HttpConnection(boolean keepAlive)
 	{
-		String data = (keepAlive)?"keep-alive":"closed";
+		String data = (keepAlive)?"keep-alive":"close";
 		kaState = (keepAlive)?1:0;
 		raw = new GenericHeader(getName(), data);
 	}
