@@ -61,10 +61,18 @@ public interface Request
 	String getTarget();
 	
 	/**
-	 * 
+	 * Returns the raw bytes of the attached body data.
+	 * @return the raw bytes of the attached body data
 	 * @since 1.0.0
 	 */
 	byte[] getBodyData();
+	
+	/**
+	 * Returns the bytes that constitute this request.
+	 * @return the bytes that constitute this request
+	 * @since 1.0.0
+	 */
+	byte[] getBytes();
 	
 	/**
 	 * Returns the requesting web socket.

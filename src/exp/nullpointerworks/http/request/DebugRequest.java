@@ -107,6 +107,12 @@ public class DebugRequest implements Request
 	{
 		return req.getBodyData();
 	}
+	
+	@Override
+	public byte[] getBytes() 
+	{
+		return req.getBytes();
+	}
 
 	@Override
 	public WebSocket getWebSocket() 

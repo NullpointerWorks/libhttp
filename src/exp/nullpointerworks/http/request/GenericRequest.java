@@ -32,10 +32,15 @@ public class GenericRequest implements Request
 	private byte[] data = null;
 	private WebSocket socket = null;
 	
-	public GenericRequest(WebSocket s)
+	public GenericRequest()
 	{
 		params = new ArrayList<Parameter>();
 		headers = new ArrayList<Header>();
+	}
+	
+	public GenericRequest(WebSocket s)
+	{
+		this();
 		setWebSocket(s);
 	}
 	
@@ -114,6 +119,15 @@ public class GenericRequest implements Request
 	{
 		return data;
 	}
+
+	@Override
+	public byte[] getBytes() 
+	{
+		
+		
+		
+		return null;
+	}
 	
 	@Override
 	public WebSocket getWebSocket() 
@@ -158,7 +172,7 @@ public class GenericRequest implements Request
 	
 	void setBodyData(byte[] raw)
 	{
-		// perform a copy to decouple references
+		// perform a copy to decouple object references
 		int l = raw.length;
 		data = new byte[l];
 		for (int i=0; i<l; i++) data[i] = raw[i];
