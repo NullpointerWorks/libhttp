@@ -11,6 +11,7 @@ import java.util.List;
 import exp.nullpointerworks.http.Header;
 import exp.nullpointerworks.http.HeaderType;
 import exp.nullpointerworks.http.Method;
+import exp.nullpointerworks.http.MethodNotImplemented;
 import exp.nullpointerworks.http.Protocol;
 import exp.nullpointerworks.http.Request;
 import exp.nullpointerworks.http.WebSocket;
@@ -54,44 +55,6 @@ public class GenericRequest implements Request
 	}
 	
 	/*
-	 * ==== finders =========================================================
-	 * public
-	 */
-	
-	@Override
-	public Parameter findParameter(String name)
-	{
-		for (Parameter p : params)
-		{
-			if (p.getName().equalsIgnoreCase(name))
-			{
-				return p;
-			}
-		}
-		return new NullParameter();
-	}
-	
-	@Override
-	public Header findHeader(String name)
-	{
-		for (Header p : headers)
-		{
-			if (p.getName().equalsIgnoreCase(name))
-			{
-				return p;
-			}
-		}
-		return new NullHeader();
-	}
-	
-	@Override
-	public Header findHeader(HeaderType hdr)
-	{
-		String name = hdr.getString().toLowerCase();
-		return findHeader(name);
-	}
-	
-	/*
 	 * ==== getters =========================================================
 	 * public
 	 */
@@ -113,18 +76,52 @@ public class GenericRequest implements Request
 	{
 		return target;
 	}
+	
+	@Override
+	public Parameter getParameter(String name)
+	{
+		for (Parameter p : params)
+		{
+			if (p.getName().equalsIgnoreCase(name))
+			{
+				return p;
+			}
+		}
+		return new NullParameter();
+	}
+	
+	@Override
+	public Header getHeader(String name)
+	{
+		for (Header p : headers)
+		{
+			if (p.getName().equalsIgnoreCase(name))
+			{
+				return p;
+			}
+		}
+		return new NullHeader();
+	}
+	
+	@Override
+	public Header getHeader(HeaderType hdr)
+	{
+		String name = hdr.getString().toLowerCase();
+		return getHeader(name);
+	}
 
 	@Override
 	public byte[] getBodyData()
 	{
 		return data;
 	}
-
+	
 	@Override
+	@MethodNotImplemented
 	public byte[] getBytes() 
 	{
 		
-		
+		// TODO return this request as bytes
 		
 		return null;
 	}

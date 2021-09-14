@@ -67,21 +67,21 @@ public class DebugRequest implements Request
 	}
 	
 	@Override
-	public Parameter findParameter(String name) 
+	public Parameter getParameter(String name) 
 	{
-		return req.findParameter(name);
+		return req.getParameter(name);
 	}
 	
 	@Override
-	public Header findHeader(String name) 
+	public Header getHeader(String name) 
 	{
-		return req.findHeader(name);
+		return req.getHeader(name);
 	}
 	
 	@Override
-	public Header findHeader(HeaderType hdr) 
+	public Header getHeader(HeaderType hdr) 
 	{
-		return req.findHeader(hdr);
+		return req.getHeader(hdr);
 	}
 	
 	@Override
