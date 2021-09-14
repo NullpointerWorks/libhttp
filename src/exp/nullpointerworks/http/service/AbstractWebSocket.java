@@ -50,7 +50,7 @@ public abstract class AbstractWebSocket implements WebSocket, Runnable
 	 		catch (SocketTimeoutException e)
 			{
 				//e.printStackTrace();
-	 			System.out.println( AbstractWebSocket.class+": Read timed out");
+	 			System.out.println( "exp.nullpointerworks.http.service.AbstractWebSocket: Read timed out");
 	 			continue;
 			}
 			
