@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketException;
+import java.net.SocketTimeoutException;
 
 import exp.nullpointerworks.http.WebSocket;
 
@@ -46,6 +47,13 @@ public abstract class AbstractWebSocket implements WebSocket, Runnable
 	 				onIncomingBytes(inp);
 	 			}
 			}
+	 		catch (SocketTimeoutException e)
+			{
+				//e.printStackTrace();
+	 			System.out.println( AbstractWebSocket.class+": Read timed out");
+	 			continue;
+			}
+			
  			// if something goes wrong with the socket, stop the connection
 	 		catch(SocketException ex)
 	 		{
@@ -57,15 +65,9 @@ public abstract class AbstractWebSocket implements WebSocket, Runnable
 				e.printStackTrace();
 	 			break;
 			}
+			//
 			
-			try
-			{
-				Thread.sleep(100);
-			} 
- 			catch (InterruptedException e)
-			{
-				e.printStackTrace();
-			}
+			sleep(100);
 		}
 		while(keepalive);
 		
@@ -78,6 +80,18 @@ public abstract class AbstractWebSocket implements WebSocket, Runnable
 			e.printStackTrace();
 		}
  	}
+	
+	private void sleep(long sl)
+	{
+		try
+		{
+			Thread.sleep(sl);
+		} 
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+	}
 
 	// ===========================================================================
 	
