@@ -11,7 +11,6 @@ import java.util.List;
 import exp.nullpointerworks.http.Header;
 import exp.nullpointerworks.http.HeaderType;
 import exp.nullpointerworks.http.Method;
-import exp.nullpointerworks.http.MethodNotImplemented;
 import exp.nullpointerworks.http.Protocol;
 import exp.nullpointerworks.http.Request;
 import exp.nullpointerworks.http.WebSocket;
@@ -30,6 +29,7 @@ public class GenericRequest implements Request
 	private Method method = null;
 	private Protocol protocol = null;
 	private String target = null;
+	private byte[] req = null;
 	private byte[] data = null;
 	private WebSocket socket = null;
 	
@@ -109,7 +109,7 @@ public class GenericRequest implements Request
 		String name = hdr.getString().toLowerCase();
 		return getHeader(name);
 	}
-
+	
 	@Override
 	public byte[] getBodyData()
 	{
@@ -117,13 +117,9 @@ public class GenericRequest implements Request
 	}
 	
 	@Override
-	@MethodNotImplemented
 	public byte[] getBytes() 
 	{
-		
-		// TODO return this request as bytes
-		
-		return null;
+		return req;
 	}
 	
 	@Override
@@ -165,6 +161,11 @@ public class GenericRequest implements Request
 	void setTarget(String t)
 	{
 		target = t;
+	}
+	
+	void setBytes(byte[] r) 
+	{
+		req = r;
 	}
 	
 	void setBodyData(byte[] raw)

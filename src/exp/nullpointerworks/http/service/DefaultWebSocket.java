@@ -47,7 +47,7 @@ public class DefaultWebSocket extends AbstractWebSocket
 	{
 		Request req = new GenericRequest(this);
 		RequestBuilder creareq = new RequestBuilder(req);
-		creareq.setBodyData(data);
+		creareq.setBytes(data);
 		
 		int i = 0;
 		int l = data.length;

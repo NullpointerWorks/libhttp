@@ -137,4 +137,14 @@ public class RequestBuilder
 	{
 		genreq.setWebSocket(soc);
 	}
+	
+	/**
+	 * 
+	 * @param data
+	 * @since 1.0.0
+	 */
+	public void setBytes(byte[] data)
+	{
+		genreq.setBytes(data);
+	}
 }
