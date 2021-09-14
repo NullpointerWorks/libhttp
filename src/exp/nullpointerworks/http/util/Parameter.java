@@ -18,7 +18,7 @@ public class Parameter
 	
 	public boolean isValid()
 	{
-		return name.length() > 1;
+		return name.length() > 0;
 	}
 	
 	public String getName()
