@@ -165,7 +165,9 @@ public class GenericRequest implements Request
 	
 	void setBytes(byte[] r) 
 	{
-		req = r;
+		int l = r.length;
+		req = new byte[l];
+		for (int i=0; i<l; i++) req[i] = r[i];
 	}
 	
 	void setBodyData(byte[] raw)
