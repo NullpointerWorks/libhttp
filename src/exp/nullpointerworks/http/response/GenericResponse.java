@@ -1,7 +1,7 @@
 /*
  * This is free and unencumbered software released into the public domain.
  * (http://unlicense.org/)
- * Nullpointer Works (2021)
+ * Nullpointer Works (2022)
  */
 package exp.nullpointerworks.http.response;
 
@@ -90,7 +90,6 @@ public class GenericResponse implements Response
 		return bData;
 	}
 	
-	// TODO might need optimization
 	private byte[] concatenate(byte[] arr0, byte[] arr1)
 	{
 		byte[] totaldata = new byte[arr0.length + arr1.length];

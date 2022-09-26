@@ -1,7 +1,7 @@
 /*
  * This is free and unencumbered software released into the public domain.
  * (http://unlicense.org/)
- * Nullpointer Works (2021)
+ * Nullpointer Works (2022)
  */
 package exp.nullpointerworks.http.resource;
 
@@ -17,9 +17,9 @@ public class StringResource implements Resource
 	private byte[] rawdata;
 	private int length = 0;
 	
-	public StringResource(String fname, String content)
+	public StringResource(String name, String content)
 	{
-		fileName = fname;
+		fileName = name;
 		copy( content.getBytes() );
 	}
 	

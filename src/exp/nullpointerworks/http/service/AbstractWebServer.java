@@ -1,7 +1,7 @@
 /*
  * This is free and unencumbered software released into the public domain.
  * (http://unlicense.org/)
- * Nullpointer Works (2021)
+ * Nullpointer Works (2022)
  */
 package exp.nullpointerworks.http.service;
 
@@ -94,7 +94,7 @@ public abstract class AbstractWebServer implements WebServer, Runnable
 	@Override
 	public final boolean isRunning()
 	{
-		synchronized(running)
+		synchronized(this)
 		{
 			return running;
 		}
@@ -115,7 +115,7 @@ public abstract class AbstractWebServer implements WebServer, Runnable
 	@Override
 	public final void stop()
 	{
-		synchronized(running)
+		synchronized(this)
 		{
 			running = false;
 		}

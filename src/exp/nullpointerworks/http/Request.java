@@ -1,7 +1,7 @@
 /*
  * This is free and unencumbered software released into the public domain.
  * (http://unlicense.org/)
- * Nullpointer Works (2021)
+ * Nullpointer Works (2022)
  */
 package exp.nullpointerworks.http;
 
@@ -59,6 +59,13 @@ public interface Request
 	Header getHeader(HeaderType hdr);
 	
 	/**
+	 * Returns the bytes containing the request data.
+	 * @return the bytes containing the request data
+	 * @since 1.0.0
+	 */
+	byte[] getRequestBytes();
+	
+	/**
 	 * Returns the raw bytes of the attached body data.
 	 * @return the raw bytes of the attached body data
 	 * @since 1.0.0
@@ -66,8 +73,8 @@ public interface Request
 	byte[] getBodyData();
 	
 	/**
-	 * Returns the bytes that constitute this request.
-	 * @return the bytes that constitute this request
+	 * Returns the bytes that constitute this entire request.
+	 * @return the bytes that constitute this entire request
 	 * @since 1.0.0
 	 */
 	byte[] getBytes();

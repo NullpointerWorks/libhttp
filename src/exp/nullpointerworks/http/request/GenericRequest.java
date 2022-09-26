@@ -1,7 +1,7 @@
 /*
  * This is free and unencumbered software released into the public domain.
  * (http://unlicense.org/)
- * Nullpointer Works (2021)
+ * Nullpointer Works (2022)
  */
 package exp.nullpointerworks.http.request;
 
@@ -87,7 +87,7 @@ public class GenericRequest implements Request
 				return p;
 			}
 		}
-		return new NullParameter();
+		return new Parameter("","");
 	}
 	
 	@Override
@@ -111,15 +111,21 @@ public class GenericRequest implements Request
 	}
 	
 	@Override
+	public byte[] getRequestBytes() 
+	{
+		return req;
+	}
+	
+	@Override
 	public byte[] getBodyData()
 	{
 		return data;
 	}
 	
 	@Override
-	public byte[] getBytes() 
+	public byte[] getBytes()
 	{
-		return req;
+		return concatenate(req, data);
 	}
 	
 	@Override
@@ -163,7 +169,16 @@ public class GenericRequest implements Request
 		target = t;
 	}
 	
+	/**
+	 * This method is deprecated and will be deleted in the next major release. Use {@code setRequestBytes(byte[])} instead.
+	 */
+	@Deprecated
 	void setBytes(byte[] r) 
+	{
+		setRequestBytes(r);
+	}
+	
+	void setRequestBytes(byte[] r) 
 	{
 		int l = r.length;
 		req = new byte[l];
@@ -181,5 +196,27 @@ public class GenericRequest implements Request
 	void setWebSocket(WebSocket soc)
 	{
 		socket = soc;
+	}
+	
+	
+	/*
+	 * ==== private =========================================================
+	 */
+	
+	private byte[] concatenate(byte[] arr0, byte[] arr1)
+	{
+		byte[] totaldata = new byte[arr0.length + arr1.length];
+		int i=0;
+		for (byte b : arr0)
+		{
+			totaldata[i] = b;
+			i++;
+		}
+		for (byte b : arr1)
+		{
+			totaldata[i] = b;
+			i++;
+		}
+		return totaldata;
 	}
 }

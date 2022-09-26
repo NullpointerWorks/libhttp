@@ -1,9 +1,9 @@
 /**
  * This is free and unencumbered software released into the public domain.
  * (http://unlicense.org/)
- * Nullpointer Works (2021)
+ * Nullpointer Works (2022)
  *
- * @version 0.19.0 experimental
+ * @version 0.20.0 experimental
  * @author Michiel Drost - Nullpointer Works
  */
 module libnpw.http

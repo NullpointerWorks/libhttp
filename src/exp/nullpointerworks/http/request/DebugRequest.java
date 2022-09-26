@@ -103,6 +103,12 @@ public class DebugRequest implements Request
 	}
 	
 	@Override
+	public byte[] getRequestBytes()
+	{
+		return req.getRequestBytes();
+	}
+	
+	@Override
 	public byte[] getBodyData() 
 	{
 		return req.getBodyData();
