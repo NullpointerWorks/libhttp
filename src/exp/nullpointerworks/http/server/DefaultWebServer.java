@@ -3,7 +3,7 @@
  * (http://unlicense.org/)
  * Nullpointer Works (2022)
  */
-package exp.nullpointerworks.http.service;
+package exp.nullpointerworks.http.server;
 
 import java.io.IOException;
 import java.net.Socket;

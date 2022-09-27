@@ -1,50 +1,39 @@
 /*
  * This is free and unencumbered software released into the public domain.
  * (http://unlicense.org/)
- * Nullpointer Works (2021)
+ * Nullpointer Works (2022)
  */
-package exp.nullpointerworks.http.service;
-
-import java.io.IOException;
-import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
-
-import exp.nullpointerworks.http.Protocol;
-import exp.nullpointerworks.http.Request;
-import exp.nullpointerworks.http.RequestListener;
-import exp.nullpointerworks.http.Header;
-import exp.nullpointerworks.http.Method;
-import exp.nullpointerworks.http.Parameter;
-import exp.nullpointerworks.http.Response;
-import exp.nullpointerworks.http.header.GenericHeader;
-import exp.nullpointerworks.http.request.RequestBuilder;
-import exp.nullpointerworks.http.request.DefaultRequest;
+package exp.nullpointerworks.http.util;
 
 import static exp.nullpointerworks.http.util.NetworkUtil.decodeString;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import exp.nullpointerworks.http.Header;
+import exp.nullpointerworks.http.Method;
+import exp.nullpointerworks.http.Parameter;
+import exp.nullpointerworks.http.Protocol;
+import exp.nullpointerworks.http.Request;
+import exp.nullpointerworks.http.header.GenericHeader;
+import exp.nullpointerworks.http.request.DefaultRequest;
+import exp.nullpointerworks.http.request.RequestBuilder;
+
 /**
- * 
- * @since 1.0.0
+ * A raw data parser to decode a byte array into a request object.
+ * @author michiel
  */
-public class DefaultWebSocket extends AbstractWebSocket
+public class RequestParser
 {
 	private final int CR = 13;
 	private final int LF = 10;
-	private final RequestListener rl;
 	
-	/**
-	 * 
-	 * @since 1.0.0
-	 */
-	public DefaultWebSocket(Socket s, RequestListener rl) throws IOException
+	public RequestParser()
 	{
-		this.rl = rl;
-		setSocket(s);
+		
 	}
 	
-	@Override
-	public synchronized void onIncomingBytes(byte[] data)
+	public Request parse(byte[] data)
 	{
 		Request req = new DefaultRequest();
 		RequestBuilder creareq = new RequestBuilder(req);
@@ -123,22 +112,7 @@ public class DefaultWebSocket extends AbstractWebSocket
 			creareq.setBodyData(bodyData);
 		}
 		
-		/*
-		 * notify request observer
-		 */
-		if (req.isValid())
-		{
-			Response resp = rl.onRequest(req);
-			try
-			{
-				keepAlive();
-				sendBytes( resp.getBytes() );
-			} 
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-		}
+		return req;
 	}
 	
 	/*
