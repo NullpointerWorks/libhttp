@@ -10,6 +10,7 @@ import java.net.Socket;
 
 import exp.nullpointerworks.http.RequestListener;
 import exp.nullpointerworks.http.WebSocket;
+import exp.nullpointerworks.http.util.NullWebSocket;
 
 /**
  * 
@@ -30,43 +31,5 @@ public abstract class DefaultWebServer extends AbstractWebServer implements Requ
 		}
 		
 		return new NullWebSocket();
-	}
-}
-
-/**
- * A "null" fallback socket.
- * 
- * @author Michiel
- */
-class NullWebSocket implements WebSocket
-{
-	@Override
-	public void open() 
-	{
-		
-	}
-	
-	@Override
-	public boolean isOpen() 
-	{
-		return false;
-	}
-	
-	@Override
-	public byte[] readBytes()
-	{
-		return new byte[] {};
-	}
-	
-	@Override
-	public void sendBytes(byte[] msg)
-	{
-		
-	}
-	
-	@Override
-	public void close()
-	{
-		
 	}
 }

@@ -14,18 +14,22 @@ import exp.nullpointerworks.http.Resource;
 import exp.nullpointerworks.http.Response;
 import exp.nullpointerworks.http.StatusCode;
 
-public class GenericResponse implements Response
+import static exp.nullpointerworks.http.util.NetworkUtil.CRLF;
+import static exp.nullpointerworks.http.util.NetworkUtil.concatenate;
+
+public abstract class AbstractResponse implements Response
 {
+	private List<Header> headers;
 	private Protocol protocol;
 	private StatusCode status;
-	private List<Header> headers;
 	private Resource resource;
 	
-	public GenericResponse(Protocol p, StatusCode sc)
+	public AbstractResponse()
 	{
 		headers = new ArrayList<Header>();
-		protocol = p;
-		status = sc;
+		protocol = Protocol.NULL;
+		status = StatusCode.NULL;
+		resource = null;
 	}
 	
 	@Override
@@ -73,12 +77,9 @@ public class GenericResponse implements Response
 		return resource.getLength();
 	}
 	
-	private final String CRLF = "\r\n";
-	
 	@Override
 	public final byte[] getBytes()
 	{
-		byte[] bContent = resource.getBytes();
 		byte[] bData = (protocol.getString()+CRLF).getBytes();
 		for (Header h : headers)
 		{
@@ -86,24 +87,19 @@ public class GenericResponse implements Response
 			bData = concatenate(bData, bHeader);
 		}
 		bData = concatenate(bData, CRLF.getBytes());
+		
+		byte[] bContent = resource.getBytes();
 		bData = concatenate(bData, bContent);
 		return bData;
 	}
 	
-	private byte[] concatenate(byte[] arr0, byte[] arr1)
+	void setStatusCode(StatusCode sc)
 	{
-		byte[] totaldata = new byte[arr0.length + arr1.length];
-		int i=0;
-		for (byte b : arr0)
-		{
-			totaldata[i] = b;
-			i++;
-		}
-		for (byte b : arr1)
-		{
-			totaldata[i] = b;
-			i++;
-		}
-		return totaldata;
+		status = sc;
+	}
+
+	void setProtocol(Protocol p)
+	{
+		protocol = p;
 	}
 }

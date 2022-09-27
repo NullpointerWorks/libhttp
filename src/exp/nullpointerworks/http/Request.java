@@ -5,6 +5,8 @@
  */
 package exp.nullpointerworks.http;
 
+import java.util.List;
+
 /**
  * 
  * @since 1.0.0
@@ -42,6 +44,12 @@ public interface Request
 	 * @since 1.0.0
 	 */
 	Parameter getParameter(String name);
+
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	List<Parameter> getParameters();
 	
 	/**
 	 * Searches for a header with the name specified. The valid header is returned if successful, otherwise the returned header is marked invalid.
@@ -59,7 +67,20 @@ public interface Request
 	/**
 	 * 
 	 * @since 1.0.0
-	 * @return 
+	 */
+	List<Header> getHeaders();
+	
+	/**
+	 * Returns the attached body data which may be present in this request package.
+	 * @since 1.0.0
+	 * @return the attached body data which may be present in this request package
 	 */
 	byte[] getBodyData();
+	
+	/**
+	 * Returns the bytes that constitute this request. This includes the method, protocol, headers and optionally body data.
+	 * @since 1.0.0
+	 * @return
+	 */
+	byte[] getBytes();
 }

@@ -21,6 +21,8 @@ import java.util.TimeZone;
  */
 public class NetworkUtil 
 {
+	public static final String CRLF = "\r\n";
+	
 	private static final String ip4Regex = "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}";
 	
 	/*
@@ -114,5 +116,25 @@ public class NetworkUtil
 		SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM yyyy hh:mm:ss z");
 		sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 		return sdf.format(fromDate);
+	}
+	
+	/**
+	 * Simple byte array concatenation method.
+	 */
+	public static byte[] concatenate(byte[] arr0, byte[] arr1)
+	{
+		byte[] totaldata = new byte[arr0.length + arr1.length];
+		int i=0;
+		for (byte b : arr0)
+		{
+			totaldata[i] = b;
+			i++;
+		}
+		for (byte b : arr1)
+		{
+			totaldata[i] = b;
+			i++;
+		}
+		return totaldata;
 	}
 }

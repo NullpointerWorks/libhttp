@@ -26,6 +26,22 @@ public class RequestBuilder
 		genreq = (AbstractRequest)req;
 	}
 	
+	/**
+	 * 
+	 */
+	public void clearParameters()
+	{
+		genreq.params.clear();
+	}
+	
+	/**
+	 * 
+	 */
+	public void clearHeaders()
+	{
+		genreq.headers.clear();
+	}
+	
 	/*
 	 * ==== adders =========================================================
 	 */

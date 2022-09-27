@@ -19,7 +19,7 @@ import exp.nullpointerworks.http.Parameter;
 import exp.nullpointerworks.http.Response;
 import exp.nullpointerworks.http.header.GenericHeader;
 import exp.nullpointerworks.http.request.RequestBuilder;
-import exp.nullpointerworks.http.request.GenericRequest;
+import exp.nullpointerworks.http.request.DefaultRequest;
 
 import static exp.nullpointerworks.http.util.NetworkUtil.decodeString;
 
@@ -46,7 +46,7 @@ public class DefaultWebSocket extends AbstractWebSocket
 	@Override
 	public synchronized void onIncomingBytes(byte[] data)
 	{
-		Request req = new GenericRequest();
+		Request req = new DefaultRequest();
 		RequestBuilder creareq = new RequestBuilder(req);
 		
 		int i = 0;

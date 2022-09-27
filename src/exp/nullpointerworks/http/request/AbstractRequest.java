@@ -14,10 +14,13 @@ import exp.nullpointerworks.http.Method;
 import exp.nullpointerworks.http.Parameter;
 import exp.nullpointerworks.http.Protocol;
 import exp.nullpointerworks.http.Request;
-import exp.nullpointerworks.http.header.NullHeader;
+import exp.nullpointerworks.http.util.NullHeader;
+
+import static exp.nullpointerworks.http.util.NetworkUtil.CRLF;
+import static exp.nullpointerworks.http.util.NetworkUtil.concatenate;
 
 /**
- * 
+ * Though this class is a complete set of code for processing request data, you're not suppose to use this class for constructing one from scratch. Use the {@code DefaultRequest} and {@code RequistBuilder} instead.
  * @since 1.0.0
  */
 public abstract class AbstractRequest implements Request
@@ -28,14 +31,12 @@ public abstract class AbstractRequest implements Request
 	private Method method = null;
 	private Protocol protocol = null;
 	private String target = null;
-	
-	private byte[] bodyData;
+	private byte[] bodyData = null;
 	
 	public AbstractRequest()
 	{
 		params = new ArrayList<Parameter>();
 		headers = new ArrayList<Header>();
-		bodyData = new byte[]{};
 	}
 	
 	@Override
@@ -104,9 +105,59 @@ public abstract class AbstractRequest implements Request
 	}
 
 	@Override
+	public List<Parameter> getParameters()
+	{
+		return new ArrayList<Parameter>(params);
+	}
+
+	@Override
+	public List<Header> getHeaders()
+	{
+		return new ArrayList<Header>(headers);
+	}
+	
+	@Override
 	public byte[] getBodyData()
 	{
 		return bodyData;
+	}
+
+	@Override
+	public final byte[] getBytes()
+	{
+		if (!isValid()) return new byte[] {};
+		
+		// create the first line which has the method, target page, optional parameters and the protocol
+		String methodLine = method.toString()+" "+target;
+		if (params.size() > 0)
+		{
+			methodLine += "?";
+			for (int i=0, l=params.size()-1; i<=l; i++)
+			{
+				Parameter p = params.get(i);
+				String par = p.getName()+"="+p.getValue() + ((i<l)?"&":"");
+				methodLine += par;
+			}
+		}
+		methodLine += " "+protocol.getString()+CRLF;
+		byte[] bData = methodLine.getBytes();
+		
+		// create header strings
+		for (Header h : headers)
+		{
+			byte[] bHeader = (h.getString()+CRLF).getBytes();
+			bData = concatenate(bData, bHeader);
+		}
+		bData = concatenate(bData, CRLF.getBytes());
+		
+		// if there's body data to send to the server, include it as well
+		if (bodyData.length > 0)
+		{
+			bData = concatenate(bData, bodyData);
+		}
+		
+		// done
+		return bData;
 	}
 	
 	/*
