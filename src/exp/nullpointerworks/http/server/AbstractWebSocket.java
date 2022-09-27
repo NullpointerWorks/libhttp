@@ -1,7 +1,7 @@
 /*
  * This is free and unencumbered software released into the public domain.
  * (http://unlicense.org/)
- * Nullpointer Works (2021)
+ * Nullpointer Works (2022)
  */
 package exp.nullpointerworks.http.server;
 
@@ -13,6 +13,9 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 
 import exp.nullpointerworks.http.WebSocket;
+import exp.nullpointerworks.http.WebSocketListener;
+import exp.nullpointerworks.http.util.NullWebSocketListener;
+import exp.nullpointerworks.http.util.ThreadedWebSocketListener;
 
 public abstract class AbstractWebSocket implements WebSocket, Runnable
 {
@@ -22,10 +25,21 @@ public abstract class AbstractWebSocket implements WebSocket, Runnable
 	private OutputStream os;
 	private Boolean isOpen = false;
 	private Boolean keepalive = false;
+	private WebSocketListener wsl;
 	
 	public abstract void onIncomingBytes(byte[] data);
 	
 	// ===========================================================================
+	
+	public AbstractWebSocket()
+	{
+		wsl = new NullWebSocketListener();
+	}
+	
+	public void setWebSocketListener(WebSocketListener wsl)
+	{
+		this.wsl = new ThreadedWebSocketListener(wsl);
+	}
 	
 	public final void keepAlive()
 	{
@@ -35,6 +49,8 @@ public abstract class AbstractWebSocket implements WebSocket, Runnable
 	@Override
  	public final void run()
  	{
+		wsl.onSocketStart(this);
+		
 		// check for connection data. 
 		// its rare that I can actually use a do-while loop in a useful manner
 		do
@@ -50,7 +66,7 @@ public abstract class AbstractWebSocket implements WebSocket, Runnable
 	 		catch (SocketTimeoutException e)
 			{
 				//e.printStackTrace();
-	 			System.out.println( "exp.nullpointerworks.http.service.AbstractWebSocket: Read timed out");
+	 			System.out.println( AbstractWebSocket.class.getName()+": Read timed out");
 	 			continue;
 			}
 			
@@ -79,6 +95,8 @@ public abstract class AbstractWebSocket implements WebSocket, Runnable
 		{
 			e.printStackTrace();
 		}
+     	
+     	wsl.onSocketStop(this);
  	}
 	
 	private void sleep(long sl)
@@ -112,6 +130,7 @@ public abstract class AbstractWebSocket implements WebSocket, Runnable
 	{
 		if (!isOpen)
 		{
+			wsl.onSocketOpen(this);
 			Thread t = new Thread(this);
 			t.start();
 			isOpen = true;
@@ -142,6 +161,7 @@ public abstract class AbstractWebSocket implements WebSocket, Runnable
 					bytes[i++]=b;
 				}
 			}
+			wsl.onSocketRecieving(this);
 		}
 		return bytes;
 	}
@@ -153,6 +173,7 @@ public abstract class AbstractWebSocket implements WebSocket, Runnable
 		{
 			os.write(msg);
 	    	os.flush();
+	    	wsl.onSocketTransmitting(this);
 		}
 	}
 	
@@ -165,6 +186,7 @@ public abstract class AbstractWebSocket implements WebSocket, Runnable
 	 		os.close();
 	 		socket.close();
 			isOpen = false;
+			wsl.onSocketClose(this);
 		}
 	}
 }

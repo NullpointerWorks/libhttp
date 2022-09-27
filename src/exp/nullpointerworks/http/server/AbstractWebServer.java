@@ -14,7 +14,6 @@ import java.net.UnknownHostException;
 
 import exp.nullpointerworks.http.WebServer;
 import exp.nullpointerworks.http.WebSocket;
-import exp.nullpointerworks.http.util.ConcurrentCounter;
 import exp.nullpointerworks.http.util.NetworkUtil;
 
 /**
@@ -26,7 +25,6 @@ public abstract class AbstractWebServer implements WebServer, Runnable
 	private int maxThreads = 32;
 	private Boolean running = false;
 	private Thread serverThread = null;
-	private ConcurrentCounter count = new ConcurrentCounter(0);
 	
 	private InetAddress serverAddress = null;
 	private short serverPort = 80;
@@ -90,6 +88,12 @@ public abstract class AbstractWebServer implements WebServer, Runnable
 	public final String getAddress()
 	{
 		return serverAddress.getHostAddress();
+	}
+	
+	@Override
+	public int getMaxThreads()
+	{
+		return maxThreads;
 	}
 	
 	@Override
@@ -184,11 +188,8 @@ public abstract class AbstractWebServer implements WebServer, Runnable
             
             if (s != null)
 			{
-	            if (allowConnection())
-	            {
-	            	WebSocket ws = onNewConnection(s);
-	    			ws.open();
-	            }
+	            WebSocket ws = onNewConnection(s);
+	    		ws.open();
         	}
         }
 		
@@ -200,12 +201,6 @@ public abstract class AbstractWebServer implements WebServer, Runnable
 		{
 			e.printStackTrace();
 		}
-	}
-	
-	private boolean allowConnection()
-	{
-		if (count.lessThen(0)) return true;
-		return count.lessThen(maxThreads);
 	}
 	
 	private void close() throws IOException

@@ -14,6 +14,12 @@ import java.io.IOException;
 public interface WebSocket
 {
 	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	boolean isOpen();
+	
+	/**
 	 * Returns the byte array of the read bytes. Set the buffer size to adjust the byte stream data limit.
 	 * @throws IOException 
 	 * @since 1.0.0
@@ -31,12 +37,6 @@ public interface WebSocket
 	 * @since 1.0.0
 	 */
 	void open();
-	
-	/**
-	 * 
-	 * @since 1.0.0
-	 */
-	boolean isOpen();
 	
  	/**
  	 * Closes all I/O streams.

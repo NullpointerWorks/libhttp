@@ -5,6 +5,12 @@
  */
 package exp.nullpointerworks.http.util;
 
+/**
+ * 
+ * 
+ * 
+ * @author Michiel Drost - Nullpointer Works
+ */
 public class ConcurrentCounter
 {
 	private int count = 0;

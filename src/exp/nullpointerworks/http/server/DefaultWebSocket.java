@@ -11,6 +11,7 @@ import java.net.Socket;
 import exp.nullpointerworks.http.Request;
 import exp.nullpointerworks.http.RequestListener;
 import exp.nullpointerworks.http.Response;
+import exp.nullpointerworks.http.WebSocketListener;
 import exp.nullpointerworks.http.util.RequestParser;
 
 /**
@@ -29,6 +30,16 @@ public class DefaultWebSocket extends AbstractWebSocket
 	{
 		this.rl = rl;
 		setSocket(s);
+	}
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public DefaultWebSocket(Socket s, RequestListener rl, WebSocketListener wsl) throws IOException
+	{
+		this(s,rl);
+		setWebSocketListener(wsl);
 	}
 	
 	@Override

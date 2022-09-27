@@ -60,6 +60,13 @@ public interface WebServer
 	
 	/**
 	 * 
+	 * @return
+	 * @since 1.0.0
+	 */
+	int getMaxThreads();
+	
+	/**
+	 * 
 	 * @since 1.0.0
 	 */
 	boolean isRunning();
