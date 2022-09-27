@@ -50,7 +50,7 @@ public class GenericResponse implements Response
 	}
 	
 	@Override
-	public Protocol getApplicationProtocol()
+	public Protocol getProtocol()
 	{
 		return protocol;
 	}

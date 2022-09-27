@@ -3,9 +3,9 @@
  * (http://unlicense.org/)
  * Nullpointer Works (2021)
  */
-package exp.nullpointerworks.http.service;
+package exp.nullpointerworks.http.util;
 
-class ConcurrentCounter
+public class ConcurrentCounter
 {
 	private int count = 0;
 	

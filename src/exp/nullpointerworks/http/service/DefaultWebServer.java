@@ -1,7 +1,7 @@
 /*
  * This is free and unencumbered software released into the public domain.
  * (http://unlicense.org/)
- * Nullpointer Works (2021)
+ * Nullpointer Works (2022)
  */
 package exp.nullpointerworks.http.service;
 
@@ -28,6 +28,45 @@ public abstract class DefaultWebServer extends AbstractWebServer implements Requ
 		{
 			e.printStackTrace();
 		}
+		
 		return new NullWebSocket();
+	}
+}
+
+/**
+ * A "null" fallback socket.
+ * 
+ * @author Michiel
+ */
+class NullWebSocket implements WebSocket
+{
+	@Override
+	public void open() 
+	{
+		
+	}
+	
+	@Override
+	public boolean isOpen() 
+	{
+		return false;
+	}
+	
+	@Override
+	public byte[] readBytes()
+	{
+		return new byte[] {};
+	}
+	
+	@Override
+	public void sendBytes(byte[] msg)
+	{
+		
+	}
+	
+	@Override
+	public void close()
+	{
+		
 	}
 }

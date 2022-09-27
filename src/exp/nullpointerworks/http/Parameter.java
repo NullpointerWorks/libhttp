@@ -3,7 +3,7 @@
  * (http://unlicense.org/)
  * Nullpointer Works (2021)
  */
-package exp.nullpointerworks.http.util;
+package exp.nullpointerworks.http;
 
 public class Parameter
 {

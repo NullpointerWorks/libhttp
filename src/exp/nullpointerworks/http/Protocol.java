@@ -19,13 +19,13 @@ public enum Protocol
 	NULL(""),
 	
 	/**
-	 * Year 1991. 
+	 * Year 1991. This is a legacy enum key. It's best to never use this protocol.
 	 * @since 1.0.0
 	 */
 	HTTP09("HTTP/0.9"),
 	
 	/**
-	 * Year 1996.
+	 * Year 1996. 
 	 * @since 1.0.0
 	 */
 	HTTP10("HTTP/1.0"),

@@ -15,11 +15,12 @@ import exp.nullpointerworks.http.Request;
 import exp.nullpointerworks.http.RequestListener;
 import exp.nullpointerworks.http.Header;
 import exp.nullpointerworks.http.Method;
+import exp.nullpointerworks.http.Parameter;
 import exp.nullpointerworks.http.Response;
 import exp.nullpointerworks.http.header.GenericHeader;
 import exp.nullpointerworks.http.request.RequestBuilder;
 import exp.nullpointerworks.http.request.GenericRequest;
-import exp.nullpointerworks.http.util.Parameter;
+
 import static exp.nullpointerworks.http.util.NetworkUtil.decodeString;
 
 /**
@@ -45,9 +46,8 @@ public class DefaultWebSocket extends AbstractWebSocket
 	@Override
 	public synchronized void onIncomingBytes(byte[] data)
 	{
-		Request req = new GenericRequest(this);
+		Request req = new GenericRequest();
 		RequestBuilder creareq = new RequestBuilder(req);
-		creareq.setBytes(data);
 		
 		int i = 0;
 		int l = data.length;

@@ -5,8 +5,6 @@
  */
 package exp.nullpointerworks.http;
 
-import exp.nullpointerworks.http.util.Parameter;
-
 /**
  * 
  * @since 1.0.0
@@ -59,30 +57,9 @@ public interface Request
 	Header getHeader(HeaderType hdr);
 	
 	/**
-	 * Returns the bytes containing the request data.
-	 * @return the bytes containing the request data
+	 * 
 	 * @since 1.0.0
-	 */
-	byte[] getRequestBytes();
-	
-	/**
-	 * Returns the raw bytes of the attached body data.
-	 * @return the raw bytes of the attached body data
-	 * @since 1.0.0
+	 * @return 
 	 */
 	byte[] getBodyData();
-	
-	/**
-	 * Returns the bytes that constitute this entire request.
-	 * @return the bytes that constitute this entire request
-	 * @since 1.0.0
-	 */
-	byte[] getBytes();
-	
-	/**
-	 * Returns the requesting web socket.
-	 * @return the requesting web socket
-	 * @since 1.0.0
-	 */
-	WebSocket getWebSocket();
 }

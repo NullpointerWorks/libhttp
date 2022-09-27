@@ -1,18 +1,17 @@
 /*
  * This is free and unencumbered software released into the public domain.
  * (http://unlicense.org/)
- * Nullpointer Works (2021)
+ * Nullpointer Works (2022)
  */
 package exp.nullpointerworks.http.request;
 
 import exp.nullpointerworks.http.Header;
 import exp.nullpointerworks.http.HeaderType;
 import exp.nullpointerworks.http.Method;
+import exp.nullpointerworks.http.Parameter;
 import exp.nullpointerworks.http.Protocol;
 import exp.nullpointerworks.http.Request;
-import exp.nullpointerworks.http.WebSocket;
 import exp.nullpointerworks.http.header.GenericHeader;
-import exp.nullpointerworks.http.util.Parameter;
 
 /**
  * A Request proxy pattern class to get access to setters.
@@ -20,11 +19,11 @@ import exp.nullpointerworks.http.util.Parameter;
  */
 public class RequestBuilder
 {
-	private GenericRequest genreq;
+	private AbstractRequest genreq;
 	
 	public RequestBuilder(Request req)
 	{
-		genreq = (GenericRequest)req;
+		genreq = (AbstractRequest)req;
 	}
 	
 	/*
@@ -120,31 +119,10 @@ public class RequestBuilder
 	
 	/**
 	 * 
-	 * @param raw
 	 * @since 1.0.0
 	 */
-	public void setBodyData(byte[] raw)
+	public void setBodyData(byte[] bd)
 	{
-		genreq.setBodyData(raw);
-	}
-	
-	/**
-	 * 
-	 * @param soc
-	 * @since 1.0.0
-	 */
-	public void setWebSocket(WebSocket soc)
-	{
-		genreq.setWebSocket(soc);
-	}
-	
-	/**
-	 * 
-	 * @param data
-	 * @since 1.0.0
-	 */
-	public void setBytes(byte[] data)
-	{
-		genreq.setBytes(data);
+		genreq.setBodyData(bd);
 	}
 }
