@@ -25,7 +25,7 @@ public class HttpAcceptEncoding implements Header
 		oc = new OptionChooser<ContentEncoding>();
 		oc.setAvailableOptions( ContentEncoding.values() );
 		oc.setDefaultOption( ContentEncoding.IDENTIY ); // identity is always allowed as last resort
-		rawHeader = new GenericHeader(getName(),data);
+		rawHeader = new UnspecifiedHeader(getName(),data);
 		parseData(oc,data);
 	}
 	

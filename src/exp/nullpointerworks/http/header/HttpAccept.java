@@ -24,7 +24,7 @@ public class HttpAccept implements Header
 	{
 		oc = new OptionChooser<ContentType>();
 		oc.setAvailableOptions( ContentType.values() );
-		rawHeader = new GenericHeader(getName(),data);
+		rawHeader = new UnspecifiedHeader(getName(),data);
 		parseData(oc,data);
 	}
 	

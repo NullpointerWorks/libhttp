@@ -25,13 +25,13 @@ import static exp.nullpointerworks.http.util.NetworkUtil.concatenate;
  */
 public abstract class AbstractRequest implements Request
 {
-	final List<Parameter> params;
-	final List<Header> headers;
 	
 	private Method method = null;
 	private Protocol protocol = null;
 	private String target = null;
 	private byte[] bodyData = null;
+	private List<Parameter> params;
+	private List<Header> headers;
 	
 	public AbstractRequest()
 	{
@@ -165,20 +165,15 @@ public abstract class AbstractRequest implements Request
 	 * package private
 	 */
 	
-	void addParameter(Parameter p)
+	List<Parameter> getLinkedParameter()
 	{
-		params.add(p);
+		return params;
 	}
 	
-	void addHeader(Header h)
+	List<Header> getLinkedHeaders()
 	{
-		headers.add(h);
+		return headers;
 	}
-	
-	/*
-	 * ==== setters =========================================================
-	 * package private
-	 */
 	
 	void setBodyData(byte[] raw)
 	{

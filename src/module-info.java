@@ -3,7 +3,7 @@
  * (http://unlicense.org/)
  * Nullpointer Works (2022)
  *
- * @version 0.22.0 experimental
+ * @version 0.24.0 experimental
  * @author Michiel Drost - Nullpointer Works
  */
 module libnpw.http

@@ -5,8 +5,8 @@
  */
 package exp.nullpointerworks.http.header;
 
-import exp.nullpointerworks.http.Header;
 import exp.nullpointerworks.http.HeaderType;
+import exp.nullpointerworks.http.Header;
 
 public class HttpServer implements Header
 {

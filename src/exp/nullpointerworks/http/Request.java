@@ -7,11 +7,13 @@ package exp.nullpointerworks.http;
 
 import java.util.List;
 
+import exp.nullpointerworks.http.util.BytePackage;
+
 /**
  * 
  * @since 1.0.0
  */
-public interface Request
+public interface Request extends BytePackage
 {
 	/**
 	 * 
@@ -76,11 +78,4 @@ public interface Request
 	 * @return the attached body data which may be present in this request package
 	 */
 	byte[] getBodyData();
-	
-	/**
-	 * Returns the bytes that constitute this request. This includes the method, protocol, headers and optionally body data.
-	 * @since 1.0.0
-	 * @return
-	 */
-	byte[] getBytes();
 }

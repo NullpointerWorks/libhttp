@@ -24,7 +24,7 @@ public class HttpAcceptLanguage implements Header
 	{
 		oc = new OptionChooser<ContentLanguage>();
 		oc.setAvailableOptions( ContentLanguage.values() );
-		rawHeader = new GenericHeader(getName(),data);
+		rawHeader = new UnspecifiedHeader(getName(),data);
 		parseData(oc,data);
 	}
 	

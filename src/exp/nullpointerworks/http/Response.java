@@ -7,10 +7,12 @@ package exp.nullpointerworks.http;
 
 import java.util.List;
 
+import exp.nullpointerworks.http.util.BytePackage;
+
 /**
  * 
  */
-public interface Response
+public interface Response extends BytePackage
 {
 	/**
 	 * 
@@ -49,6 +51,7 @@ public interface Response
 	
 	/**
 	 * 
+	 * @return
 	 */
-	byte[] getBytes();
+	byte[] getBodyData();
 }

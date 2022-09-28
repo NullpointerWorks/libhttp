@@ -13,9 +13,6 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 
 import exp.nullpointerworks.http.WebSocket;
-import exp.nullpointerworks.http.WebSocketListener;
-import exp.nullpointerworks.http.util.NullWebSocketListener;
-import exp.nullpointerworks.http.util.ThreadedWebSocketListener;
 
 public abstract class AbstractWebSocket implements WebSocket, Runnable
 {
@@ -25,23 +22,12 @@ public abstract class AbstractWebSocket implements WebSocket, Runnable
 	private OutputStream os;
 	private Boolean isOpen = false;
 	private Boolean keepalive = false;
-	private WebSocketListener wsl;
 	
 	public abstract void onIncomingBytes(byte[] data);
 	
 	// ===========================================================================
 	
-	public AbstractWebSocket()
-	{
-		wsl = new NullWebSocketListener();
-	}
-	
-	public void setWebSocketListener(WebSocketListener wsl)
-	{
-		this.wsl = new ThreadedWebSocketListener(wsl);
-	}
-	
-	public final void keepAlive()
+	public void keepAlive()
 	{
 		keepalive = true;
 	}
@@ -49,8 +35,6 @@ public abstract class AbstractWebSocket implements WebSocket, Runnable
 	@Override
  	public final void run()
  	{
-		wsl.onSocketStart(this);
-		
 		// check for connection data. 
 		// its rare that I can actually use a do-while loop in a useful manner
 		do
@@ -95,8 +79,6 @@ public abstract class AbstractWebSocket implements WebSocket, Runnable
 		{
 			e.printStackTrace();
 		}
-     	
-     	wsl.onSocketStop(this);
  	}
 	
 	private void sleep(long sl)
@@ -113,24 +95,23 @@ public abstract class AbstractWebSocket implements WebSocket, Runnable
 
 	// ===========================================================================
 	
-	public synchronized final void setSocket(Socket s) throws IOException
+	public synchronized void setSocket(Socket s) throws IOException
 	{
 		socket = s;
 		is = socket.getInputStream();
         os = socket.getOutputStream();
 	}
 	
-	public synchronized final void setBufferSize(int bytes)
+	public synchronized void setBufferSize(int bytes)
 	{
 		bufferSize = bytes;
 	}
 	
 	@Override
-	public synchronized final void open() 
+	public synchronized void open() 
 	{
 		if (!isOpen)
 		{
-			wsl.onSocketOpen(this);
 			Thread t = new Thread(this);
 			t.start();
 			isOpen = true;
@@ -138,13 +119,13 @@ public abstract class AbstractWebSocket implements WebSocket, Runnable
 	}
 	
 	@Override
-	public synchronized final boolean isOpen()
+	public synchronized boolean isOpen()
 	{
 		return isOpen;
 	}
 	
 	@Override
-	public synchronized final byte[] readBytes() throws IOException
+	public synchronized byte[] readBytes() throws IOException
 	{
 		byte[] bytes = new byte[0];
 		if (isOpen)
@@ -161,24 +142,22 @@ public abstract class AbstractWebSocket implements WebSocket, Runnable
 					bytes[i++]=b;
 				}
 			}
-			wsl.onSocketRecieving(this);
 		}
 		return bytes;
 	}
 	
 	@Override
-	public synchronized final void sendBytes(byte[] msg) throws IOException
+	public synchronized void sendBytes(byte[] msg) throws IOException
 	{
 		if (isOpen)
 		{
 			os.write(msg);
 	    	os.flush();
-	    	wsl.onSocketTransmitting(this);
 		}
 	}
 	
 	@Override
-	public synchronized final void close() throws IOException
+	public synchronized void close() throws IOException
 	{
 		if (isOpen)
 		{
@@ -186,7 +165,6 @@ public abstract class AbstractWebSocket implements WebSocket, Runnable
 	 		os.close();
 	 		socket.close();
 			isOpen = false;
-			wsl.onSocketClose(this);
 		}
 	}
 }

@@ -5,77 +5,128 @@
  */
 package exp.nullpointerworks.http.request;
 
+import java.util.List;
+
 import exp.nullpointerworks.http.Header;
 import exp.nullpointerworks.http.HeaderType;
 import exp.nullpointerworks.http.Method;
 import exp.nullpointerworks.http.Parameter;
 import exp.nullpointerworks.http.Protocol;
 import exp.nullpointerworks.http.Request;
-import exp.nullpointerworks.http.header.GenericHeader;
+import exp.nullpointerworks.http.header.UnspecifiedHeader;
 
 /**
- * A Request proxy pattern class to get access to setters.
+ * A Request builder class to get access to package private setters.
  * @since 1.0.0
  */
 public class RequestBuilder
 {
 	private AbstractRequest genreq;
+	private final List<Parameter> params;
+	private final List<Header> headers;
 	
 	public RequestBuilder(Request req)
 	{
 		genreq = (AbstractRequest)req;
+		params = genreq.getLinkedParameter();
+		headers = genreq.getLinkedHeaders();
 	}
 	
-	/**
-	 * 
-	 */
-	public void clearParameters()
+	private boolean containsParameter(String param)
 	{
-		genreq.params.clear();
+		for (Parameter p : params)
+		{
+			if (p.getName().equalsIgnoreCase(param)) return true;
+		}
+		return false;
 	}
 	
-	/**
-	 * 
-	 */
-	public void clearHeaders()
+	private boolean containsHeader(String head)
 	{
-		genreq.headers.clear();
+		for (Header h : headers)
+		{
+			if (h.getName().equalsIgnoreCase(head)) return true;
+		}
+		return false;
 	}
 	
 	/*
-	 * ==== adders =========================================================
+	 * ==== parameters =========================================================
 	 */
 	
 	/**
 	 * 
-	 * @param name
-	 * @param value
 	 * @since 1.0.0
 	 */
-	public void addParameter(String name, String value)
+	public void addParameter(String n, String v)
 	{
-		addParameter( new Parameter(name, value) );
+		addParameter( new Parameter(n,v) );
+	}
+
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public void addParameter(Parameter param)
+	{
+		if (!containsParameter(param.getName())) params.add(param);
 	}
 	
 	/**
 	 * 
-	 * @param p
 	 * @since 1.0.0
 	 */
-	public void addParameter(Parameter p)
+	public void removeParameter(String param)
 	{
-		genreq.addParameter(p);
+		int l = params.size()-1;
+		for (;l>=0;l--)
+		{
+			if (containsParameter(param)) 
+			{
+				params.remove(l);
+				return;
+			}
+		}
 	}
 	
 	/**
 	 * 
-	 * @param hname
-	 * @param hvalue
 	 * @since 1.0.0
 	 */
-	public void addHeader(String hname, String hvalue)
+	public void removeParameter(Parameter param)
 	{
-		addHeader( new GenericHeader(hname, hvalue) );
+		removeParameter(param.getName());
+	}
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public void removeAllParameters()
+	{
+		params.clear();
+	}
+	
+	/*
+	 * ==== headers =========================================================
+	 */
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public void addHeader(String n, String v)
+	{
+		addHeader( new UnspecifiedHeader(n,v) );
+	}
+
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public void addHeader(Header h)
+	{
+		if (!containsHeader(h.getName())) headers.add(h);
 	}
 	
 	/**
@@ -86,21 +137,46 @@ public class RequestBuilder
 	 */
 	public void addHeader(HeaderType htype, String hvalue)
 	{
-		addHeader( new GenericHeader(htype.getString(), hvalue) );
+		addHeader( new UnspecifiedHeader(htype.getString(), hvalue) );
 	}
 	
 	/**
 	 * 
-	 * @param h
 	 * @since 1.0.0
 	 */
-	public void addHeader(Header h)
+	public void removeHeader(String head)
 	{
-		genreq.addHeader(h);
+		int l = headers.size()-1;
+		for (;l>=0;l--)
+		{
+			if (containsHeader(head)) 
+			{
+				headers.remove(l);
+				return;
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public void removeParameter(Header h)
+	{
+		removeHeader(h.getName());
+	}
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public void removeAllHeaders()
+	{
+		headers.clear();
 	}
 	
 	/*
-	 * ==== setters =========================================================
+	 * ==== meta data =========================================================
 	 */
 	
 	/**

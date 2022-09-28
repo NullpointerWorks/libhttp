@@ -22,7 +22,7 @@ public class HttpHost implements Header
 	
 	public HttpHost(String data)
 	{
-		rawheader = new GenericHeader(getName(), data);
+		rawheader = new UnspecifiedHeader(getName(), data);
 		parse(rawheader);
 	}
 	

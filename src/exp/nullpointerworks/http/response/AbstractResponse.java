@@ -23,6 +23,7 @@ public abstract class AbstractResponse implements Response
 	private Protocol protocol;
 	private StatusCode status;
 	private Resource resource;
+	private byte[] bodyData = null;
 	
 	public AbstractResponse()
 	{
@@ -68,13 +69,19 @@ public abstract class AbstractResponse implements Response
 	@Override
 	public List<Header> getHeaders()
 	{
-		return headers;
+		return new ArrayList<Header>(headers);
 	}
 	
 	@Override
 	public final int getLength()
 	{
 		return resource.getLength();
+	}
+	
+	@Override
+	public byte[] getBodyData()
+	{
+		return bodyData;
 	}
 	
 	@Override
@@ -93,6 +100,8 @@ public abstract class AbstractResponse implements Response
 		return bData;
 	}
 	
+	// ==================================================================
+	
 	void setStatusCode(StatusCode sc)
 	{
 		status = sc;
@@ -101,5 +110,17 @@ public abstract class AbstractResponse implements Response
 	void setProtocol(Protocol p)
 	{
 		protocol = p;
+	}
+	
+	List<Header> getLinkedHeaders()
+	{
+		return headers;
+	}
+
+	void setBodyData(byte[] raw)
+	{
+		int l = raw.length;
+		bodyData = new byte[l];
+		for (int i=0; i<l; i++) bodyData[i] = raw[i];
 	}
 }

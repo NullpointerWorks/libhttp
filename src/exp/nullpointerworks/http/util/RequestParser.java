@@ -15,23 +15,17 @@ import exp.nullpointerworks.http.Method;
 import exp.nullpointerworks.http.Parameter;
 import exp.nullpointerworks.http.Protocol;
 import exp.nullpointerworks.http.Request;
-import exp.nullpointerworks.http.header.GenericHeader;
+import exp.nullpointerworks.http.header.UnspecifiedHeader;
 import exp.nullpointerworks.http.request.DefaultRequest;
 import exp.nullpointerworks.http.request.RequestBuilder;
 
 /**
  * A raw data parser to decode a byte array into a request object.
- * @author michiel
  */
 public class RequestParser
 {
 	private final int CR = 13;
 	private final int LF = 10;
-	
-	public RequestParser()
-	{
-		
-	}
 	
 	public Request parse(byte[] data)
 	{
@@ -121,7 +115,7 @@ public class RequestParser
 	private void parseMethod(RequestBuilder req, String line)
 	{
 		String[] tokens = line.split(" ");
-		if (tokens.length!= 3) return;
+		if (tokens.length != 3) return;
 		String method = tokens[0];
 		String target = tokens[1];
 		String protoc = tokens[2];
@@ -152,7 +146,7 @@ public class RequestParser
 		if (tok.length!=2) return;
 		String hname = tok[0];
 		String hdata = tok[1].trim();
-		Header h = new GenericHeader(hname, hdata);
+		Header h = new UnspecifiedHeader(hname, hdata);
 		req.addHeader(h);
 	}
 	

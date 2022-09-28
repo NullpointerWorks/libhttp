@@ -21,7 +21,7 @@ public class HttpContentType implements Header
 	
 	public HttpContentType(ContentType ct)
 	{
-		raw = new GenericHeader(getName(), ct.getString());
+		raw = new UnspecifiedHeader(getName(), ct.getString());
 		this.ct=ct;
 	}
 	

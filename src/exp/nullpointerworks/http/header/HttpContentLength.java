@@ -21,7 +21,7 @@ public class HttpContentLength implements Header
 	
 	public HttpContentLength(int l)
 	{
-		raw = new GenericHeader(getName(), ""+l);
+		raw = new UnspecifiedHeader(getName(), ""+l);
 		length = l;
 	}
 	
