@@ -6,6 +6,7 @@
 package exp.nullpointerworks.http.response;
 
 import exp.nullpointerworks.http.Protocol;
+import exp.nullpointerworks.http.Resource;
 import exp.nullpointerworks.http.StatusCode;
 import exp.nullpointerworks.http.resource.StringResource;
 
@@ -16,5 +17,12 @@ public class DefaultResponse extends AbstractResponse
 		setProtocol(Protocol.HTTP11);
 		setStatusCode(StatusCode.STATUS_204);
 		setResource(new StringResource("default.html",""));
+	}
+	
+	public DefaultResponse(Protocol p, StatusCode sc, Resource r)
+	{
+		setProtocol(p);
+		setStatusCode(sc);
+		setResource(r);
 	}
 }
