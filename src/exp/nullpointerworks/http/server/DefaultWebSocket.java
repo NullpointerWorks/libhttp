@@ -5,9 +5,8 @@
  */
 package exp.nullpointerworks.http.server;
 
-import static exp.nullpointerworks.http.util.NetworkUtil.decodeString;
-
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 
 import exp.nullpointerworks.http.Method;
@@ -43,22 +42,16 @@ public class DefaultWebSocket extends AbstractWebSocket
 	public synchronized void onIncomingBytes(byte[] data)
 	{
 		// first determine if the received data is a request, or response
+		String line = "";
 		int i = 0;
 		int l = data.length;
-		byte c=0;
-		byte[] buffer = new byte[l];
-		int length = 0;
+		String c = "";
 		for (; i<l; i++)
 		{
-			c = data[i];
-			buffer[length] = c;
-			length++;
-			if (c == 20)
-			{
-				break;
-			}
+			c = decodeString(data[i]);
+			if (c.equalsIgnoreCase(" ")) break;
+			line += c;
 		}
-		String line = decodeString(buffer,length-1);
 		
 		// if the first word is not an HTTP Method, this the data constitutes a response.
 		if (Method.fromString(line) == Method.UNKNOWN)
@@ -90,6 +83,17 @@ public class DefaultWebSocket extends AbstractWebSocket
 		Response resp = rl.onRequest(req);
 		if (!resp.isValid()) return;
 		send(resp);
+	}
+	
+	public String decodeString(byte data)
+	{
+		byte[] bytes = {data};
+		
+		try { return new String(bytes, "ISO-8859-1"); } // RFC 6266 - page 11 
+		catch (UnsupportedEncodingException e) { }
+		
+		var text = new String(bytes);
+		return text;
 	}
 	
 	// ==== send data =======================================
