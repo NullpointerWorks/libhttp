@@ -1,7 +1,7 @@
 /*
  * This is free and unencumbered software released into the public domain.
  * (http://unlicense.org/)
- * Nullpointer Works (2021)
+ * Nullpointer Works (2022)
  */
 package exp.nullpointerworks.http;
 
@@ -20,7 +20,7 @@ public interface WebSocket
 	boolean isOpen();
 
 	/**
-	 * Set the keep-alive flag for the thread. Web socket threads are not kept alive by default.
+	 * Set the keep-alive flag for the thread. Web socket threads are kept alive by default.
 	 * @since 1.0.0
 	 */
 	void keepAlive(boolean ka);

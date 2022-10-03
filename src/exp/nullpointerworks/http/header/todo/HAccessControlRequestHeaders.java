@@ -20,7 +20,7 @@ class HAccessControlRequestHeaders implements Header
 	@Override
 	public String getName()
 	{
-		return "Access-Control-Max-Headers";
+		return "Access-Control-Request-Headers";
 	}
 	
 	@Override

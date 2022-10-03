@@ -14,6 +14,10 @@ import java.net.SocketTimeoutException;
 
 import exp.nullpointerworks.http.WebSocket;
 
+/**
+ * 
+ * 
+ */
 public abstract class AbstractWebSocket implements WebSocket
 {
 	private int bufferSize = 512 * 1024; // 512 KiB
@@ -21,7 +25,7 @@ public abstract class AbstractWebSocket implements WebSocket
 	private InputStream is;
 	private OutputStream os;
 	private Boolean isOpen = false;
-	private Boolean keepalive = false;
+	private Boolean keepalive = true;
 	
 	public abstract void onIncomingBytes(byte[] data);
 	
@@ -176,6 +180,7 @@ public abstract class AbstractWebSocket implements WebSocket
 			is.close();
 			os.close();
 			socket.close();
+			keepalive = false;
 			isOpen = false;
 		}
 	}
