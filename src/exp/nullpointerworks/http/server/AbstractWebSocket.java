@@ -14,7 +14,7 @@ import java.net.SocketTimeoutException;
 
 import exp.nullpointerworks.http.WebSocket;
 
-public abstract class AbstractWebSocket implements WebSocket, Runnable
+public abstract class AbstractWebSocket implements WebSocket
 {
 	private int bufferSize = 512 * 1024; // 512 KiB
 	private Socket socket;
@@ -25,63 +25,88 @@ public abstract class AbstractWebSocket implements WebSocket, Runnable
 	
 	public abstract void onIncomingBytes(byte[] data);
 	
+	/*
+	 * receiver thread
+	 */
+ 	private final Runnable rx = new Runnable()
+	{
+ 		public void run()
+ 	 	{
+ 			// check for connection data. 
+ 			// its rare that I can actually use a do-while loop in a useful manner
+ 			do
+ 			{
+ 				try
+ 				{
+ 		 			byte[] inp = readBytes();
+ 		 			if (inp.length>0)
+ 		 			{
+ 		 				onIncomingBytes(inp);
+ 		 			}
+ 				}
+ 		 		catch (SocketTimeoutException e)
+ 				{
+ 					//e.printStackTrace();
+ 		 			System.out.println( AbstractWebSocket.class.getName()+": Read timed out");
+ 		 			continue;
+ 				}
+ 				
+ 	 			// if something goes wrong with the socket, stop the connection
+ 		 		catch(SocketException ex)
+ 		 		{
+ 		 			ex.printStackTrace();
+ 		 			break;
+ 		 		}
+ 		 		catch (IOException e)
+ 				{
+ 					e.printStackTrace();
+ 		 			break;
+ 				}
+ 				//
+ 				
+ 				sleep(100);
+ 			}
+ 			while(keepalive);
+ 			
+ 	     	try
+ 			{
+ 				close();
+ 			}
+ 	     	catch (IOException e)
+ 			{
+ 				e.printStackTrace();
+ 			}
+ 	 	}
+	};
+	
 	// ===========================================================================
 	
-	public void keepAlive()
+	@Override
+	public synchronized void open() 
 	{
-		keepalive = true;
+		if (!isOpen)
+		{
+			Thread t_rx = new Thread(rx);
+			isOpen = true;
+			t_rx.start();
+		}
 	}
 	
-	@Override
- 	public final void run()
- 	{
-		// check for connection data. 
-		// its rare that I can actually use a do-while loop in a useful manner
-		do
-		{
-			try
-			{
-	 			byte[] inp = readBytes();
-	 			if (inp.length>0)
-	 			{
-	 				onIncomingBytes(inp);
-	 			}
-			}
-	 		catch (SocketTimeoutException e)
-			{
-				//e.printStackTrace();
-	 			System.out.println( AbstractWebSocket.class.getName()+": Read timed out");
-	 			continue;
-			}
-			
- 			// if something goes wrong with the socket, stop the connection
-	 		catch(SocketException ex)
-	 		{
-	 			ex.printStackTrace();
-	 			break;
-	 		}
-	 		catch (IOException e)
-			{
-				e.printStackTrace();
-	 			break;
-			}
-			//
-			
-			sleep(100);
-		}
-		while(keepalive);
-		
-     	try
-		{
-			close();
-		}
-     	catch (IOException e)
-		{
-			e.printStackTrace();
-		}
- 	}
+	public synchronized void setSocket(Socket s) throws IOException
+	{
+		socket = s;
+		is = socket.getInputStream();
+        os = socket.getOutputStream();
+	}
 	
-	private void sleep(long sl)
+	public synchronized void setBufferSize(int bytes)
+	{
+		bufferSize = bytes;
+	}
+ 	
+ 	
+	
+	private synchronized void sleep(long sl)
 	{
 		try
 		{
@@ -95,27 +120,10 @@ public abstract class AbstractWebSocket implements WebSocket, Runnable
 
 	// ===========================================================================
 	
-	public synchronized void setSocket(Socket s) throws IOException
-	{
-		socket = s;
-		is = socket.getInputStream();
-        os = socket.getOutputStream();
-	}
-	
-	public synchronized void setBufferSize(int bytes)
-	{
-		bufferSize = bytes;
-	}
-	
 	@Override
-	public synchronized void open() 
+	public void keepAlive(boolean ka)
 	{
-		if (!isOpen)
-		{
-			Thread t = new Thread(this);
-			t.start();
-			isOpen = true;
-		}
+		keepalive = ka;
 	}
 	
 	@Override
@@ -130,16 +138,20 @@ public abstract class AbstractWebSocket implements WebSocket, Runnable
 		byte[] bytes = new byte[0];
 		if (isOpen)
 		{
-	    	byte[] toread = new byte[bufferSize];
-	    	int allocate = is.read(toread);
-			if (allocate>0)
+			int avail = is.available();
+			if(avail > 0)
 			{
-				bytes = new byte[allocate];
-				int i=0;
-				for (byte b : toread) 
-				{ 
-					if (i>=allocate)break;
-					bytes[i++]=b;
+		    	byte[] toread = new byte[bufferSize];
+		    	int allocate = is.read(toread);
+				if (allocate>0)
+				{
+					bytes = new byte[allocate];
+					int i=0;
+					for (byte b : toread) 
+					{ 
+						if (i>=allocate)break;
+						bytes[i++]=b;
+					}
 				}
 			}
 		}
@@ -162,8 +174,8 @@ public abstract class AbstractWebSocket implements WebSocket, Runnable
 		if (isOpen)
 		{
 			is.close();
-	 		os.close();
-	 		socket.close();
+			os.close();
+			socket.close();
 			isOpen = false;
 		}
 	}

@@ -87,7 +87,7 @@ public abstract class AbstractResponse implements Response
 	@Override
 	public final byte[] getBytes()
 	{
-		byte[] bData = (protocol.getString()+CRLF).getBytes();
+		byte[] bData = ( protocol.getString()+" "+status.getString()+CRLF ).getBytes();
 		for (Header h : headers)
 		{
 			byte[] bHeader = (h.getString()+CRLF).getBytes();

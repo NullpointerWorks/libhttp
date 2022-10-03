@@ -10,6 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 
 import exp.nullpointerworks.http.Method;
+import exp.nullpointerworks.http.Protocol;
 import exp.nullpointerworks.http.Request;
 import exp.nullpointerworks.http.RequestListener;
 import exp.nullpointerworks.http.Response;
@@ -36,6 +37,7 @@ public class DefaultWebSocket extends AbstractWebSocket
 		this.rl = rl;
 		this.rpl = rpl;
 		setSocket(s);
+		keepAlive(true);
 	}
 	
 	@Override
@@ -60,12 +62,19 @@ public class DefaultWebSocket extends AbstractWebSocket
 			Response resp = parser.parse(data);
 			onResponse(resp);
 		}
+		
 		// otherwise it's a request
 		else
+		if (Protocol.fromString(line) != Protocol.NULL)
 		{
 			RequestParser parser = new RequestParser();
 			Request req = parser.parse(data);
 			onRequest(req);
+		}
+		else
+		{
+			System.err.println(DefaultWebSocket.class.getName()+": Could not identify the received data to be a request or a response!");
+			onUnidentifiedData(data);
 		}
 	}
 	
@@ -73,6 +82,8 @@ public class DefaultWebSocket extends AbstractWebSocket
 	{
 		if (!resp.isValid()) return;
 		Request req = rpl.onResponse(resp);
+		
+		if (req == null) return;
 		if (!req.isValid()) return;
 		send(req);
 	}
@@ -81,6 +92,8 @@ public class DefaultWebSocket extends AbstractWebSocket
 	{
 		if (!req.isValid()) return;
 		Response resp = rl.onRequest(req);
+		
+		if (resp == null) return;
 		if (!resp.isValid()) return;
 		send(resp);
 	}
@@ -98,11 +111,15 @@ public class DefaultWebSocket extends AbstractWebSocket
 	
 	// ==== send data =======================================
 	
-	public synchronized void send(BytePackage req)
+	public synchronized void onUnidentifiedData(byte[] data)
+	{
+		
+	}
+	
+	public void send(BytePackage req)
 	{
 		try
 		{
-			keepAlive();
 			sendBytes(req.getBytes());
 		} 
 		catch (IOException e)

@@ -43,4 +43,10 @@ public class NullWebSocket implements WebSocket
 	{
 		
 	}
+
+	@Override
+	public void keepAlive(boolean ka)
+	{
+		
+	}
 }

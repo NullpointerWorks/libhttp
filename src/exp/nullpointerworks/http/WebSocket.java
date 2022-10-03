@@ -18,6 +18,12 @@ public interface WebSocket
 	 * @since 1.0.0
 	 */
 	boolean isOpen();
+
+	/**
+	 * Set the keep-alive flag for the thread. Web socket threads are not kept alive by default.
+	 * @since 1.0.0
+	 */
+	void keepAlive(boolean ka);
 	
 	/**
 	 * Returns the byte array of the read bytes. Set the buffer size to adjust the byte stream data limit.
