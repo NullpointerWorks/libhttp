@@ -55,27 +55,27 @@ public class DefaultWebSocket extends AbstractWebSocket
 			line += c;
 		}
 		
-		// if the first word is not an HTTP Method, this the data constitutes a response.
-		if (Method.fromString(line) == Method.UNKNOWN)
-		{
-			ResponseParser parser = new ResponseParser();
-			Response resp = parser.parse(data);
-			onResponse(resp);
-		}
-		
-		// otherwise it's a request
-		else
-		if (Protocol.fromString(line) != Protocol.NULL)
+		// if the first word is an HTTP Method, then this data constitutes a request.
+		if (Method.fromString(line) != Method.UNKNOWN)
 		{
 			RequestParser parser = new RequestParser();
 			Request req = parser.parse(data);
 			onRequest(req);
+			return;
 		}
-		else
+		
+		// otherwise it's probably a response
+		if (Protocol.fromString(line) != Protocol.NULL)
 		{
-			System.err.println(DefaultWebSocket.class.getName()+": Could not identify the received data to be a request or a response!");
-			onUnidentifiedData(data);
+			ResponseParser parser = new ResponseParser();
+			Response resp = parser.parse(data);
+			onResponse(resp);
+			return;
 		}
+		
+		System.err.println(DefaultWebSocket.class.getName()+": Could not identify the received data to be a request or a response!");
+		System.err.println(DefaultWebSocket.class.getName()+": Connection method: "+line);
+		onUnidentifiedData(data);
 	}
 	
 	private void onResponse(Response resp)
