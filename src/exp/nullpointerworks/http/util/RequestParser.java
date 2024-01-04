@@ -159,9 +159,32 @@ public class RequestParser
 			String[] p = token.split("=");
 			if (p.length==2)
 			{
-				pars.add( new Parameter(p[0], p[1]) );
+				pars.add( new Parameter(p[0], decodeURLCharacters(p[1]) ) );
 			}
 		}
 		return pars;
 	}
+	
+	private String decodeURLCharacters(String s)
+    {
+        if (!s.contains("%")) return s;
+        	
+        String d = s;
+        if (d.contains("%")) d = d.replace("%20", " ");
+        if (d.contains("%")) d = d.replace("%23", "#");
+        if (d.contains("%")) d = d.replace("%26", "&");
+        if (d.contains("%")) d = d.replace("%27", "'");
+        if (d.contains("%")) d = d.replace("%28", "(");
+        if (d.contains("%")) d = d.replace("%29", ")");
+        if (d.contains("%")) d = d.replace("%2A", "*");
+        if (d.contains("%")) d = d.replace("%2C", ",");
+        if (d.contains("%")) d = d.replace("%2D", "-");
+        if (d.contains("%")) d = d.replace("%2E", ".");
+        if (d.contains("%")) d = d.replace("%2F", "/");
+        if (d.contains("%")) d = d.replace("%3A", ":");
+        if (d.contains("%")) d = d.replace("%40", "@");
+        
+        if (d.contains("%")) d = d.replace("%25", "%"); // replace % last
+        return d;
+    }
 }

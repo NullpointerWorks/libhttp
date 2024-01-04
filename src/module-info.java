@@ -1,5 +1,5 @@
 /**
- * @version 0.24.4 experimental
+ * @version 0.24.5 experimental
  * @author Michiel Drost - Nullpointer Works
  */
 module libnpw.http
