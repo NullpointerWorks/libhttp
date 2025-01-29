@@ -7,6 +7,8 @@ package exp.nullpointerworks.http;
 
 import java.io.IOException;
 
+import exp.nullpointerworks.http.util.ConcurrentCounter;
+
 /**
  * 
  * @author Michiel Drost - Nullpointer Works
@@ -50,4 +52,11 @@ public interface WebSocket
 	 * @since 1.0.0
  	 */
 	void close() throws IOException;
+	
+	/**
+	 * To keep track of the amount of server threads, add a counter which increments and decrements when the thread starts and stops.
+	 * @param cc
+	 * @since 1.0.0
+	 */
+	void setCounter(ConcurrentCounter cc);
 }

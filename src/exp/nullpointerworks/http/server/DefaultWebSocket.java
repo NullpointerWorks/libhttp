@@ -73,8 +73,8 @@ public class DefaultWebSocket extends AbstractWebSocket
 			return;
 		}
 		
-		System.err.println(DefaultWebSocket.class.getName()+": Could not identify the received data to be a request or a response!");
-		System.err.println(DefaultWebSocket.class.getName()+": Connection method: "+line);
+		System.err.println(DefaultWebSocket.class.getName()+": Could not identify the received data to be a request or a response.");
+		//System.err.println(DefaultWebSocket.class.getName()+": Connection method: "+line);
 		onUnidentifiedData(data);
 	}
 	

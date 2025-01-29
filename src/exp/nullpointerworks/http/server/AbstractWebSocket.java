@@ -13,6 +13,7 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 
 import exp.nullpointerworks.http.WebSocket;
+import exp.nullpointerworks.http.util.ConcurrentCounter;
 
 /**
  * 
@@ -26,6 +27,7 @@ public abstract class AbstractWebSocket implements WebSocket
 	private OutputStream os;
 	private Boolean isOpen = false;
 	private Boolean keepalive = true;
+	private ConcurrentCounter serverCounter = new ConcurrentCounter(0);
 	
 	public abstract void onIncomingBytes(byte[] data);
 	
@@ -66,7 +68,6 @@ public abstract class AbstractWebSocket implements WebSocket
  					e.printStackTrace();
  		 			break;
  				}
- 				//
  				
  				sleep(100);
  			}
@@ -90,8 +91,9 @@ public abstract class AbstractWebSocket implements WebSocket
 	{
 		if (!isOpen)
 		{
-			Thread t_rx = new Thread(rx);
+			serverCounter.increment();
 			isOpen = true;
+			Thread t_rx = new Thread(rx);
 			t_rx.start();
 		}
 	}
@@ -107,8 +109,11 @@ public abstract class AbstractWebSocket implements WebSocket
 	{
 		bufferSize = bytes;
 	}
- 	
- 	
+	
+	public void setCounter(ConcurrentCounter cc)
+	{
+		serverCounter = cc;
+	}
 	
 	private synchronized void sleep(long sl)
 	{
@@ -177,11 +182,12 @@ public abstract class AbstractWebSocket implements WebSocket
 	{
 		if (isOpen)
 		{
+			keepalive = false;
+			isOpen = false;
+			serverCounter.decrement();
 			is.close();
 			os.close();
 			socket.close();
-			keepalive = false;
-			isOpen = false;
 		}
 	}
 }

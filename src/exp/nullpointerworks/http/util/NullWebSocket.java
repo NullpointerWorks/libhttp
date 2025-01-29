@@ -49,4 +49,10 @@ public class NullWebSocket implements WebSocket
 	{
 		
 	}
+
+	@Override
+	public void setCounter(ConcurrentCounter cc) 
+	{
+		
+	}
 }

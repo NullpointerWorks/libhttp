@@ -19,6 +19,13 @@ public interface WebServer
 	void setBackLog(int bl);
 	
 	/**
+	 * Returns the number of connected server threads.
+	 * @param max
+	 * @since 1.0.0
+	 */
+	int getThreadCount();
+	
+	/**
 	 * Set the maximum number of threads for this server.
 	 * @param max
 	 * @since 1.0.0

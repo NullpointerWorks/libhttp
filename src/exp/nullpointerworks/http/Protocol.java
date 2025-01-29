@@ -7,7 +7,7 @@ package exp.nullpointerworks.http;
 
 /**
  * An application layer is an abstraction layer that specifies the shared communications protocols and interface methods used by hosts in a communications network.
- * @since 1.0.0
+ * @since 1.1.0
  * @author Michiel Drost - Nullpointer Works
  */
 public enum Protocol
@@ -17,6 +17,12 @@ public enum Protocol
 	 * @since 1.0.0
 	 */
 	NULL(""),
+	
+	/**
+	 * Indicated a WebSocket protocol communication.
+	 * @since 1.1.0
+	 */
+	WEBSOCKET(""),
 	
 	/**
 	 * Year 1991. This is a legacy enum key. It's best to never use this protocol.
