@@ -15,6 +15,7 @@ import exp.nullpointerworks.http.Request;
 import exp.nullpointerworks.http.RequestListener;
 import exp.nullpointerworks.http.Response;
 import exp.nullpointerworks.http.ResponseListener;
+import exp.nullpointerworks.http.request.BytesRequest;
 import exp.nullpointerworks.http.util.BytePackage;
 import exp.nullpointerworks.http.util.RequestParser;
 import exp.nullpointerworks.http.util.ResponseParser;
@@ -113,7 +114,8 @@ public class DefaultWebSocket extends AbstractWebSocket
 	
 	public synchronized void onUnidentifiedData(byte[] data)
 	{
-		
+		Request req = new BytesRequest(data);
+		onRequest(req);
 	}
 	
 	public void send(BytePackage req)

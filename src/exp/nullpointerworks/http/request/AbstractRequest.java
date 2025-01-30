@@ -123,7 +123,7 @@ public abstract class AbstractRequest implements Request
 	}
 
 	@Override
-	public final byte[] getBytes()
+	public byte[] getBytes()
 	{
 		if (!isValid()) return new byte[] {};
 		
