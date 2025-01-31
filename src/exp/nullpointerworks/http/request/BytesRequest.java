@@ -9,7 +9,7 @@ public class BytesRequest extends AbstractRequest
 	{
 		setBodyData(data);
 		setMethod(Method.UNKNOWN);
-		setProtocol(Protocol.NULL);
+		setProtocol(Protocol.BYTES);
 		setTarget("");
 	}
 	

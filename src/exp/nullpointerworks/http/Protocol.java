@@ -19,6 +19,12 @@ public enum Protocol
 	NULL(""),
 	
 	/**
+	 * Indicated a string of raw bytes communication.
+	 * @since 1.1.0
+	 */
+	BYTES(""),
+	
+	/**
 	 * Indicated a WebSocket protocol communication.
 	 * @since 1.1.0
 	 */

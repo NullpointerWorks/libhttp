@@ -217,4 +217,13 @@ public class RequestBuilder
 	{
 		genreq.setBodyData(bd);
 	}
+
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
+	public void setWebsocketHashCode(int hashCode)
+	{
+		genreq.setWebsocketHashCode(hashCode);
+	}
 }

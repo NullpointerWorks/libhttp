@@ -22,6 +22,13 @@ public interface Request extends BytePackage
 	boolean isValid();
 	
 	// getters
+
+	/**
+	 * 
+	 * @return
+	 * @since 1.0.0
+	 */
+	int getWebSocketHashCode();
 	
 	/**
 	 * 

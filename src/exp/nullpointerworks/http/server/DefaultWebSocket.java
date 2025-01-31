@@ -16,6 +16,7 @@ import exp.nullpointerworks.http.RequestListener;
 import exp.nullpointerworks.http.Response;
 import exp.nullpointerworks.http.ResponseListener;
 import exp.nullpointerworks.http.request.BytesRequest;
+import exp.nullpointerworks.http.request.RequestBuilder;
 import exp.nullpointerworks.http.util.BytePackage;
 import exp.nullpointerworks.http.util.RequestParser;
 import exp.nullpointerworks.http.util.ResponseParser;
@@ -74,9 +75,8 @@ public class DefaultWebSocket extends AbstractWebSocket
 			return;
 		}
 		
-		System.err.println(DefaultWebSocket.class.getName()+": Could not identify the received data to be a request or a response.");
-		//System.err.println(DefaultWebSocket.class.getName()+": Connection method: "+line);
-		onUnidentifiedData(data);
+		Request req = new BytesRequest(data);
+		onRequest(req);
 	}
 	
 	private void onResponse(Response resp)
@@ -92,8 +92,9 @@ public class DefaultWebSocket extends AbstractWebSocket
 	private void onRequest(Request req)
 	{
 		if (!req.isValid()) return;
-		Response resp = rl.onRequest(req);
+		new RequestBuilder(req).setWebsocketHashCode(this.hashCode());
 		
+		Response resp = rl.onRequest(req);
 		if (resp == null) return;
 		if (!resp.isValid()) return;
 		send(resp);
@@ -111,12 +112,6 @@ public class DefaultWebSocket extends AbstractWebSocket
 	}
 	
 	// ==== send data =======================================
-	
-	public synchronized void onUnidentifiedData(byte[] data)
-	{
-		Request req = new BytesRequest(data);
-		onRequest(req);
-	}
 	
 	public void send(BytePackage req)
 	{

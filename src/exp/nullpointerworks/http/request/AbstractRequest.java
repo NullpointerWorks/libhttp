@@ -25,7 +25,8 @@ import static exp.nullpointerworks.http.util.NetworkUtil.concatenate;
  */
 public abstract class AbstractRequest implements Request
 {
-	
+
+	private int hashcode = -1;
 	private Method method = null;
 	private Protocol protocol = null;
 	private String target = null;
@@ -52,6 +53,12 @@ public abstract class AbstractRequest implements Request
 	 * ==== getters =========================================================
 	 * public
 	 */
+
+	@Override
+	public int getWebSocketHashCode()
+	{
+		return hashcode;
+	}
 	
 	@Override
 	public Method getMethod()
@@ -195,5 +202,10 @@ public abstract class AbstractRequest implements Request
 	void setTarget(String t)
 	{
 		target = t;
+	}
+	
+	void setWebsocketHashCode(int hashCode)
+	{
+		hashcode = hashCode;
 	}
 }

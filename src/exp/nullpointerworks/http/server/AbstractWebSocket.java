@@ -109,7 +109,8 @@ public abstract class AbstractWebSocket implements WebSocket
 	{
 		bufferSize = bytes;
 	}
-	
+
+	@Override
 	public void setCounter(ConcurrentCounter cc)
 	{
 		serverCounter = cc;
