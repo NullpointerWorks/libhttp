@@ -34,6 +34,12 @@ public interface Request extends BytePackage
 	 * 
 	 * @since 1.0.0
 	 */
+	WebSocket getWebSocket();
+	
+	/**
+	 * 
+	 * @since 1.0.0
+	 */
 	Method getMethod();
 	
 	/**

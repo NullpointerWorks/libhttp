@@ -26,7 +26,6 @@ import static exp.nullpointerworks.http.util.NetworkUtil.concatenate;
  */
 public abstract class AbstractRequest implements Request
 {
-
 	private WebSocket sourcews;
 	private int hashcode = -1;
 	private Method method = null;
@@ -60,6 +59,12 @@ public abstract class AbstractRequest implements Request
 	public int getWebSocketHashCode()
 	{
 		return hashcode;
+	}
+	
+	@Override
+	public WebSocket getWebSocket()
+	{
+		return sourcews;
 	}
 	
 	@Override
