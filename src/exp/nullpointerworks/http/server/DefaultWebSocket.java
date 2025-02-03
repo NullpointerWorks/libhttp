@@ -67,7 +67,7 @@ public abstract class DefaultWebSocket extends AbstractWebSocket implements Requ
 			ResponseParser parser = new ResponseParser();
 			Response resp = parser.parse(data);
 			Request q = onResponse(resp); // don't send request down
-			send(q);
+			if (q!=null) send(q);
 			return;
 		}
 		else
@@ -77,7 +77,22 @@ public abstract class DefaultWebSocket extends AbstractWebSocket implements Requ
 		
 		new RequestBuilder(req).setWebSocket(this);
 		Response resp = onRequest(req);
-		send(resp);
+		if (resp!=null) send(resp);
+	}
+	
+	// ==== send data =======================================
+	
+	public void send(BytePackage bp)
+	{
+		if (bp==null) return;
+		try
+		{
+			sendBytes(bp.getBytes());
+		} 
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	public String decodeString(byte data)
@@ -89,20 +104,5 @@ public abstract class DefaultWebSocket extends AbstractWebSocket implements Requ
 		
 		var text = new String(bytes);
 		return text;
-	}
-	
-	// ==== send data =======================================
-	
-	public void send(BytePackage req)
-	{
-		if (req==null) return;
-		try
-		{
-			sendBytes(req.getBytes());
-		} 
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
 	}
 }

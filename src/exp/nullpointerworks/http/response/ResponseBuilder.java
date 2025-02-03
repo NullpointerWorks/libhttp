@@ -108,6 +108,16 @@ public class ResponseBuilder
 	
 	/**
 	 * 
+	 * @param r
+	 * @since 1.0.0
+	 */
+	public void setResource(Resource r)
+	{
+		resp.setResource(r);
+	}
+	
+	/**
+	 * 
 	 * @param p
 	 * @since 1.0.0
 	 */
