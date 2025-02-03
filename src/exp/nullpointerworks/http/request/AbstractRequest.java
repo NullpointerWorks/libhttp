@@ -14,6 +14,7 @@ import exp.nullpointerworks.http.Method;
 import exp.nullpointerworks.http.Parameter;
 import exp.nullpointerworks.http.Protocol;
 import exp.nullpointerworks.http.Request;
+import exp.nullpointerworks.http.WebSocket;
 import exp.nullpointerworks.http.util.NullHeader;
 
 import static exp.nullpointerworks.http.util.NetworkUtil.CRLF;
@@ -26,6 +27,7 @@ import static exp.nullpointerworks.http.util.NetworkUtil.concatenate;
 public abstract class AbstractRequest implements Request
 {
 
+	private WebSocket sourcews;
 	private int hashcode = -1;
 	private Method method = null;
 	private Protocol protocol = null;
@@ -202,6 +204,12 @@ public abstract class AbstractRequest implements Request
 	void setTarget(String t)
 	{
 		target = t;
+	}
+	
+	public void setWebSocket(WebSocket sourceWebSocket) 
+	{
+		sourcews = sourceWebSocket;
+		setWebsocketHashCode(sourcews.hashCode());
 	}
 	
 	void setWebsocketHashCode(int hashCode)

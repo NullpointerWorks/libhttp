@@ -16,5 +16,5 @@ public interface ResponseListener
 	 * 
 	 * @since 1.0.0
 	 */
-	public Request onResponse(Response o);
+	public Request onResponse(Response r);
 }

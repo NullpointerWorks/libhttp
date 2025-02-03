@@ -13,6 +13,7 @@ import exp.nullpointerworks.http.Method;
 import exp.nullpointerworks.http.Parameter;
 import exp.nullpointerworks.http.Protocol;
 import exp.nullpointerworks.http.Request;
+import exp.nullpointerworks.http.WebSocket;
 import exp.nullpointerworks.http.header.UnspecifiedHeader;
 
 /**
@@ -217,7 +218,16 @@ public class RequestBuilder
 	{
 		genreq.setBodyData(bd);
 	}
-
+	
+	/**
+	 * 
+	 * @param sourceWebSocket
+	 */
+	public void setWebSocket(WebSocket sourceWebSocket) 
+	{
+		genreq.setWebSocket(sourceWebSocket);
+	}
+	
 	/**
 	 * 
 	 * @since 1.0.0

@@ -1,3 +1,9 @@
 31-01-2025
 - v0.25.2 experimental
 - working on raw byte transfer code
+
+03-02-2025
+- v0.26.0
+- chaning the default websocket class to add asynchronous data transmission
+- adding a reference field to a WebSocket instance to a request object.
+

@@ -25,19 +25,14 @@ import exp.nullpointerworks.http.util.ResponseParser;
  * 
  * @since 1.0.0
  */
-public class DefaultWebSocket extends AbstractWebSocket
+public abstract class DefaultWebSocket extends AbstractWebSocket implements RequestListener, ResponseListener
 {
-	private final RequestListener rl;
-	private final ResponseListener rpl;
-	
 	/**
 	 * 
 	 * @since 1.0.0
 	 */
-	public DefaultWebSocket(Socket s, RequestListener rl, ResponseListener rpl) throws IOException
+	public DefaultWebSocket(Socket s) throws IOException
 	{
-		this.rl = rl;
-		this.rpl = rpl;
 		setSocket(s);
 		keepAlive(true);
 	}
@@ -57,46 +52,31 @@ public class DefaultWebSocket extends AbstractWebSocket
 			line += c;
 		}
 		
+		Request req = null;
+		
 		// if the first word is an HTTP Method, then this data constitutes a request.
 		if (Method.fromString(line) != Method.UNKNOWN)
 		{
 			RequestParser parser = new RequestParser();
-			Request req = parser.parse(data);
-			onRequest(req);
-			return;
+			req = parser.parse(data);
 		}
-		
+		else
 		// otherwise it's probably a response
 		if (Protocol.fromString(line) != Protocol.NULL)
 		{
 			ResponseParser parser = new ResponseParser();
 			Response resp = parser.parse(data);
-			onResponse(resp);
+			Request q = onResponse(resp); // don't send request down
+			send(q);
 			return;
 		}
+		else
+		{
+			req = new BytesRequest(data);
+		}
 		
-		Request req = new BytesRequest(data);
-		onRequest(req);
-	}
-	
-	private void onResponse(Response resp)
-	{
-		if (!resp.isValid()) return;
-		Request req = rpl.onResponse(resp);
-		
-		if (req == null) return;
-		if (!req.isValid()) return;
-		send(req);
-	}
-	
-	private void onRequest(Request req)
-	{
-		if (!req.isValid()) return;
-		new RequestBuilder(req).setWebsocketHashCode(this.hashCode());
-		
-		Response resp = rl.onRequest(req);
-		if (resp == null) return;
-		if (!resp.isValid()) return;
+		new RequestBuilder(req).setWebSocket(this);
+		Response resp = onRequest(req);
 		send(resp);
 	}
 	
@@ -115,6 +95,7 @@ public class DefaultWebSocket extends AbstractWebSocket
 	
 	public void send(BytePackage req)
 	{
+		if (req==null) return;
 		try
 		{
 			sendBytes(req.getBytes());
